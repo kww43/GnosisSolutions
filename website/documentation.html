@@ -10,18 +10,29 @@
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <body>
-    <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo"><img src="img/logo.jpg"</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#">Home</a></li>
-        <li><a href="documentation.html">Documentation</a></li>
-        <li><a href="meetus.html">Meet Us</a></li>
-      </ul>
-    </div>
-  </nav>
+      <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img src="img/logo.jpg"></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="documentation.html">Documentation</a></li>
+            <li><a href="meetus.html">Meet Us</a></li>
+          </ul>
+
+          <ul id="nav-mobile" class="side-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="documentation.html">Documentation</a></li>
+            <li><a href="meetus.html">Meet Us</a></li>
+          </ul>
+          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+      </nav>
 
   </head>
+  <body>
+    <div class="center-align" id="warningMsg">
+      <img src="img/warning.png">
+      <h1>This site is still under construction. Please come back later.</h1>
+    </div>
 </body>
 
 <!--  Scripts-->
