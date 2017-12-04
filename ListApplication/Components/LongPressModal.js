@@ -35,8 +35,8 @@ export default class ListApplication extends Component {
                     <Text>Quantity</Text>
                     <TextInput keyboardType={'numeric'} placeholder="0"></TextInput>
                     <TouchableHighlight><Text>Save</Text></TouchableHighlight>
-                    <TouchableHighlight onPress={() => {this.props.closeModal}}><Text>Exit</Text></TouchableHighlight>
-                    <TouchableHighlight onPress={() => {this.props.deleteNote}}><Text>Delete</Text></TouchableHighlight>
+                    <TouchableHighlight onPress={this.props.closeModal}><Text>Exit</Text></TouchableHighlight>
+                    <TouchableHighlight onPress={this.props.deleteNote}><Text>Delete</Text></TouchableHighlight>
                 </View>    
                 </View>
                 </Modal>

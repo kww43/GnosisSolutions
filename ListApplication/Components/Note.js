@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+
 import {
   AppRegistry,
   StyleSheet,
@@ -6,21 +8,25 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
+
+//use swipeview to try swiping to open details
+import SwipeView from 'react-native-swipeview';
+
 import {CheckBox} from 'react-native-elements';
+
 
 export default class ListApplication extends Component {
 
   state = {
       checked: false,
   }  
+
   render(){
-      
-    //be able to pass handler to parent class, to perform other action is box is checked
-    var handleCheckBox = this.props.handleCheckBox;
 
     return (
       //creating container and header
-        <TouchableOpacity key={this.props.keyval} style={styles.note} onLongPress={this.props.openModal}>
+        <SwipeView key={this.props.keyval} style={styles.note} onSwipedRight={this.props.openModal} renderVisibleContent= { () => 
+            <TouchableOpacity style={styles.note}>
             <Text style={styles.noteText}>{this.props.val.note}</Text>
             <CheckBox 
                 style={styles.box}
@@ -29,28 +35,27 @@ export default class ListApplication extends Component {
                 checkedIcon = 'check-square-o'
                 uncheckedIcon = 'square-o'
                 onPress = {this.checkState.bind(this)}
-                onIconPress = {this.checkState.bind(this)}/>
-            
-
-            {/* <TouchableOpacity onPress={this.props.deleteMethod} style={styles.noteDelete}>
-                <Text style={styles.noteDeleteText}>Remove</Text>
-            </TouchableOpacity> */}
-
-        </TouchableOpacity>
+                onIconPress = {this.checkState.bind(this)}
+            /> 
+            </TouchableOpacity>} 
+        />
     );  
   }
 
-  //method for unchecking icon
-  checkState() {
-      if(!this.state.checked){
-          this.state.checked = true;
-      }
-      else{
-          this.state.checked = false;
-      }
-      this.setState({checked: this.state.checked});
+  checkState(){
+    
+    if(!this.state.checked){
+        
+        this.state.checked = true;
+    }
+    else{
+        this.state.checked = false;
+    }
+    this.setState({checked: this.state.checked});
+    }
   }
-}
+
+  
 
 const styles = StyleSheet.create({
     note: {

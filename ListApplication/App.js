@@ -25,7 +25,11 @@ export default class ListApplication extends Component {
     checkedNoteArray: [],
     noteText: '',
     modalVisible: false,
+    quantity: 0,
   }
+
+
+  
 
   render(){
 
@@ -82,7 +86,7 @@ export default class ListApplication extends Component {
   //component methods
   addNote() {
     if (this.state.noteText) {
-      this.state.noteArray.push( {'note': this.state.noteText});
+      this.state.noteArray.push( {'note': this.state.noteText, 'quantity' : 0});
       this.setState({noteArray: this.state.noteArray});
       this.setState({ noteText: ''});
     }
@@ -96,13 +100,14 @@ export default class ListApplication extends Component {
     this.setState({modalVisible: true});
   }
 
-  closeModal(){
+  closeModal(key){
     this.setState({modalVisible: false});
   }
 
   deleteNote(key){
     var item = this.state.noteArray.splice(key, 1);
-    alert("Deleting " + this.state.noteArray.find(key).note);
+    alert("Deleting ");
+    this.setState({modalVisible: false});
     this.setState({noteArray: this.state.noteArray});
   }
 
