@@ -10,6 +10,8 @@ import {
   TouchableHighlight,
   Modal,
 } from 'react-native';
+import { getFirebaseConnection, getDatabaseConnection, getItemsPath, saveItem } from './src/databaseController';
+
 
 import {CheckBox} from 'react-native-elements';
 
@@ -50,7 +52,7 @@ export default class ListApplication extends Component {
     });
 
     //enter popup modal for details about each item
-    
+
 
     return (
       //creating container and header
@@ -66,7 +68,7 @@ export default class ListApplication extends Component {
               <Text style={styles.addButtonText}>+</Text>
             </TouchableOpacity>
 
-            <TextInput style={styles.textInput} placeholder="Enter Item" 
+            <TextInput style={styles.textInput} placeholder="Enter Item"
                 onChangeText={(noteText) => this.setState({noteText})} value={this.state.noteText}
                placeholderTextColor="grey" underlineColorAndroid="transparent">
             </TextInput>
@@ -80,7 +82,7 @@ export default class ListApplication extends Component {
           </ScrollView>
 
         </View>
-    );  
+    );
   }
 
   //component methods
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     fontSize: 24,
     flex: 5,
-    
+
   },
 
 
