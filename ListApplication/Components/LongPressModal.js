@@ -30,8 +30,6 @@ export default class ListApplication extends Component {
                     <Text style={styles.header}>
                         {this.props.val.note}
                     </Text>
-                    <Text>Price</Text>
-                    <TextInput keyboardType={'numeric'} placeholder="0.00"></TextInput>
                     <Text>Quantity</Text>
                     <TextInput keyboardType={'numeric'} placeholder="0"></TextInput>
                     <TouchableHighlight><Text>Save</Text></TouchableHighlight>
