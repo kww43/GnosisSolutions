@@ -28,6 +28,10 @@ export default class ListApplication extends Component {
     quantity: 0,
   }
 
+  myCallback = (dataFromChild) => {
+    []; //here we'll use th data from child
+  }
+
 
   
 
@@ -36,7 +40,7 @@ export default class ListApplication extends Component {
     //loop notes with map
     let notes = this.state.noteArray.map((val, key) => {
       //return note component and pass props
-      return <Note key={key} keyval={key} val={val} openModal={()=>this.openModal(key) } />
+      return <Note key={key} keyval={key} val={val} deleteNote={() => this.deleteNote(key)} />
     });
 
     //create view for checked notes from checkednoteArray
@@ -44,10 +48,10 @@ export default class ListApplication extends Component {
       return <Note key={key} keyval={key} val={val} />
     })
 
-    let modals= this.state.noteArray.map((val, key) => {
-      //I want to bind each note with its own modal with corresponding information about this item
-      return <LongPressModal key={key} keyval={key} val={val} modalVisible={this.state.modalVisible} closeModal={() => this.closeModal(key)} deleteNote={() => this.deleteNote(key)}/>
-    });
+    // let modals= this.state.noteArray.map((val, key) => {
+    //   //I want to bind each note with its own modal with corresponding information about this item
+    //   return <LongPressModal key={key} keyval={key} val={val} saveQuantity = {this.myCallBack} modalVisible={this.state.modalVisible} closeModal={() => this.closeModal(key)} deleteNote={() => this.deleteNote(key)}/>
+    // });
 
     //enter popup modal for details about each item
     
@@ -76,7 +80,6 @@ export default class ListApplication extends Component {
           <ScrollView style={styles.scrollContainer}>
             {notes}
             {checkedNotes}
-            {modals}
           </ScrollView>
 
         </View>
@@ -92,14 +95,7 @@ export default class ListApplication extends Component {
     }
   }
 
-  //function for opening the new modal
-  openModal(key){
-    if (!this.state.modalVisible){
-      this.state.modalVisible = true;
-    }
-    this.setState({modalVisible: true});
-  }
-
+  
   closeModal(key){
     this.setState({modalVisible: false});
   }

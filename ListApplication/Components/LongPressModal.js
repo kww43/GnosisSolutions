@@ -7,7 +7,8 @@ import { Modal, Text, View, TouchableHighlight, Button, StyleSheet, TextInput } 
 export default class ListApplication extends Component {
 
     state = { 
-        modalVisible: false
+        modalVisible: false,
+        quantity: 0,
     };
 
     //method to set the modal visible
@@ -28,11 +29,11 @@ export default class ListApplication extends Component {
                 style={styles.modal}>
                 <View style={styles.modalInside}>
                     <Text style={styles.header}>
-                        {this.props.val.note}
+                        {this.props.val}
                     </Text>
                     <Text>Quantity</Text>
-                    <TextInput keyboardType={'numeric'} placeholder="0"></TextInput>
-                    <TouchableHighlight><Text>Save</Text></TouchableHighlight>
+                    <TextInput onChangeText={(quantity) => this.setState({quantity})} keyboardType={'numeric'} placeholder="0"></TextInput>
+                    <TouchableHighlight onPress={this.props.saveQuantity}><Text>Save</Text></TouchableHighlight>
                     <TouchableHighlight onPress={this.props.closeModal}><Text>Exit</Text></TouchableHighlight>
                     <TouchableHighlight onPress={this.props.deleteNote}><Text>Delete</Text></TouchableHighlight>
                 </View>    

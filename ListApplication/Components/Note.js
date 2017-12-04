@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import LongPressModal from './LongPressModal'
+
 //use swipeview to try swiping to open details
 import SwipeView from 'react-native-swipeview';
 
@@ -19,13 +21,14 @@ export default class ListApplication extends Component {
 
   state = {
       checked: false,
+      modalVisible: false,
   }  
 
   render(){
 
     return (
       //creating container and header
-        <SwipeView key={this.props.keyval} style={styles.note} onSwipedRight={this.props.openModal} renderVisibleContent= { () => 
+        <SwipeView key={this.props.keyval} style={styles.note} onSwipedRight={this.openModal.bind(this)} swipeToOpenPercent={100} renderVisibleContent= { () => 
             <TouchableOpacity style={styles.note}>
             <Text style={styles.noteText}>{this.props.val.note}</Text>
             <CheckBox 
@@ -37,23 +40,39 @@ export default class ListApplication extends Component {
                 onPress = {this.checkState.bind(this)}
                 onIconPress = {this.checkState.bind(this)}
             /> 
+            <LongPressModal key={this.props.keyval} deleteNote={this.props.deleteNote} closeModal={() => this.closeModal()} keyval = {this.props.keyval} val={this.props.val.note} modalVisible={this.state.modalVisible}  />
             </TouchableOpacity>} 
         />
     );  
   }
 
-  checkState(){
-    
-    if(!this.state.checked){
+    checkState(){
+        if(!this.state.checked){
         
-        this.state.checked = true;
+            this.state.checked = true;
+        }
+        else{
+            this.state.checked = false;
+        }
+        this.setState({checked: this.state.checked});
     }
-    else{
-        this.state.checked = false;
+
+    //function for opening the new modal
+    openModal(key){
+        if (!this.state.modalVisible){
+            this.state.modalVisible = true;
+        }
+            this.setState({modalVisible: true});
     }
-    this.setState({checked: this.state.checked});
+
+    closeModal(){
+        this.setState({modalVisible: false});
     }
-  }
+
+}
+    
+
+  
 
   
 
