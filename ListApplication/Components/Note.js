@@ -19,16 +19,16 @@ export default class ListApplication extends Component {
 
   state = {
       checked: false,
-  }  
+  }
 
   render(){
 
     return (
       //creating container and header
-        <SwipeView key={this.props.keyval} style={styles.note} onSwipedRight={this.props.openModal} renderVisibleContent= { () => 
+        <SwipeView key={this.props.keyval} style={styles.note} onSwipedRight={this.props.openModal} renderVisibleContent= { () =>
             <TouchableOpacity style={styles.note}>
             <Text style={styles.noteText}>{this.props.val.note}</Text>
-            <CheckBox 
+            <CheckBox
                 style={styles.box}
                 title=''
                 checked={this.state.checked}
@@ -36,16 +36,16 @@ export default class ListApplication extends Component {
                 uncheckedIcon = 'square-o'
                 onPress = {this.checkState.bind(this)}
                 onIconPress = {this.checkState.bind(this)}
-            /> 
-            </TouchableOpacity>} 
+            />
+            </TouchableOpacity>}
         />
-    );  
+    );
   }
 
   checkState(){
-    
+
     if(!this.state.checked){
-        
+
         this.state.checked = true;
     }
     else{
@@ -55,7 +55,7 @@ export default class ListApplication extends Component {
     }
   }
 
-  
+
 
 const styles = StyleSheet.create({
     note: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         height: 10,
     },
     noteDeleteText : {
-        
+
     }
 
 });

@@ -10,7 +10,7 @@ import {
   TouchableHighlight,
   Modal,
 } from 'react-native';
-import { getFirebaseConnection, getDatabaseConnection, getItemsPath, saveItem } from './src/databaseController';
+import { getFirebaseConnection, getDatabaseConnection, getItemsPath, saveItem, getAllItems } from './src/databaseController';
 
 
 import {CheckBox} from 'react-native-elements';
@@ -18,6 +18,8 @@ import {CheckBox} from 'react-native-elements';
 import Note from './Components/Note';
 
 import LongPressModal from './Components/LongPressModal';
+
+import Node from './src/Node.js';
 
 export default class ListApplication extends Component {
 
@@ -27,17 +29,21 @@ export default class ListApplication extends Component {
     checkedNoteArray: [],
     noteText: '',
     modalVisible: false,
-    quantity: 0,
   }
 
 
-  
-
   render(){
+    var firstTry = new Node(1, "Firsttry");
+    alert("Name: " + firstTry.getName() + " UniqueID: " + firstTry.getUniqueID());
 
+    const firebase = getFirebaseConnection();
+    const dbConnection = getDatabaseConnection(firebase);
+    const itemsPathway = getItemsPath(dbConnection);
+    getAllItems(itemsPathway);
     //loop notes with map
     let notes = this.state.noteArray.map((val, key) => {
       //return note component and pass props
+
       return <Note key={key} keyval={key} val={val} openModal={()=>this.openModal(key) } />
     });
 
@@ -88,7 +94,7 @@ export default class ListApplication extends Component {
   //component methods
   addNote() {
     if (this.state.noteText) {
-      this.state.noteArray.push( {'note': this.state.noteText, 'quantity' : 0});
+      this.state.noteArray.push( {'note': this.state.noteText});
       this.setState({noteArray: this.state.noteArray});
       this.setState({ noteText: ''});
     }
@@ -102,14 +108,13 @@ export default class ListApplication extends Component {
     this.setState({modalVisible: true});
   }
 
-  closeModal(key){
+  closeModal(){
     this.setState({modalVisible: false});
   }
 
   deleteNote(key){
     var item = this.state.noteArray.splice(key, 1);
-    alert("Deleting ");
-    this.setState({modalVisible: false});
+    alert("Deleting " + this.state.noteArray.find(key).note);
     this.setState({noteArray: this.state.noteArray});
   }
 
