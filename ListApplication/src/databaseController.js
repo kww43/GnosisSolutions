@@ -49,7 +49,7 @@ export function getAllItems( itemsPath ) {
     var snap = snapshot.val();
     var jsonElements = JSON.parse( JSON.stringify(snap) );
     var getKeys = [];
-    alert(JSON.stringify(snap));
+    //alert(JSON.stringify(snap));
     //Get keys so that we can pull out data per object
     for(var key in jsonElements) {
       getKeys.push(key);
