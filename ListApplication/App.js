@@ -10,8 +10,8 @@ import {
   TouchableHighlight,
   Modal,
 } from 'react-native';
-import { getFirebaseConnection, getDatabaseConnection, getItemsPath, saveItem, getAllItems } from './src/databaseController';
 
+import { getFirebaseConnection, getDatabaseConnection, getItemsPath, saveItem, getAllItems } from './src/databaseController';
 
 import {CheckBox} from 'react-native-elements';
 
@@ -23,6 +23,14 @@ import Node from './src/Node.js';
 
 export default class ListApplication extends Component {
 
+  constructor(props) {
+    super(props)
+    this.firebase = getFirebaseConnection();
+    this.dbConnection = getDatabaseConnection(this.firebase);
+    this.itemsPathway = getItemsPath(this.dbConnection);
+    this.nodes = [];
+  }
+
   //defines initial state
   state = {
     noteArray: [],
@@ -32,14 +40,10 @@ export default class ListApplication extends Component {
   }
 
 
-  render(){
-    var firstTry = new Node(1, "Firsttry");
-    alert("Name: " + firstTry.getName() + " UniqueID: " + firstTry.getUniqueID());
 
-    const firebase = getFirebaseConnection();
-    const dbConnection = getDatabaseConnection(firebase);
-    const itemsPathway = getItemsPath(dbConnection);
-    getAllItems(itemsPathway);
+  render(){
+    getAllItems(this.itemsPathway);
+
     //loop notes with map
     let notes = this.state.noteArray.map((val, key) => {
       //return note component and pass props
@@ -98,6 +102,11 @@ export default class ListApplication extends Component {
       this.setState({noteArray: this.state.noteArray});
       this.setState({ noteText: ''});
     }
+    if( this.state.noteText ) {
+      //Default data in last 3 elements are passed for testing purposes
+      saveItem( this.itemsPathway, this.state.noteText, 0.0, 0, "0-0-0", 1101);
+    }
+
   }
 
   //function for opening the new modal
@@ -117,6 +126,15 @@ export default class ListApplication extends Component {
     alert("Deleting " + this.state.noteArray.find(key).note);
     this.setState({noteArray: this.state.noteArray});
   }
+
+}
+/*
+ * This function will be a callback from the async updater that will
+ * listen for changes in the realtime Firebase database.
+ * Do NOT call this function unless you adhere to the natural callbackForGetFirebaseItems
+ * of this function else no promise this won't break.
+*/
+export function updateUI( nodes ) {
 
 }
 
