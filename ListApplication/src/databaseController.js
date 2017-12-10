@@ -41,35 +41,49 @@ export function removeItem( itemsRef, keyToRemove ) {
  * Output: Node array of items from firebase inside the variable nodes.
  * For: Importing data from Firebase.
 */
-export function getAllItems( itemsPath ) {
+export function getAllItems( instance ) {
   var nodes = [];
   var count = 0;
   var val = new Promise(function(resolve, reject) {
-    itemsPath.once('value', function(snapshot) {
-    var snap = snapshot.val();
-    var jsonElements = JSON.parse( JSON.stringify(snap) );
-    var getKeys = [];
-    //alert(JSON.stringify(snap));
-    //Get keys so that we can pull out data per object
-    for(var key in jsonElements) {
-      getKeys.push(key);
-      //Proof of parsing
-      var tempNode = new Node( snap[key].id, snap[key].name );
-      tempNode.setPrice( snap[key].price );
-      tempNode.setQuantity( snap[key].quantity );
-      //alert("Data Proof: " + snap[key].name);
-      nodes[count++] = tempNode;
-    }
+    //alert(itemsPath);
+    instance.itemsPathway.on('value', function(snapshot) {
+      var snap = snapshot.val();
+      var jsonElements = JSON.parse( JSON.stringify(snap) );
+      var getKeys = [];
 
-  }).then(function(nodes, getKeys){ callbackForGetFirebaseItems(nodes, getKeys); });
-});
-  return nodes;
+      //Get keys so that we can pull out data per object
+      for(var key in jsonElements) {
+        getKeys.push(key);
+        //Proof of parsing
+        var tempNode = new Node( snap[key].id, snap[key].name );
+        tempNode.setPrice( snap[key].price );
+        tempNode.setQuantity( snap[key].quantity );
+        //alert("Data Proof: " + snap[key].name);
+        nodes.push(tempNode);
+      }
+
+      instance.nodes = nodes;
+      instance.keys = getKeys;
+      instance.state.noteArray = [];
+      if( nodes.length > 0 && getKeys.length > 0 ) {
+        for( i = 0; i < nodes.length; i++ ) {
+          instance.state.noteArray.push({'note': nodes[i].getName()});
+          instance.setState({noteArray: instance.state.noteArray});
+
+        }
+      }
+
+
+    });
+  });
 }
 
-function callbackForGetFirebaseItems( nodesArr, getKeys ) {
-  //alert("madeit");
-  return nodesArr;
-}
+// function callbackForGetFirebaseItems( nodesArr, getKeys, instance ) {
+//   alert("madeit");
+//   instance.nodes = nodesArr;
+//   alert( "Node 1: ", getKeys.length);
+//   return nodesArr;
+// }
 
 export function deleteItem( itemsRef ) {
 

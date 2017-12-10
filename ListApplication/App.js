@@ -25,9 +25,12 @@ export default class ListApplication extends Component {
 
   constructor(props) {
     super(props)
+    this.keys = [];
     this.firebase = getFirebaseConnection();
     this.dbConnection = getDatabaseConnection(this.firebase);
     this.itemsPathway = getItemsPath(this.dbConnection);
+    //alert(this.itemsPathway);
+    getAllItems(this);
     this.nodes = [];
   }
 
@@ -46,8 +49,6 @@ export default class ListApplication extends Component {
 
 
   render(){
-    getAllItems(this.itemsPathway);
-
     //loop notes with map
     let notes = this.state.noteArray.map((val, key) => {
       //return note component and pass props
@@ -58,6 +59,7 @@ export default class ListApplication extends Component {
     let checkedNotes = this.state.checkedNoteArray.map((val,key) => {
       return <Note key={key} keyval={key} val={val} />
     })
+
 
     // let modals= this.state.noteArray.map((val, key) => {
     //   //I want to bind each note with its own modal with corresponding information about this item
@@ -106,26 +108,37 @@ export default class ListApplication extends Component {
     }
     if( this.state.noteText ) {
       //Default data in last 3 elements are passed for testing purposes
-      saveItem( this.itemsPathway, this.state.noteText, 0.0, 0, "0-0-0", 1101);
+      var saved = saveItem( this.itemsPathway, this.state.noteText, 0.0, 0, "0-0-0", 1101);
+      if( saved == 1 ) { getAllItems(this); }
     }
 
   }
 
-  //function for opening the new modal
-  openModal(key){
-    if (!this.state.modalVisible){
-      this.state.modalVisible = true;
-    }
-    this.setState({modalVisible: true});
+  updateNotes() {
+    this.state.noteArray = [];
+    getAllItems(this);
   }
 
-  closeModal(key){
-    this.setState({modalVisible: false});
+
+  processItems(nodes, instance, keys) {
+    alert("Returned data");
+    instance.nodes = nodes;
+
+    alert(nodes.length);
+    if( nodes.length > 0 && keys.length > 0 ) {
+      for( i = 0; i < nodes.length; i++ ) {
+        //alert(nodes[i].getName());
+        instance.state.noteArray.push({'note': nodes[i].getName()});
+        instance.setState({noteArray: instance.state.noteArray});
+
+      }
+    }
   }
 
   deleteNote(key){
     var item = this.state.noteArray.splice(key, 1);
     alert("Deleting " + this.state.noteArray.find(key).note);
+    this.setState({modalVisible: false});
     this.setState({noteArray: this.state.noteArray});
   }
 
