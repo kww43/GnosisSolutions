@@ -32,10 +32,10 @@ export default class ListApplication extends Component {
                         {this.props.val}
                     </Text>
                     <Text>Quantity</Text>
-                    <TextInput onChangeText={(quantity) => this.setState({quantity})} keyboardType={'numeric'} placeholder="0"></TextInput>
-                    <TouchableHighlight onPress={this.props.saveQuantity}><Text>Save</Text></TouchableHighlight>
-                    <TouchableHighlight onPress={this.props.closeModal}><Text>Exit</Text></TouchableHighlight>
-                    <TouchableHighlight onPress={this.props.deleteNote}><Text>Delete</Text></TouchableHighlight>
+                    <TextInput onChangeText={(quantity) => this.setState({quantity})} keyboardType={'numeric'} placeholder="1"></TextInput>
+                    <TouchableHighlight style={styles.button} onPress={this.props.saveQuantity}><Text style={styles.text}>Save</Text></TouchableHighlight>
+                    <TouchableHighlight style={styles.button} onPress={this.props.deleteNote}><Text   style={styles.text} >Delete</Text></TouchableHighlight>
+                    <TouchableHighlight style={styles.button} onPress={this.props.closeModal}><Text   style={styles.text} >Exit</Text></TouchableHighlight>
                 </View>    
                 </View>
                 </Modal>
@@ -68,5 +68,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ddd'
         
+    },
+    button :{
+        flex: 1,
+        flexDirection: 'row',
+        borderRadius: 4,
+        borderColor: '#ddd',
+        borderWidth: 2,
+
+    },
+    text: {
+        fontSize: 20,
+        justifyContent: 'center',
     }
 })
