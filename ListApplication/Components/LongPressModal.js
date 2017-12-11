@@ -33,7 +33,7 @@ export default class ListApplication extends Component {
                     </Text>
                     <Text>Quantity</Text>
                     <TextInput onChangeText={(quantity) => this.setState({quantity})} keyboardType={'numeric'} placeholder="1"></TextInput>
-                    <TouchableHighlight style={styles.button} onPress={this.props.saveQuantity}><Text style={styles.text}>Save</Text></TouchableHighlight>
+                    <TouchableHighlight style={styles.button} onPress={this.props.saveQuantity(this.state.quantity)}><Text style={styles.text}>Save</Text></TouchableHighlight>
                     <TouchableHighlight style={styles.button} onPress={this.props.deleteNote}><Text   style={styles.text} >Delete</Text></TouchableHighlight>
                     <TouchableHighlight style={styles.button} onPress={this.props.closeModal}><Text   style={styles.text} >Exit</Text></TouchableHighlight>
                 </View>    
@@ -41,7 +41,9 @@ export default class ListApplication extends Component {
                 </Modal>
         );
     }
+    saveQuantity(){
 
+    }
 }
 
 const styles = StyleSheet.create({

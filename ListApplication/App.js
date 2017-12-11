@@ -49,7 +49,7 @@ export default class ListApplication extends Component {
     //loop notes with map
     let notes = this.state.noteArray.map((val, key) => {
       //return note component and pass props
-      return <Note key={key} keyval={key} val={val} deleteNote={() => this.deleteNote(key)} />
+      return <Note key={key} keyval={key} val={val} deleteNote={() => this.deleteNote(key)} saveQuantity={() => this.saveQuantity(quantity, key)} />
     });
 
     return (
@@ -96,6 +96,10 @@ export default class ListApplication extends Component {
 
   }
 
+  saveQuantity(quantity){
+
+  }
+
   updateNotes() {
     this.state.noteArray = [];
     getAllItems(this);
@@ -119,7 +123,8 @@ export default class ListApplication extends Component {
 
   deleteNote(key){
     var item = this.state.noteArray.splice(key, 1);
-    alert("Deleting " + this.state.noteArray.find(key).note);
+    removeItem(this.getItemsPath, key);
+    alert("Deleting " + item[0].note);
     this.setState({modalVisible: false});
     this.setState({noteArray: this.state.noteArray});
   }
