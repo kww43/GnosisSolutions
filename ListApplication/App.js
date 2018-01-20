@@ -4,18 +4,25 @@ import {
   StyleSheet,
   Text,
   View,
+  Button,
   TextInput,
   ScrollView,
   TouchableOpacity,
+  StackNavigator,
   TouchableHighlight,
   Modal,
 } from 'react-native';
+
 
 import { getFirebaseConnection, getDatabaseConnection, getItemsPath, saveItem, getAllItems } from './src/databaseController';
 
 import {CheckBox} from 'react-native-elements';
 
 import Note from './Components/Note';
+
+import Login from './Screens/testLogin';
+
+import LoginPage from './Screens/login';
 
 import LongPressModal from './Components/LongPressModal';
 
@@ -32,6 +39,7 @@ export default class ListApplication extends Component {
     //alert(this.itemsPathway);
     getAllItems(this);
     this.nodes = [];
+
   }
 
   //defines initial state
@@ -42,14 +50,15 @@ export default class ListApplication extends Component {
     modalVisible: false,
   }
 
-
-
-
   render(){
-    //loop notes with map
+    return (
+       <View>
+        <LoginPage />
+      </View>
+    );
     let notes = this.state.noteArray.map((val, key) => {
       //return note component and pass props
-      return <Note key={key} keyval={key} val={val} deleteNote={() => this.deleteNote(key)} saveQuantity={() => this.saveQuantity(quantity, key)} />
+      return <Note key={key} keyval={key} val={val} deleteNote={() => this.deleteNote(key)} />
     });
 
     return (
@@ -79,7 +88,7 @@ export default class ListApplication extends Component {
 
         </View>
     );
-  }
+ }
 
   //component methods
   addNote() {
@@ -90,7 +99,7 @@ export default class ListApplication extends Component {
     }
     if( this.state.noteText ) {
       //Default data in last 3 elements are passed for testing purposes
-      var saved = saveItem( this.itemsPathway, this.state.noteText, 0.0, 0, "0-0-0", 1101);
+      var saved = saveItem( this.itemsPathway, this.state.noteText, 0.0, 0, "0-0-0", 1101, this );
       if( saved == 1 ) { getAllItems(this); }
     }
 
@@ -123,6 +132,7 @@ export default class ListApplication extends Component {
 
   deleteNote(key){
     var item = this.state.noteArray.splice(key, 1);
+
     removeItem(this.getItemsPath, key);
     alert("Deleting " + item[0].note);
     this.setState({modalVisible: false});
@@ -195,4 +205,4 @@ const styles = StyleSheet.create({
 
 });
 
-AppRegistry.registerComponent('ListApplication', () => ListApplication);
+AppRegistry.registerComponent('ListApplication', () => NavEnabledApp);

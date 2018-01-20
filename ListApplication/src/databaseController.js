@@ -22,14 +22,19 @@ export function getCartPath( dbRef, userToken ) {
 }
 
 
-export function saveItem( itemsRef, name, price, quantity, locationString, uniqueID ) {
-  itemsRef.push({
+export function saveItem( itemsRef, name, price, quantity, locationString, uniqueID, instance ) {
+  var thisKey = itemsRef.push({
     id: uniqueID,
     name: name,
     price: price,
     quantity: quantity,
     shelf_location: locationString,
-  });
+  }).key();
+  var returnNode = new Node( thisKey, name );
+  returnNode.setPrice( price );
+  returnNode.setQuantity( quantity );
+  instance.keys.push( thisKey );
+  instance.nodes.push( returnNode );
   return 1;
 }
 
@@ -55,7 +60,7 @@ export function getAllItems( instance ) {
       for(var key in jsonElements) {
         getKeys.push(key);
         //Proof of parsing
-        var tempNode = new Node( snap[key].id, snap[key].name );
+        var tempNode = new Node( key, snap[key].name );
         tempNode.setPrice( snap[key].price );
         tempNode.setQuantity( snap[key].quantity );
         //alert("Data Proof: " + snap[key].name);
@@ -67,13 +72,10 @@ export function getAllItems( instance ) {
       instance.state.noteArray = [];
       if( nodes.length > 0 && getKeys.length > 0 ) {
         for( i = 0; i < nodes.length; i++ ) {
-          instance.state.noteArray.push({'note': nodes[i].getName()});
+          instance.state.noteArray.push({'note': nodes[i].getName(), 'key': key});
           instance.setState({noteArray: instance.state.noteArray});
-
         }
       }
-
-
     });
   });
 }
