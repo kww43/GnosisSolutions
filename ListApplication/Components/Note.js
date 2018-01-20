@@ -17,7 +17,7 @@ import SwipeView from 'react-native-swipeview';
 import {CheckBox} from 'react-native-elements';
 
 
-export default class ListApplication extends Component {
+export default class Note extends Component {
 
   state = {
       checked: false,
@@ -30,7 +30,7 @@ export default class ListApplication extends Component {
       //creating container and header
         <SwipeView key={this.props.keyval} style={styles.note} onSwipedRight={this.openModal.bind(this)} swipeToOpenPercent={100} renderVisibleContent= { () =>
             <TouchableOpacity style={styles.note}>
-            <Text style={styles.noteText}>{this.props.val.note}</Text>
+            <Text style={styles.noteText}>{this.props.val}</Text>
             <CheckBox
                 style={styles.box}
                 title=''
@@ -40,11 +40,12 @@ export default class ListApplication extends Component {
                 onPress = {this.checkState.bind(this)}
                 onIconPress = {this.checkState.bind(this)}
             />
-            <LongPressModal saveQuantity={this.props.saveQuantity} key={this.props.keyval} deleteNote={this.props.deleteNote} closeModal={() => this.closeModal()} keyval = {this.props.keyval} val={this.props.val.note} modalVisible={this.state.modalVisible}  />
+            <LongPressModal key={this.props.keyval} deleteNote={this.props.deleteNote} closeModal={() => this.closeModal()} keyval = {this.props.keyval} val={this.props.val.note} modalVisible={this.state.modalVisible}  />
             </TouchableOpacity>}
         />
     );
   }
+
 
     checkState(){
         if(!this.state.checked){

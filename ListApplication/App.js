@@ -13,141 +13,15 @@ import {
   Modal,
 } from 'react-native';
 
-
-import { getFirebaseConnection, getDatabaseConnection, getItemsPath, saveItem, getAllItems } from './src/databaseController';
-
-import {CheckBox} from 'react-native-elements';
-
-import Note from './Components/Note';
-
-import Login from './Screens/testLogin';
-
-import LoginPage from './Screens/login';
-
-import LongPressModal from './Components/LongPressModal';
-
-import Node from './src/Node.js';
+import RouteManager from './RouteManager';
 
 export default class ListApplication extends Component {
-
-  constructor(props) {
-    super(props)
-    this.keys = [];
-    this.firebase = getFirebaseConnection();
-    this.dbConnection = getDatabaseConnection(this.firebase);
-    this.itemsPathway = getItemsPath(this.dbConnection);
-    //alert(this.itemsPathway);
-    getAllItems(this);
-    this.nodes = [];
-
-  }
-
-  //defines initial state
-  state = {
-    noteArray: [],
-    checkedNoteArray: [],
-    noteText: '',
-    modalVisible: false,
-  }
-
   render(){
     return (
-       <View>
-        <LoginPage />
-      </View>
+        <RouteManager />
     );
-    let notes = this.state.noteArray.map((val, key) => {
-      //return note component and pass props
-      return <Note key={key} keyval={key} val={val} deleteNote={() => this.deleteNote(key)} />
-    });
-
-    return (
-      //creating container and header
-        <View style={styles.container}>
-          <View style={styles.header}>
-
-            <Text style={styles.headerText}>Your Grocery List</Text>
-
-          </View>
-          <View style={styles.enter}>
-
-            <TouchableOpacity onPress={this.addNote.bind(this)} style={styles.addButtons}>
-              <Text style={styles.addButtonText}>+</Text>
-            </TouchableOpacity>
-
-            <TextInput style={styles.textInput} placeholder="Enter Item"
-                onChangeText={(noteText) => this.setState({noteText})} value={this.state.noteText}
-               placeholderTextColor="grey" underlineColorAndroid="transparent">
-            </TextInput>
-
-          </View>
-
-          <ScrollView style={styles.scrollContainer}>
-            {notes}
-          </ScrollView>
-
-        </View>
-    );
- }
-
-  //component methods
-  addNote() {
-    if (this.state.noteText) {
-      this.state.noteArray.push( {'note': this.state.noteText});
-      this.setState({noteArray: this.state.noteArray});
-      this.setState({ noteText: ''});
-    }
-    if( this.state.noteText ) {
-      //Default data in last 3 elements are passed for testing purposes
-      var saved = saveItem( this.itemsPathway, this.state.noteText, 0.0, 0, "0-0-0", 1101, this );
-      if( saved == 1 ) { getAllItems(this); }
-    }
 
   }
-
-  saveQuantity(quantity){
-
-  }
-
-  updateNotes() {
-    this.state.noteArray = [];
-    getAllItems(this);
-  }
-
-
-  processItems(nodes, instance, keys) {
-    alert("Returned data");
-    instance.nodes = nodes;
-
-    alert(nodes.length);
-    if( nodes.length > 0 && keys.length > 0 ) {
-      for( i = 0; i < nodes.length; i++ ) {
-        //alert(nodes[i].getName());
-        instance.state.noteArray.push({'note': nodes[i].getName()});
-        instance.setState({noteArray: instance.state.noteArray});
-
-      }
-    }
-  }
-
-  deleteNote(key){
-    var item = this.state.noteArray.splice(key, 1);
-
-    removeItem(this.getItemsPath, key);
-    alert("Deleting " + item[0].note);
-    this.setState({modalVisible: false});
-    this.setState({noteArray: this.state.noteArray});
-  }
-
-}
-/*
- * This function will be a callback from the async updater that will
- * listen for changes in the realtime Firebase database.
- * Do NOT call this function unless you adhere to the natural callbackForGetFirebaseItems
- * of this function else no promise this won't break.
-*/
-export function updateUI( nodes ) {
-
 }
 
 const styles = StyleSheet.create({
@@ -204,5 +78,4 @@ const styles = StyleSheet.create({
 
 
 });
-
-AppRegistry.registerComponent('ListApplication', () => NavEnabledApp);
+AppRegistry.registerComponent('ListApplication', () => ListApplication);

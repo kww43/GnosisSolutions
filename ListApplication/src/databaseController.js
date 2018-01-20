@@ -18,7 +18,8 @@ export function getItemsPath( dbRef ) {
 }
 
 export function getCartPath( dbRef, userToken ) {
-
+  var path = 'users/' + userToken;
+  return dbRef.ref(path);
 }
 
 
