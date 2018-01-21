@@ -30,7 +30,7 @@ export default class LoginPage extends Component {
           userID = data.userID.toString();
           console.log(userID);
           //Navigate to main screen with userID in params
-          Actions.main({userNum: userID});
+          Actions.listSelector({userNum: userID});
         })
       }
 
@@ -69,41 +69,3 @@ const styles = StyleSheet.create({
    color: "#ffffff",
  },
 });
-
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     loading: true,
-  //   };
-  // }
-  //
-  // componentWillMount() {
-  //   const config = AppConfig.getConfig();
-  // }
-  //
-  // componentDidMount() {
-  //   this.authSubscription =
-  //     firebase.auth().onAuthStateChanged((user) => {
-  //       this.setState({
-  //         loading: false,
-  //         user,
-  //       });
-  //     });
-  // }
-  //
-  // componentWillUnmount() {
-  //   this.authSubscription();
-  // }
-  //
-  // render() {
-  //   if(this.state.loading) {
-  //     return null;
-  //   }
-  //
-  //   if(this.state.user) {
-  //     return <LoggedIn />;
-  //   }
-  //   //Else if none above then we return logged out screen
-  //     return <LoggedOut />;
-  // }
-//}
