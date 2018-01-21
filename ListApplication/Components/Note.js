@@ -45,7 +45,9 @@ export default class Note extends Component {
         />
     );
   }
-
+    saveQuantity(q) {
+      return null;
+    }
 
     checkState(){
         if(!this.state.checked){
@@ -71,11 +73,6 @@ export default class Note extends Component {
     }
 
 }
-
-
-
-
-
 
 const styles = StyleSheet.create({
     note: {

@@ -4,9 +4,9 @@ import { Modal, Text, View, TouchableHighlight, Button, StyleSheet, TextInput } 
 
 //modal class for asking if the user wants to edit or delete and item
 
-export default class ListApplication extends Component {
+export default class MainScreen extends Component {
 
-    state = { 
+    state = {
         modalVisible: false,
         quantity: 0,
     };
@@ -17,7 +17,7 @@ export default class ListApplication extends Component {
     }
 
     render() {
-        
+
         return (
                 <Modal
                 key={this.props.keyval}
@@ -25,7 +25,7 @@ export default class ListApplication extends Component {
                 transparent={true}
                 visible={this.props.modalVisible}
                 onRequestClose={this.props.closeModal}>
-                <View 
+                <View
                 style={styles.modal}>
                 <View style={styles.modalInside}>
                     <Text style={styles.header}>
@@ -33,10 +33,10 @@ export default class ListApplication extends Component {
                     </Text>
                     <Text>Quantity</Text>
                     <TextInput onChangeText={(quantity) => this.setState({quantity})} keyboardType={'numeric'} placeholder="1"></TextInput>
-                    <TouchableHighlight style={styles.button} onPress={this.props.saveQuantity(this.state.quantity)}><Text style={styles.text}>Save</Text></TouchableHighlight>
+                    <TouchableHighlight style={styles.button} ><Text style={styles.text}>Save</Text></TouchableHighlight>
                     <TouchableHighlight style={styles.button} onPress={this.props.deleteNote}><Text   style={styles.text} >Delete</Text></TouchableHighlight>
                     <TouchableHighlight style={styles.button} onPress={this.props.closeModal}><Text   style={styles.text} >Exit</Text></TouchableHighlight>
-                </View>    
+                </View>
                 </View>
                 </Modal>
         );
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         borderWidth: 1,
         borderColor: '#ddd'
-        
+
     },
     button :{
         flex: 1,

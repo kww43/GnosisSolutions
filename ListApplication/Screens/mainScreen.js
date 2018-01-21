@@ -52,11 +52,9 @@ export default class MainScreen extends Component{
   }
 
   render(){
-    let notes = this.state.noteArray.map((val, key) => {
-      //return note component and pass props
-      //console.log(val['note']);
-      return <Note key={key} keyval={key} val={val} deleteNote={() => this.deleteNote(key)} />
-    });
+    // let notes = this.state.noteArray.map((val, key) => {
+    //   return <Note key={key} keyval={key} val={val} deleteNote={() => this.deleteNote(key)} />
+    // });
     return (
       //creating container and header
         <View style={styles.container}>
@@ -74,7 +72,9 @@ export default class MainScreen extends Component{
           </View>
 
           <ScrollView style={styles.scrollContainer}>
-            {notes}
+            {this.state.noteArray.map((note, key) => {
+              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} deleteNote={() => this.deleteNote(note['key'])} /> )
+            })}
           </ScrollView>
 
         </View>
@@ -97,7 +97,7 @@ export default class MainScreen extends Component{
   }
 
   saveQuantity(quantity){
-    return null;
+    return "";
   }
 
   updateNotes() {

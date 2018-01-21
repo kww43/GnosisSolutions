@@ -30,7 +30,7 @@ export function saveItem( itemsRef, name, price, quantity, locationString, uniqu
     price: price,
     quantity: quantity,
     shelf_location: locationString,
-  }).key();
+  });
   var returnNode = new Node( thisKey, name );
   returnNode.setPrice( price );
   returnNode.setQuantity( quantity );
@@ -73,7 +73,7 @@ export function getAllItems( instance ) {
       instance.state.noteArray = [];
       if( nodes.length > 0 && getKeys.length > 0 ) {
         for( i = 0; i < nodes.length; i++ ) {
-          instance.state.noteArray.push({'note': nodes[i].getName(), 'key': key});
+          instance.state.noteArray.push({'note': nodes[i].getName(), 'key': getKeys[i]});
           instance.setState({noteArray: instance.state.noteArray});
         }
       }
