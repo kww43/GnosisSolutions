@@ -9,7 +9,7 @@ export default class RouteManager extends Component{
     return(
       <Router>
         <Stack key="root">
-          <Scene key="login" component={MainScreen} title="Login"/>
+          <Scene key="login" component={Login} title="Login"/>
           <Scene key="main" component={MainScreen} title="Shopping Cart"/>
         </Stack>
       </Router>
