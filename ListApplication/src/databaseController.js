@@ -31,6 +31,7 @@ export function saveItem( itemsRef, name, price, quantity, locationString, uniqu
     quantity: quantity,
     shelf_location: locationString,
   });
+
   var returnNode = new Node( thisKey, name );
   returnNode.setPrice( price );
   returnNode.setQuantity( quantity );
@@ -41,6 +42,7 @@ export function saveItem( itemsRef, name, price, quantity, locationString, uniqu
 
 export function removeItem( itemsRef, keyToRemove ) {
   itemsRef.child(keyToRemove).remove();
+  return 1;
 }
 /*
  * Input: Item path to the database in this case it is just 'items'.

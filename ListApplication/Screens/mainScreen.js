@@ -13,8 +13,15 @@ import {
   Modal,
 } from 'react-native';
 
-
-import { getFirebaseConnection, getDatabaseConnection, getItemsPath, saveItem, getAllItems } from '../src/databaseController';
+import {
+  getFirebaseConnection,
+  getDatabaseConnection,
+  getItemsPath,
+  saveItem,
+  getAllItems,
+  getCartPath,
+  removeItem
+} from '../src/databaseController';
 
 import {CheckBox} from 'react-native-elements';
 
@@ -38,7 +45,8 @@ export default class MainScreen extends Component{
     this.keys = [];
     this.firebase = getFirebaseConnection();
     this.dbConnection = getDatabaseConnection(this.firebase);
-    this.itemsPathway = getItemsPath(this.dbConnection);
+    //this.itemsPathway = getItemsPath(this.dbConnection);
+    this.itemsPathway = getCartPath(this.dbConnection, this.props.saveUserID);
     getAllItems(this);
     this.nodes = [];
   }
@@ -52,9 +60,6 @@ export default class MainScreen extends Component{
   }
 
   render(){
-    // let notes = this.state.noteArray.map((val, key) => {
-    //   return <Note key={key} keyval={key} val={val} deleteNote={() => this.deleteNote(key)} />
-    // });
     return (
       //creating container and header
         <View style={styles.container}>
@@ -73,7 +78,7 @@ export default class MainScreen extends Component{
 
           <ScrollView style={styles.scrollContainer}>
             {this.state.noteArray.map((note, key) => {
-              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} deleteNote={() => this.deleteNote(note['key'])} /> )
+              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} deleteNote={() => this.deleteNote(key, note['key'])} /> )
             })}
           </ScrollView>
 
@@ -110,7 +115,6 @@ export default class MainScreen extends Component{
     alert("Returned data");
     instance.nodes = nodes;
 
-    alert(nodes.length);
     if( nodes.length > 0 && keys.length > 0 ) {
       for( i = 0; i < nodes.length; i++ ) {
         //alert(nodes[i].getName());
@@ -121,13 +125,16 @@ export default class MainScreen extends Component{
     }
   }
 
-  deleteNote(key){
-    var item = this.state.noteArray.splice(key, 1);
-
-    removeItem(this.getItemsPath, key);
-    alert("Deleting " + item[0].note);
+  deleteNote(arrKey, itemKey){
+    //console.log(this.state.noteArray);
+    //var item = this.state.noteArray.splice(arrKey, 1);
+    //console.log(this.state.noteArray);
+    removeItem(this.itemsPathway, itemKey);
+    //alert("Deleting " + item[0].note);
     this.setState({modalVisible: false});
     this.setState({noteArray: this.state.noteArray});
+    //console.log(this.state.noteArray);
+
   }
 
 }
