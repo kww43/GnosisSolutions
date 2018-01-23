@@ -14,7 +14,6 @@ import { Actions } from 'react-native-router-flux';
 
 
 export default class ListSelector extends Component {
-
   constructor(props) {
     super(props)
     this.saveUserID = this.props.userNum;
@@ -26,7 +25,7 @@ export default class ListSelector extends Component {
       <View>
         <Text>Welcome your Facebook UserID is: {this.saveUserID}</Text>
         <TouchableOpacity
-          onPress={this._handleTransfer}
+          onPress={this._handleTransfer.bind(this, this.saveUserID)}
           style={styles.button}>
             <Text style={styles.buttonTxt}>Go to your List</Text>
         </TouchableOpacity>
@@ -34,7 +33,7 @@ export default class ListSelector extends Component {
     );
   }
 
-  _handleTransfer() {
+  _handleTransfer(data) {
     //Set the pressed flag
     this.pressed = true;
     /*
@@ -42,7 +41,8 @@ export default class ListSelector extends Component {
      * as well as pass the user data we got from Facebook.
     */
     if(this.pressed != false) {
-      Actions.main({saveUserID: this.saveUserID});
+      alert(data);
+      Actions.main({userID: data});
     }
 
   }

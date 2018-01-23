@@ -46,8 +46,9 @@ export default class MainScreen extends Component{
     this.firebase = getFirebaseConnection();
     this.dbConnection = getDatabaseConnection(this.firebase);
     //this.itemsPathway = getItemsPath(this.dbConnection);
-    this.itemsPathway = getCartPath(this.dbConnection, this.props.saveUserID);
+    this.itemsPathway = getCartPath(this.dbConnection, this.props.userID);
     getAllItems(this);
+    alert(this.itemsPathway);
     this.nodes = [];
   }
 
