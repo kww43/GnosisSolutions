@@ -1,28 +1,38 @@
+/*
+ * File: databaseController.js
+ * Purpose: To provide an API interface that is simplier for Firebase actions on the fly.
+ * Author: Christopher Simcox
+ * Usage: JS based and is ran by importing functions from this file into a Componet class.
+*/
 import Fire, { app, database } from 'firebase';
 
 import AppConfig from './AppConfig'
 import Node from './Node';
 
+//This will initialize the firebase connection with the APPConfig defined in './AppConfig.js' file.
 export function getFirebaseConnection( ) {
   const Config = AppConfig.getConfig();
   const Firebase = Fire.initializeApp(Config.firebaseConfig);
   return Firebase;
 }
 
+//Function to return the firebase database url base path.
 export function getDatabaseConnection( Firebase ) {
   return Firebase.database();
 }
 
+//Sets the new dbPath to go to items level of firebase database
 export function getItemsPath( dbRef ) {
   return dbRef.ref('items');
 }
 
+//Sets the new dbPath to go to the cart path of individual users in firebase database
 export function getCartPath( dbRef, userToken ) {
   var path = 'users/' + userToken + "/";
   return dbRef.ref(path);
 }
 
-
+//Function that will save any item entered in through app
 export function saveItem( itemsRef, name, price, quantity, locationString, uniqueID, instance ) {
   var thisKey = itemsRef.push({
     id: uniqueID,
@@ -31,23 +41,26 @@ export function saveItem( itemsRef, name, price, quantity, locationString, uniqu
     quantity: quantity,
     shelf_location: locationString,
   });
-
+  //Make a new node to encapsulate the data
   var returnNode = new Node( thisKey, name );
   returnNode.setPrice( price );
   returnNode.setQuantity( quantity );
+  //Push key and data
   instance.keys.push( thisKey );
   instance.nodes.push( returnNode );
   return 1;
 }
 
+//Removes any item from the firebase database given the correct path
 export function removeItem( itemsRef, keyToRemove ) {
   itemsRef.child(keyToRemove).remove();
   return 1;
 }
+
 /*
  * Input: Item path to the database in this case it is just 'items'.
  * Output: Node array of items from firebase inside the variable nodes.
- * For: Importing data from Firebase.
+ * For: Importing all data from Firebase path.
 */
 export function getAllItems( instance ) {
   var nodes = [];
@@ -81,19 +94,4 @@ export function getAllItems( instance ) {
       }
     });
   });
-}
-
-// function callbackForGetFirebaseItems( nodesArr, getKeys, instance ) {
-//   alert("madeit");
-//   instance.nodes = nodesArr;
-//   alert( "Node 1: ", getKeys.length);
-//   return nodesArr;
-// }
-
-export function deleteItem( itemsRef ) {
-
-}
-
-export function saveItemToCart( ref,  name, price, quantity, locationString ) {
-
 }
