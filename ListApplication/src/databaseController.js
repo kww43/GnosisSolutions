@@ -89,8 +89,8 @@ export function getAllItems( instance ) {
       if( nodes.length > 0 && getKeys.length > 0 ) {
         for( i = 0; i < nodes.length; i++ ) {
           instance.state.noteArray.push({'note': nodes[i].getName(), 'key': getKeys[i]});
-          instance.setState({noteArray: instance.state.noteArray});
         }
+        instance.setState({noteArray: instance.state.noteArray});
       }
     });
   });

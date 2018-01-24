@@ -14,8 +14,6 @@ import {
 } from 'react-native';
 
 import {
-  getFirebaseConnection,
-  getDatabaseConnection,
   getItemsPath,
   saveItem,
   getAllItems,
@@ -43,12 +41,11 @@ export default class MainScreen extends Component{
   constructor(props) {
     super(props)
     this.keys = [];
-    this.firebase = getFirebaseConnection();
-    this.dbConnection = getDatabaseConnection(this.firebase);
+    this.firebase = this.props.firebaseModule;
+    this.dbConnection = this.props.dbConnection;
     //this.itemsPathway = getItemsPath(this.dbConnection);
     this.itemsPathway = getCartPath(this.dbConnection, this.props.userID);
     getAllItems(this);
-    alert(this.itemsPathway);
     this.nodes = [];
   }
 
@@ -127,15 +124,9 @@ export default class MainScreen extends Component{
   }
 
   deleteNote(arrKey, itemKey){
-    //console.log(this.state.noteArray);
-    //var item = this.state.noteArray.splice(arrKey, 1);
-    //console.log(this.state.noteArray);
-    removeItem(this.itemsPathway, itemKey);
-    //alert("Deleting " + item[0].note);
     this.setState({modalVisible: false});
-    this.setState({noteArray: this.state.noteArray});
-    //console.log(this.state.noteArray);
-
+    removeItem(this.itemsPathway, itemKey);
+    getAllItems(this);
   }
 
 }

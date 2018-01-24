@@ -17,6 +17,8 @@ export default class ListSelector extends Component {
   constructor(props) {
     super(props)
     this.saveUserID = this.props.userNum;
+    this.firebase = this.props.firebaseModule;
+    this.dbConnection = this.props.dbConnection;
     this.pressed = false;
   }
   //Right now this shows how data can be accessed when passed using the current framework.
@@ -25,7 +27,7 @@ export default class ListSelector extends Component {
       <View>
         <Text>Welcome your Facebook UserID is: {this.saveUserID}</Text>
         <TouchableOpacity
-          onPress={this._handleTransfer.bind(this, this.saveUserID)}
+          onPress={this._handleTransfer.bind(this)}
           style={styles.button}>
             <Text style={styles.buttonTxt}>Go to your List</Text>
         </TouchableOpacity>
@@ -41,8 +43,7 @@ export default class ListSelector extends Component {
      * as well as pass the user data we got from Facebook.
     */
     if(this.pressed != false) {
-      alert(data);
-      Actions.main({userID: data});
+      Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection});
     }
 
   }

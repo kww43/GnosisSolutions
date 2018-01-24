@@ -15,9 +15,19 @@ import AppConfig from '../src/AppConfig';
 import * as firebase from 'firebase';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
 import RouteManager from '../RouteManager';
+import {
+  getFirebaseConnection,
+  getDatabaseConnection
+} from '../src/databaseController';
 
 
 export default class LoginPage extends Component {
+  constructor(props) {
+    super(props);
+    this.firebase = getFirebaseConnection();
+    this.dbConnection = getDatabaseConnection(this.firebase);
+  }
+
   _handleLogin() {
     var userID = "00";
     LoginManager.logInWithReadPermissions(['public_profile']).then((result) =>{
@@ -30,7 +40,7 @@ export default class LoginPage extends Component {
           userID = data.userID.toString();
           console.log(userID);
           //Navigate to main screen with userID in params
-          Actions.listSelector({userNum: userID});
+          Actions.listSelector({userNum: userID, firebaseModule: this.firebase, dbConnection: this.dbConnection});
         })
       }
 
@@ -40,7 +50,7 @@ export default class LoginPage extends Component {
       return (
          <View style={styles.container}>
               <TouchableOpacity
-                onPress={this._handleLogin}
+                onPress={this._handleLogin.bind(this)}
                 style={styles.button}>
                   <Text style={styles.buttonTxt}>Facebook</Text>
               </TouchableOpacity>
