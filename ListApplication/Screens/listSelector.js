@@ -7,7 +7,8 @@ import {
   View,
   TouchableOpacity,
   Button,
-  Navigator
+  Navigator,
+  Modal
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
@@ -21,6 +22,10 @@ export default class ListSelector extends Component {
     this.dbConnection = this.props.dbConnection;
     this.pressed = false;
   }
+  state = {
+    ModalVisible: false,
+
+  }
   //Right now this shows how data can be accessed when passed using the current framework.
   render() {
     return (
@@ -31,6 +36,14 @@ export default class ListSelector extends Component {
           style={styles.button}>
             <Text style={styles.buttonTxt}>Go to your List</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+        onPress={this.setState({ModalVisible:true})} >
+
+        </TouchableOpacity>
+        <Modal
+        visible={this.state.ModalVisible}>
+
+        </Modal>
       </View>
     );
   }
@@ -46,6 +59,11 @@ export default class ListSelector extends Component {
       Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection});
     }
 
+  }
+
+  _createNewList(data){
+    this.setState({ModalVisible: false});
+    Actions.main({})
   }
 
 }
