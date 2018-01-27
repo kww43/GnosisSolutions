@@ -82,6 +82,9 @@ export default class ListSelector extends Component {
   _createNewList(data){
     this.setState({ModalVisible: false});
     this.state.listArray.push({'list': this.state.listText});
+    this.setState({listArray: this.state.listArray});
+    this.setState({listText: ''});
+    
     Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection});
   }
 
