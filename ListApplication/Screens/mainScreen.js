@@ -49,6 +49,14 @@ export default class MainScreen extends Component{
     this.nodes = [];
   }
 
+  componentDidMount() {
+    this._mounted = true;
+  }
+
+  componentWillMount() {
+    this._mounted = false;
+  }
+
   //defines initial state
   state = {
     noteArray: [],

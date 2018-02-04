@@ -38,7 +38,6 @@ export default class LoginPage extends Component {
         //User is logged into our application now we can access the AccessToken for their userID
         AccessToken.getCurrentAccessToken().then((data) => {
           userID = data.userID.toString();
-          console.log(userID);
           //Navigate to main screen with userID in params
           Actions.listSelector({userNum: userID, firebaseModule: this.firebase, dbConnection: this.dbConnection});
         })

@@ -15,6 +15,7 @@ import { Actions } from 'react-native-router-flux';
 
 
 export default class ListSelector extends Component {
+
   constructor(props) {
     super(props)
     this.saveUserID = this.props.userNum;
@@ -24,8 +25,8 @@ export default class ListSelector extends Component {
   }
   state = {
     ModalVisible: false,
-
   }
+
   //Right now this shows how data can be accessed when passed using the current framework.
   render() {
     return (
@@ -37,7 +38,7 @@ export default class ListSelector extends Component {
             <Text style={styles.buttonTxt}>Go to your List</Text>
         </TouchableOpacity>
         <TouchableOpacity
-        onPress={this.setState({ModalVisible:true})} >
+        onPress={() => this.setState({ModalVisible:true})} >
 
         </TouchableOpacity>
         <Modal
