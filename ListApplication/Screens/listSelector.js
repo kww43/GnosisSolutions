@@ -54,12 +54,13 @@ export default class ListSelector extends Component {
           <View style={styles.modalContainer}>
             <View style={styles.innerContainer}>
               <TextInput
-                placeholder="Enter List Title">
+                placeholder="Enter List Title"
+                onChangeText={(listText) => this.setState({listText}) }>
+
               </TextInput>
               <Button
-                onPress={this._createNewList.bind(this)}
+                onPress={this._createNewList.bind(this, this.state.listText)}
                 title="Start Adding Items!"
-                onChangeText={(listText) => this.setState({listText}) }
                 value={this.state.listText}
                 placeholderTextColor="grey" >
               </Button>
@@ -72,26 +73,22 @@ export default class ListSelector extends Component {
     );
   }
 
-  _handleTransfer(data) {
-    //Set the pressed flag
-    this.pressed = true;
-    /*
-     * This command will go to the class defined under key: main in the router
-     * as well as pass the user data we got from Facebook.
-    */
-    if(this.pressed != false) {
-      Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.listName});
-    }
-
-  }
-
-  _createNewList(data){
+  _createNewList(data, listNamed){
+    //Update local data for list of lists
     this.setState({ModalVisible: false});
     this.state.listArray.push({'list': this.state.listText});
     this.setState({listArray: this.state.listArray});
     this.setState({listText: ''});
 
-    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.listName});
+    //TODO: Sync to server the list of lists data
+    //alert(listNamed);
+    //Navigate to next page.
+    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.state.listText});
+  }
+
+  _usePrevList( instance, listData ) {
+    //Just navigate to next page since we didn't create anything new.
+    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: listData['list']});
   }
 
   _openModal(){
@@ -102,9 +99,7 @@ export default class ListSelector extends Component {
     this.setState({ModalVisible: false});
   }
 
-  _usePrevList( instance, listData ) {
-    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: listData['list']});
-  }
+
 
 }
 const styles = StyleSheet.create({
