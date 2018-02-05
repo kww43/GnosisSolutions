@@ -41,7 +41,7 @@ export default class Note extends Component {
                 onIconPress = {this.checkState.bind(this)}
             />
             <LongPressModal key={this.props.keyval} deleteNote={this.props.deleteNote} closeModal={() => this.closeModal()} keyval = {this.props.keyval} val={this.props.val.note} modalVisible={this.state.modalVisible}  />
-            </TouchableOpacity>}
+        </TouchableOpacity>}
         />
     );
   }
