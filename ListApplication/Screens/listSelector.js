@@ -36,34 +36,38 @@ export default class ListSelector extends Component {
   render() {
     return (
       <View>
-        <Text>Welcome your Facebook UserID is: {this.saveUserID}</Text>
-        <Text>TESTING</Text>
-        <ScrollView
-         >
+        <ScrollView>
           {this.state.listArray.map((list, key) => {
-            return (<Text key={list['key']} keyval={['key']}>{list['list']}</Text>)
+            return (<TouchableOpacity style={styles.addButtonText} onPress={this._usePrevList.bind(this, list)}>
+            <Text style={styles.addButtonText}>{list['list']}</Text></TouchableOpacity>);
           })}
         </ScrollView>
+
         <TouchableOpacity style={styles.addButtons}
         onPress={() => this.setState({ModalVisible:true})} >
           <Text style={styles.addButtonText}>+</Text>
         </TouchableOpacity>
+
         <Modal
-        visible={this.state.ModalVisible}
-        onRequestClose={this._closeModal.bind(this)}>
-          <TextInput
-          placeholder="Enter List Title">
-          </TextInput>
-          <Button
-          onPress={this._createNewList.bind(this)}
-          title="Start Adding Items!"
-          onChangeText={(listText) => this.setState({listText}) }
-          value={this.state.listText}
-          placeholderTextColor="grey" >
-            </Button>
+          visible={this.state.ModalVisible}
+          onRequestClose={this._closeModal.bind(this)}>
+          <View style={styles.modalContainer}>
+            <View style={styles.innerContainer}>
+              <TextInput
+                placeholder="Enter List Title">
+              </TextInput>
+              <Button
+                onPress={this._createNewList.bind(this)}
+                title="Start Adding Items!"
+                onChangeText={(listText) => this.setState({listText}) }
+                value={this.state.listText}
+                placeholderTextColor="grey" >
+              </Button>
+            </View>
+         </View>
 
         </Modal>
-        
+
       </View>
     );
   }
@@ -86,8 +90,8 @@ export default class ListSelector extends Component {
     this.state.listArray.push({'list': this.state.listText});
     this.setState({listArray: this.state.listArray});
     this.setState({listText: ''});
-    
-    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection});
+
+    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.listName});
   }
 
   _openModal(){
@@ -96,6 +100,10 @@ export default class ListSelector extends Component {
 
   _closeModal(){
     this.setState({ModalVisible: false});
+  }
+
+  _usePrevList( instance, listData ) {
+    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: listData['list']});
   }
 
 }
@@ -123,13 +131,13 @@ const styles = StyleSheet.create({
   marginBottom: 100,
  },
  addListButton: {
-  width: 60,  
-  height: 60,   
-  borderRadius: 30,            
-  backgroundColor: '#00b8d4',                                    
-  position: 'absolute',                                          
-  bottom: 10,                                                    
-  right: 10, 
+  width: 60,
+  height: 60,
+  borderRadius: 30,
+  backgroundColor: '#00b8d4',
+  position: 'absolute',
+  bottom: 10,
+  right: 10,
  },
  addButtons: {
   backgroundColor: '#00b8d4',
@@ -143,5 +151,13 @@ const styles = StyleSheet.create({
 addButtonText: {
   fontSize: 24
 },
+modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor:'rgba(255,255,255,0.5)',
+  },
+  innerContainer: {
+    alignItems: 'center',
+  },
 
 });
