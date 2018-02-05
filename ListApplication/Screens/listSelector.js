@@ -43,14 +43,9 @@ export default class ListSelector extends Component {
             return (<Text key={list['key']} keyval={['key']}>{list['list']}</Text>)
           })}
         </ScrollView>
-        <TouchableOpacity
-          onPress={this._handleTransfer.bind(this)}
-          style={styles.button}>
-            <Text style={styles.buttonTxt}>Go to your List</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}
+        <TouchableOpacity style={styles.addButtons}
         onPress={() => this.setState({ModalVisible:true})} >
-          <Text style={styles.buttonTxt}>+</Text>
+          <Text style={styles.addButtonText}>+</Text>
         </TouchableOpacity>
         <Modal
         visible={this.state.ModalVisible}
@@ -135,5 +130,17 @@ const styles = StyleSheet.create({
   bottom: 10,                                                    
   right: 10, 
  },
+ addButtons: {
+  backgroundColor: '#00b8d4',
+  width: 30,
+  height: 30,
+  alignItems: 'center',
+  justifyContent: 'center',
+  elevation: 0,
+  borderRadius: 2,
+},
+addButtonText: {
+  fontSize: 24
+},
 
 });
