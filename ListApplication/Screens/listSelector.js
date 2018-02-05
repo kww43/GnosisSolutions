@@ -21,6 +21,7 @@ export default class ListSelector extends Component {
     this.saveUserID = this.props.userNum;
     this.firebase = this.props.firebaseModule;
     this.dbConnection = this.props.dbConnection;
+    this.listName = "";
     this.pressed = false;
   }
   state = {
@@ -57,7 +58,7 @@ export default class ListSelector extends Component {
      * as well as pass the user data we got from Facebook.
     */
     if(this.pressed != false) {
-      Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection});
+      Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.listName});
     }
 
   }

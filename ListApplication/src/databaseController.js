@@ -27,8 +27,8 @@ export function getItemsPath( dbRef ) {
 }
 
 //Sets the new dbPath to go to the cart path of individual users in firebase database
-export function getCartPath( dbRef, userToken ) {
-  var path = 'users/' + userToken + "/";
+export function getCartPath( dbRef, userToken, listName ) {
+  var path = 'users/' + userToken + "/" + listName + "/";
   return dbRef.ref(path);
 }
 
