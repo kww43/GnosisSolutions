@@ -26,12 +26,9 @@ export default class ListSelector extends Component {
   }
   state = {
     ModalVisible: false,
-<<<<<<< HEAD
-=======
     listArray: [{'list' : 'test'}, {'list':'help'}],
     listText: '',
 
->>>>>>> tjb295
   }
 
   //Right now this shows how data can be accessed when passed using the current framework.
