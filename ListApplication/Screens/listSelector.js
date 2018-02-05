@@ -47,19 +47,13 @@ export default class ListSelector extends Component {
           })}
         </ScrollView>
         <TouchableOpacity
-<<<<<<< HEAD
           onPress={this._handleTransfer.bind(this)}
           style={styles.button}>
             <Text style={styles.buttonTxt}>Go to your List</Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        <TouchableOpacity style={styles.button}
         onPress={() => this.setState({ModalVisible:true})} >
-
-=======
-        style={styles.addListButton}
-        onPress={this._openModal.bind(this)} >
-          <Text style={styles.buttonTxt} >+</Text>
->>>>>>> tjb295
+          <Text style={styles.buttonTxt}>+</Text>
         </TouchableOpacity>
         <Modal
         visible={this.state.ModalVisible}
