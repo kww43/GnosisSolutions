@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   Button,
   Navigator,
-  Modal
+  Modal,
+  ScrollView
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
@@ -25,6 +26,12 @@ export default class ListSelector extends Component {
   }
   state = {
     ModalVisible: false,
+<<<<<<< HEAD
+=======
+    listArray: [{'list' : 'test'}, {'list':'help'}],
+    listText: '',
+
+>>>>>>> tjb295
   }
 
   //Right now this shows how data can be accessed when passed using the current framework.
@@ -32,7 +39,15 @@ export default class ListSelector extends Component {
     return (
       <View>
         <Text>Welcome your Facebook UserID is: {this.saveUserID}</Text>
+        <Text>TESTING</Text>
+        <ScrollView
+         >
+          {this.state.listArray.map((list, key) => {
+            return (<Text key={list['key']} keyval={['key']}>{list['list']}</Text>)
+          })}
+        </ScrollView>
         <TouchableOpacity
+<<<<<<< HEAD
           onPress={this._handleTransfer.bind(this)}
           style={styles.button}>
             <Text style={styles.buttonTxt}>Go to your List</Text>
@@ -40,11 +55,28 @@ export default class ListSelector extends Component {
         <TouchableOpacity
         onPress={() => this.setState({ModalVisible:true})} >
 
+=======
+        style={styles.addListButton}
+        onPress={this._openModal.bind(this)} >
+          <Text style={styles.buttonTxt} >+</Text>
+>>>>>>> tjb295
         </TouchableOpacity>
         <Modal
-        visible={this.state.ModalVisible}>
+        visible={this.state.ModalVisible}
+        onRequestClose={this._closeModal.bind(this)}>
+          <TextInput
+          placeholder="Enter List Title">
+          </TextInput>
+          <Button
+          onPress={this._createNewList.bind(this)}
+          title="Start Adding Items!"
+          onChangeText={(listText) => this.setState({listText}) }
+          value={this.state.listText}
+          placeholderTextColor="grey" >
+            </Button>
 
         </Modal>
+        
       </View>
     );
   }
@@ -64,7 +96,19 @@ export default class ListSelector extends Component {
 
   _createNewList(data){
     this.setState({ModalVisible: false});
-    Actions.main({})
+    this.state.listArray.push({'list': this.state.listText});
+    this.setState({listArray: this.state.listArray});
+    this.setState({listText: ''});
+    
+    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection});
+  }
+
+  _openModal(){
+    this.setState({ModalVisible: true});
+  }
+
+  _closeModal(){
+    this.setState({ModalVisible: false});
   }
 
 }
@@ -87,4 +131,18 @@ const styles = StyleSheet.create({
    fontSize: 20,
    color: "#ffffff",
  },
+ scrollContainer: {
+  flex: 1,
+  marginBottom: 100,
+ },
+ addListButton: {
+  width: 60,  
+  height: 60,   
+  borderRadius: 30,            
+  backgroundColor: '#00b8d4',                                    
+  position: 'absolute',                                          
+  bottom: 10,                                                    
+  right: 10, 
+ },
+
 });
