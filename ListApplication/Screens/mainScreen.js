@@ -147,7 +147,12 @@ export default class MainScreen extends Component{
 
   checkItem(arrKey, itemKey){
     //method to move checked list into another scrollview, showing completion
-    alert("Poop");
+    //may need to set some sort of"checked" value for rendering from db
+    var checkedItem = this.state.noteArray.splice(arrKey, 1)
+    alert(checkedItem[0].note);
+    this.state.checkedNoteArray.push(checkedItem[0])
+    this.setState({noteArray:this.state.noteArray});
+    this.setState({checkedNoteArray:this.state.checkedNoteArray});
   }
 
 }
@@ -213,7 +218,8 @@ const styles = StyleSheet.create({
 
   },
   CheckedList : {
-
+    flex:1,
+    marginBottom: 100,
   }
 
 
