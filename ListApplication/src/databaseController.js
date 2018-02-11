@@ -25,7 +25,11 @@ export function getDatabaseConnection( Firebase ) {
 export function getItemsPath( dbRef ) {
   return dbRef.ref('items');
 }
-
+//This will get exactly one directory above getCarPath so we can grab the names of the lists
+export function getListPath( dbRef, userToken ) {
+  var path = "users/" + userToken + "/";
+  return dbRef.ref(path);
+}
 //Sets the new dbPath to go to the cart path of individual users in firebase database
 export function getCartPath( dbRef, userToken, listName ) {
   var path = 'users/' + userToken + "/" + listName + "/";
