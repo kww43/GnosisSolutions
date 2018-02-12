@@ -37,14 +37,28 @@ export function getCartPath( dbRef, userToken, listName ) {
 }
 
 //Function that will save any item entered in through app
-export function saveItem( itemsRef, name, price, quantity, locationString, uniqueID, instance ) {
-  var thisKey = itemsRef.push({
-    id: uniqueID,
-    name: name,
-    price: price,
-    quantity: quantity,
-    shelf_location: locationString,
-  });
+export function saveItem( itemsRef, name, price, quantity, locationString, uniqueID, instance, checked ) {
+  if( checked == '' ) {
+    var thisKey = itemsRef.push({
+      id: uniqueID,
+      name: name,
+      price: price,
+      quantity: quantity,
+      shelf_location: locationString,
+      checked: 'null',
+    });
+  }
+  else {
+    var thisKey = itemsRef.push({
+      id: uniqueID,
+      name: name,
+      price: price,
+      quantity: quantity,
+      shelf_location: locationString,
+      checked: checked,
+    });
+  }
+
   //Make a new node to encapsulate the data
   var returnNode = new Node( thisKey, name );
   returnNode.setPrice( price );
