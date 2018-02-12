@@ -12,6 +12,13 @@ import {
   ScrollView
 } from 'react-native';
 
+import {
+  saveItem,
+  getAllItems,
+  removeItem,
+  getListPath
+} from '../src/databaseController';
+
 import { Actions } from 'react-native-router-flux';
 
 
@@ -22,14 +29,18 @@ export default class ListSelector extends Component {
     this.saveUserID = this.props.userNum;
     this.firebase = this.props.firebaseModule;
     this.dbConnection = this.props.dbConnection;
-    this.listName = "";
+    this.itemsPathway = getListPath( this.dbConnection, this.saveUserID );
+    getAllItems(this);
     this.pressed = false;
   }
   state = {
     ModalVisible: false,
     listArray: [{'list' : 'test'}, {'list':'help'}],
     listText: '',
-
+    noteArray: [],
+    checkedNoteArray: [],
+    noteText: '',
+    counter: 0,
   }
 
   //Right now this shows how data can be accessed when passed using the current framework.
@@ -37,9 +48,10 @@ export default class ListSelector extends Component {
     return (
       <View>
         <ScrollView>
-          {this.state.listArray.map((list, key) => {
-            return (<TouchableOpacity style={styles.listItem} onPress={this._usePrevList.bind(this, list)}>
-            <Text style={styles.addButtonText}>{list['list']}</Text></TouchableOpacity>);
+
+          {this.state.noteArray.map((list, key) => {
+            return (<TouchableOpacity key={list['key']}  onPress={this._usePrevList.bind(this, list['key'])}>
+            <Text style={styles.addButtonText}>{list['key']}</Text></TouchableOpacity>);
           })}
         </ScrollView>
 
@@ -87,8 +99,9 @@ export default class ListSelector extends Component {
   }
 
   _usePrevList( instance, listData ) {
+    console.log(instance);
     //Just navigate to next page since we didn't create anything new.
-    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: listData['list']});
+    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: instance});
   }
 
   _openModal(){

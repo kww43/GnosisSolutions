@@ -111,7 +111,7 @@ export default class MainScreen extends Component{
     }
     if( this.state.noteText ) {
       //Default data in last 3 elements are passed for testing purposes
-      var saved = saveItem( this.itemsPathway, this.state.noteText, 0.0, 0, "0-0-0", 1101, this );
+      var saved = saveItem( this.itemsPathway, this.state.noteText, 0.0, 0, "0-0-0", 1101, this, '' );
       if( saved == 1 ) { getAllItems(this); }
     }
 
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
   checkedItem: {
     flex: 1,
     marginBottom: 50,
-    color: '#ededed',
+    color: '#a9a9a9',
   }
 
 
