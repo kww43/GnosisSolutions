@@ -85,14 +85,16 @@ export default class MainScreen extends Component{
 
           <ScrollView style={styles.scrollContainer}>
             {this.state.noteArray.map((note, key) => {
-              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} checkItem={() => this.checkItem(key, note['key']) } 
+              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} checked={false} checkItem={() => this.checkItem(key, note['key']) } 
               deleteNote={() => this.deleteNote(key, note['key'])} /> )
             })}
             
           </ScrollView>
+          <Text>Checked Items </Text>
           <FlatList
+          style={styles.checkedItem}
             data={this.state.checkedNoteArray}
-            renderItem={({item}) => <Text>{item.note}</Text> }
+            renderItem={({item}) =>  <Note val={item.note} checked={true} checkItem={() => this.checkItem(0, item.note)} />}
           />
           
 
@@ -145,14 +147,20 @@ export default class MainScreen extends Component{
     getAllItems(this);
   }
 
-  checkItem(arrKey, itemKey){
+  checkItem(arrKey, itemKey, checkedState){
     //method to move checked list into another scrollview, showing completion
     //may need to set some sort of"checked" value for rendering from db
-    var checkedItem = this.state.noteArray.splice(arrKey, 1)
-    alert(checkedItem[0].note);
-    this.state.checkedNoteArray.push(checkedItem[0])
-    this.setState({noteArray:this.state.noteArray});
-    this.setState({checkedNoteArray:this.state.checkedNoteArray});
+    if(!checkedState){
+      var checkedItem = this.state.noteArray.splice(arrKey, 1)
+      this.state.checkedNoteArray.push(checkedItem[0])
+      this.setState({noteArray:this.state.noteArray});
+      this.setState({checkedNoteArray:this.state.checkedNoteArray});
+      return true;
+    }
+    else{
+      return false;
+    }
+    
   }
 
 }
@@ -189,8 +197,7 @@ const styles = StyleSheet.create({
     padding: 26,
   },
   scrollContainer: {
-    flex: 1,
-    marginBottom: 100,
+    flex: 2,
   },
   footer: {
     position: 'absolute',
@@ -220,6 +227,20 @@ const styles = StyleSheet.create({
   CheckedList : {
     flex:1,
     marginBottom: 100,
+  },
+  floatingButton: {
+    width: 60,  
+    height: 60,   
+    borderRadius: 30,            
+    backgroundColor: '#ee6e73',                                    
+    position: 'absolute',                                          
+    bottom: 10,                                                    
+    right: 10, 
+  },
+  checkedItem: {
+    flex: 1,
+    marginBottom: 50,
+    color: '#ededed',
   }
 
 

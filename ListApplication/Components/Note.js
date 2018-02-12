@@ -20,7 +20,7 @@ import {CheckBox} from 'react-native-elements';
 export default class Note extends Component {
 
   state = {
-      checked: false,
+      checked: this.props.checked,
       modalVisible: false,
   }
 
@@ -60,7 +60,11 @@ export default class Note extends Component {
         this.setState({checked: this.state.checked});
 
         //execute the check item
-        this.props.checkItem(this.props.key, this.props.keyval);
+        toCheck = this.props.checkItem(this.props.key, this.props.keyval, this.props.checked);
+        if(!toCheck){
+            this.state.checked = false;
+            this.setState({checked:this.state.checked});
+        }
     }
 
     //function for opening the new modal

@@ -38,12 +38,12 @@ export default class ListSelector extends Component {
       <View>
         <ScrollView>
           {this.state.listArray.map((list, key) => {
-            return (<TouchableOpacity style={styles.addButtonText} onPress={this._usePrevList.bind(this, list)}>
+            return (<TouchableOpacity style={styles.listItem} onPress={this._usePrevList.bind(this, list)}>
             <Text style={styles.addButtonText}>{list['list']}</Text></TouchableOpacity>);
           })}
         </ScrollView>
 
-        <TouchableOpacity style={styles.addButtons}
+        <TouchableOpacity style={styles.floatingButton}
         onPress={() => this.setState({ModalVisible:true})} >
           <Text style={styles.addButtonText}>+</Text>
         </TouchableOpacity>
@@ -154,5 +154,25 @@ modalContainer: {
   innerContainer: {
     alignItems: 'center',
   },
+  floatingButton : {
+    width: 60,  
+    height: 60,   
+    borderRadius: 30,            
+    backgroundColor: '#00b8d4',                                    
+    position: 'absolute',
+    alignItems: 'center',                                          
+    bottom: 10,                                                    
+    right: 10, 
+  },
+  listItem: {
+    position: 'relative',
+    padding: 20,
+    paddingRight: 0,
+    borderBottomWidth: 2,
+    borderBottomColor: '#ededed',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }
 
 });
