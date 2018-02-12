@@ -11,6 +11,7 @@ import {
   StackNavigator,
   TouchableHighlight,
   Modal,
+  FlatList,
 } from 'react-native';
 
 import {
@@ -84,9 +85,16 @@ export default class MainScreen extends Component{
 
           <ScrollView style={styles.scrollContainer}>
             {this.state.noteArray.map((note, key) => {
-              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} deleteNote={() => this.deleteNote(key, note['key'])} /> )
+              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} checkItem={() => this.checkItem(key, note['key']) } 
+              deleteNote={() => this.deleteNote(key, note['key'])} /> )
             })}
+            
           </ScrollView>
+          <FlatList
+            data={this.state.checkedNoteArray}
+            renderItem={({item}) => <Text>{item.note}</Text> }
+          />
+          
 
         </View>
     );
@@ -135,6 +143,16 @@ export default class MainScreen extends Component{
     this.setState({modalVisible: false});
     removeItem(this.itemsPathway, itemKey);
     getAllItems(this);
+  }
+
+  checkItem(arrKey, itemKey){
+    //method to move checked list into another scrollview, showing completion
+    //may need to set some sort of"checked" value for rendering from db
+    var checkedItem = this.state.noteArray.splice(arrKey, 1)
+    alert(checkedItem[0].note);
+    this.state.checkedNoteArray.push(checkedItem[0])
+    this.setState({noteArray:this.state.noteArray});
+    this.setState({checkedNoteArray:this.state.checkedNoteArray});
   }
 
 }
@@ -199,6 +217,10 @@ const styles = StyleSheet.create({
     flex: 5,
 
   },
+  CheckedList : {
+    flex:1,
+    marginBottom: 100,
+  }
 
 
 });

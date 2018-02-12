@@ -58,6 +58,9 @@ export default class Note extends Component {
             this.state.checked = false;
         }
         this.setState({checked: this.state.checked});
+
+        //execute the check item
+        this.props.checkItem(this.props.key, this.props.keyval);
     }
 
     //function for opening the new modal
