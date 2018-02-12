@@ -40,6 +40,7 @@ export default class ListSelector extends Component {
     noteArray: [],
     checkedNoteArray: [],
     noteText: '',
+    counter: 0,
   }
 
   //Right now this shows how data can be accessed when passed using the current framework.
@@ -48,8 +49,8 @@ export default class ListSelector extends Component {
       <View>
         <ScrollView>
           {this.state.noteArray.map((list, key) => {
-            return (<TouchableOpacity style={styles.addButtonText} onPress={this._usePrevList.bind(this, list)}>
-            <Text style={styles.addButtonText}>{list}</Text></TouchableOpacity>);
+            return (<TouchableOpacity key={list['key']}  onPress={this._usePrevList.bind(this, list['key'])}>
+            <Text style={styles.addButtonText}>{list['key']}</Text></TouchableOpacity>);
           })}
         </ScrollView>
 
@@ -97,8 +98,9 @@ export default class ListSelector extends Component {
   }
 
   _usePrevList( instance, listData ) {
+    console.log(instance);
     //Just navigate to next page since we didn't create anything new.
-    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: listData['list']});
+    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: instance});
   }
 
   _openModal(){
