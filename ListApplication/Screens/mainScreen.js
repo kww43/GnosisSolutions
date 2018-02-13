@@ -64,6 +64,7 @@ export default class MainScreen extends Component{
     checkedNoteArray: [],
     noteText: '',
     modalVisible: false,
+    PriceModalVisible: false,
   }
 
   render(){
@@ -94,11 +95,31 @@ export default class MainScreen extends Component{
           <FlatList
           style={styles.checkedItem}
             data={this.state.checkedNoteArray}
+            extraData={this.state}
             renderItem={({item}) =>  <Note val={item.note} checked={true} checkItem={() => this.checkItem(0, item.note)} />}
           />
-          
+           <Modal
+            visible={this.state.PriceModalVisible}
+            onRequestClose={this.closeModal.bind(this)}
+            animationType="slide"
+            transparent={true}>
+              <View
+              style={styles.modal} >
+              <View style={styles.modalInside}>
+                  <Text>What was the item's price?</Text>
+                  <TextInput
+                  keyboardType='numeric'
+                  maxLength={6}>
+                  </TextInput>
 
+                  <TouchableHighlight style={styles.Pricebutton} >
+                  <Text style={styles.Pricetext}>Submit Price</Text>
+                  </TouchableHighlight>
+                </View>
+              </View>
+          </Modal>
         </View>
+       
     );
  }
 
@@ -151,6 +172,7 @@ export default class MainScreen extends Component{
     //method to move checked list into another scrollview, showing completion
     //may need to set some sort of"checked" value for rendering from db
     if(!checkedState){
+      this.openModal();
       var checkedItem = this.state.noteArray.splice(arrKey, 1)
       this.state.checkedNoteArray.push(checkedItem[0])
       this.setState({noteArray:this.state.noteArray});
@@ -161,6 +183,18 @@ export default class MainScreen extends Component{
       return false;
     }
     
+  }
+
+  openModal(){
+    this.setState({PriceModalVisible: true});
+  }
+
+  closeModal(){
+    this.setState({PriceModalVisible: false})
+  }
+
+  submitPrice(){
+    this.setState({PriceModalVisible:false})
   }
 
 }
@@ -241,7 +275,38 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 50,
     color: '#a9a9a9',
-  }
+  },
+  modal :{
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 2,
+    padding: 10
+  },
+  modalInside: {
+    borderRadius: 5,
+    width: 150,
+    height: 150,
+    backgroundColor: 'white',
+    shadowOpacity: 1.0,
+    shadowRadius: 2,
+    borderWidth: 1,
+    borderColor: '#ddd'
+
+},
+Pricebutton :{
+  flex: 1,
+  flexDirection: 'row',
+  borderRadius: 4,
+  borderColor: '#ddd',
+  borderWidth: 2,
+
+},
+Pricetext: {
+  fontSize: 20,
+  justifyContent: 'center',
+}
 
 
 });

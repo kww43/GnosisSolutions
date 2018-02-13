@@ -47,8 +47,8 @@ export default class ListSelector extends Component {
   render() {
     return (
       <View>
-        <ScrollView>
 
+        <ScrollView>
           {this.state.noteArray.map((list, key) => {
             return (<TouchableOpacity key={list['key']}  onPress={this._usePrevList.bind(this, list['key'])}>
             <Text style={styles.addButtonText}>{list['key']}</Text></TouchableOpacity>);
@@ -65,10 +65,10 @@ export default class ListSelector extends Component {
           onRequestClose={this._closeModal.bind(this)}>
           <View style={styles.modalContainer}>
             <View style={styles.innerContainer}>
+
               <TextInput
                 placeholder="Enter List Title"
                 onChangeText={(listText) => this.setState({listText}) }>
-
               </TextInput>
               <Button
                 onPress={this._createNewList.bind(this, this.state.listText)}
@@ -76,9 +76,9 @@ export default class ListSelector extends Component {
                 value={this.state.listText}
                 placeholderTextColor="grey" >
               </Button>
+              
             </View>
          </View>
-
         </Modal>
 
       </View>

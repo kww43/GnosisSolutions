@@ -48,6 +48,7 @@ export default class LoginPage extends Component {
    render() {
       return (
          <View style={styles.container}>
+              <Text>Welcome to GrocApp</Text>
               <TouchableOpacity
                 onPress={this._handleLogin.bind(this)}
                 style={styles.button}>
@@ -60,6 +61,7 @@ export default class LoginPage extends Component {
 
 const styles = StyleSheet.create({
   container: {
+   backgroundColor: '#1de9b6',
    flex: 1,
    justifyContent: 'center',
    alignItems: 'center'
