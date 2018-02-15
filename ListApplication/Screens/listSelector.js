@@ -76,7 +76,7 @@ export default class ListSelector extends Component {
                 value={this.state.listText}
                 placeholderTextColor="grey" >
               </Button>
-              
+
             </View>
          </View>
         </Modal>
@@ -85,17 +85,22 @@ export default class ListSelector extends Component {
     );
   }
 
-  _createNewList(data, listNamed){
-    //Update local data for list of lists
-    this.setState({ModalVisible: false});
-    this.state.listArray.push({'list': this.state.listText});
-    this.setState({listArray: this.state.listArray});
-    this.setState({listText: ''});
+  _createNewList(data, listNamed) {
+    //Check to make sure user enters a name for a list instead of blank.
+    if ( !listNamed ) {
+      alert("Please fill out the list name.");
+    }
+    else {
+      //Update local data for list of lists
+      this.setState({ModalVisible: false});
+      this.state.listArray.push({'list': this.state.listText});
+      this.setState({listArray: this.state.listArray});
+      this.setState({listText: ''});
 
-    //TODO: Sync to server the list of lists data
-    //alert(listNamed);
-    //Navigate to next page.
-    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.state.listText});
+      //Navigate to next page.
+      Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.state.listText});
+    }
+
   }
 
   _usePrevList( instance, listData ) {
@@ -168,14 +173,14 @@ modalContainer: {
     alignItems: 'center',
   },
   floatingButton : {
-    width: 60,  
-    height: 60,   
-    borderRadius: 30,            
-    backgroundColor: '#00b8d4',                                    
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#00b8d4',
     position: 'absolute',
-    alignItems: 'center',                                          
-    bottom: 10,                                                    
-    right: 10, 
+    alignItems: 'center',
+    bottom: 10,
+    right: 10,
   },
   listItem: {
     position: 'relative',
