@@ -48,11 +48,14 @@ export default class LoginPage extends Component {
    render() {
       return (
          <View style={styles.container}>
-              <Text>Welcome to GrocApp</Text>
+              <Text
+              style={styles.WelcomeText}
+              >Welcome to GrocApp</Text>
               <TouchableOpacity
+               elevation={5}
                 onPress={this._handleLogin.bind(this)}
                 style={styles.button}>
-                  <Text style={styles.buttonTxt}>Facebook</Text>
+                  <Text style={styles.buttonTxt}>Login with Facebook</Text>
               </TouchableOpacity>
          </View>
       );
@@ -62,19 +65,32 @@ export default class LoginPage extends Component {
 const styles = StyleSheet.create({
   container: {
    backgroundColor: '#1de9b6',
-   flex: 1,
-   justifyContent: 'center',
+   flex: 2,
    alignItems: 'center'
  },
  button: {
    width: 300,
-   backgroundColor: '#3B5998',
+   backgroundColor: '#00e5ff',
    borderRadius: 25,
    marginVertical: 10,
    paddingVertical: 16,
-   alignItems: 'center'
+   alignItems: 'center',
+   shadowColor: '#000000',
+   shadowOffset: {
+     width: 0,
+     height: 3
+   },
+   shadowRadius: 5,
+   shadowOpacity: 1.0
  },
+ WelcomeText: {
+  alignItems: 'center',
+  marginTop: 0,
+  color: '#ffffff',
+  fontSize: 40,
+  fontFamily: 'sans-serif-thin',
 
+ },
  buttonTxt: {
    fontSize: 20,
    color: "#ffffff",

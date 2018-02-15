@@ -46,12 +46,14 @@ export default class ListSelector extends Component {
   //Right now this shows how data can be accessed when passed using the current framework.
   render() {
     return (
-      <View>
+      <View
+      style={styles.container}>
 
-        <ScrollView>
+        <ScrollView
+        style={styles.scrollContainer}>
           {this.state.noteArray.map((list, key) => {
             return (<TouchableOpacity key={list['key']}  onPress={this._usePrevList.bind(this, list['key'])}>
-            <Text style={styles.addButtonText}>{list['key']}</Text></TouchableOpacity>);
+            <Text style={styles.listText}>{list['key']}</Text></TouchableOpacity>);
           })}
         </ScrollView>
 
@@ -122,9 +124,9 @@ export default class ListSelector extends Component {
 }
 const styles = StyleSheet.create({
   container: {
+   backgroundColor: '#1de9b6',
    flex: 1,
-   justifyContent: 'center',
-   alignItems: 'center'
+
  },
  button: {
    width: 300,
@@ -134,14 +136,16 @@ const styles = StyleSheet.create({
    paddingVertical: 16,
    alignItems: 'center'
  },
+ scrollContainer: {
+  flex: 2,
+},
 
  buttonTxt: {
    fontSize: 20,
    color: "#ffffff",
  },
  scrollContainer: {
-  flex: 1,
-  marginBottom: 100,
+  flex: 2,
  },
  addListButton: {
   width: 60,
@@ -160,9 +164,16 @@ const styles = StyleSheet.create({
   justifyContent: 'center',
   elevation: 0,
   borderRadius: 2,
+  shadowColor: '#000000',
+  shadowOffset: {
+    width: 0,
+    height: 3
+  },
+  shadowRadius: 5,
+  shadowOpacity: 1.0
 },
 addButtonText: {
-  fontSize: 24
+  fontSize: 24,
 },
 modalContainer: {
     flex: 1,
@@ -191,6 +202,10 @@ modalContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  listText: {
+    fontSize: 24,
+    backgroundColor:'#e0f2f1'
   }
 
 });

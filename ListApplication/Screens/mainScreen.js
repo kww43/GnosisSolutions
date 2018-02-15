@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     padding: 26,
   },
   scrollContainer: {
-    flex: 2,
+    flex: 1,
   },
   footer: {
     position: 'absolute',
