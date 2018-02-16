@@ -14,6 +14,7 @@ import { Actions } from 'react-native-router-flux';
 import AppConfig from '../src/AppConfig';
 import * as firebase from 'firebase';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
+import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
 import RouteManager from '../RouteManager';
 import {
   getFirebaseConnection,
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   marginTop: 0,
   color: '#ffffff',
   fontSize: 40,
-  fontFamily: 'sans-serif-thin',
+  fontFamily: 'FontAwesome',
 
  },
  buttonTxt: {
