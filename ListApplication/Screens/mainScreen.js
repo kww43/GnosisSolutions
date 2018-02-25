@@ -91,13 +91,7 @@ export default class MainScreen extends Component{
             })}
             
           </ScrollView>
-          <Text>Checked Items </Text>
-          <FlatList
-          style={styles.checkedItem}
-            data={this.state.checkedNoteArray}
-            extraData={this.state}
-            renderItem={({item}) =>  <Note val={item.note} checked={true} checkItem={() => this.checkItem(0, item.note)} />}
-          />
+
            <Modal
             visible={this.state.PriceModalVisible}
             onRequestClose={this.closeModal.bind(this)}
@@ -126,7 +120,7 @@ export default class MainScreen extends Component{
   //component methods
   addNote() {
     if (this.state.noteText) {
-      this.state.noteArray.push( {'note': this.state.noteText});
+      this.state.noteArray.unshift( {'note': this.state.noteText});
       this.setState({noteArray: this.state.noteArray});
       this.setState({ noteText: ''});
     }
@@ -174,7 +168,7 @@ export default class MainScreen extends Component{
     if(!checkedState){
       this.openModal();
       var checkedItem = this.state.noteArray.splice(arrKey, 1)
-      this.state.checkedNoteArray.push(checkedItem[0])
+      this.state.noteArray.push(checkedItem[0])
       this.setState({noteArray:this.state.noteArray});
       this.setState({checkedNoteArray:this.state.checkedNoteArray});
       return true;
@@ -210,6 +204,7 @@ export function updateUI( nodes ) {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "#ffffff",
     flex: 1,
   },
   header: {
@@ -231,6 +226,7 @@ const styles = StyleSheet.create({
     padding: 26,
   },
   scrollContainer: {
+    backgroundColor: "#ffffff",
     flex: 1,
   },
   footer: {
@@ -272,6 +268,9 @@ const styles = StyleSheet.create({
     right: 10, 
   },
   checkedItem: {
+    borderTopColor:"#006064",
+    height: 200,
+    borderTopWidth: StyleSheet.hairlineWidth,
     flex: 1,
     marginBottom: 50,
     color: '#a9a9a9',

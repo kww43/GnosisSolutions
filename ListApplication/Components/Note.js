@@ -7,12 +7,15 @@ import {
   Text,
   View,
   TouchableOpacity,
+  TouchableHighlight,
 } from 'react-native';
 
 import LongPressModal from './LongPressModal'
 
 //use swipeview to try swiping to open details
 import SwipeView from 'react-native-swipeview';
+
+import Swipeable from 'react-native-swipeable';
 
 import {CheckBox} from 'react-native-elements';
 
@@ -24,11 +27,22 @@ export default class Note extends Component {
       modalVisible: false,
   }
 
+    //will need to set the buttons to show when swiping left or right
+    leftContent = <Text style={styles.checkMark}>checkmark</Text>;
+    
+    rightButtons = [
+        <TouchableOpacity onPress={this.openModal.bind(this)}><Text>Quantity</Text></TouchableOpacity>,
+        <TouchableOpacity><Text>Price</Text></TouchableOpacity>
+    ];
+
+
   render(){
 
     return (
+
       //creating container and header
-        <SwipeView key={this.props.keyval} style={styles.note} onSwipedRight={this.openModal.bind(this)} swipeToOpenPercent={100} renderVisibleContent= { () =>
+       <Swipeable leftContent ={this.leftContent} rightButtons={this.rightButtons}
+       onLeftActionRelease={this.checkState.bind(this)}>
             <TouchableOpacity style={styles.note}>
             <Text style={styles.noteText}>{this.props.val}</Text>
             <CheckBox
@@ -38,11 +52,11 @@ export default class Note extends Component {
                 checkedIcon = 'check-square-o'
                 uncheckedIcon = 'square-o'
                 onPress = {this.checkState.bind(this)}
-                onIconPress = {this.checkState.bind(this)}
-            />
+                onIconPress = {this.checkState.bind(this)} />
+            
             <LongPressModal key={this.props.keyval} deleteNote={this.props.deleteNote} closeModal={() => this.closeModal()} keyval = {this.props.keyval} val={this.props.val.note} modalVisible={this.state.modalVisible}  />
-        </TouchableOpacity>}
-        />
+        </TouchableOpacity>
+        </Swipeable>
     );
   }
     saveQuantity(q) {
@@ -87,6 +101,7 @@ const styles = StyleSheet.create({
         padding: 20,
         paddingRight: 0,
         borderBottomWidth: 2,
+        backgroundColor: "#ffffff",
         borderBottomColor: '#ededed',
         flex: 1,
         flexDirection: 'row',
@@ -114,6 +129,10 @@ const styles = StyleSheet.create({
     },
     noteDeleteText : {
 
+    },
+    checkMark :{
+        backgroundColor: "#1de9b6",
+        flex:1
     }
 
 });
