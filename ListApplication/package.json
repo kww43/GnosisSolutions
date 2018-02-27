@@ -8,11 +8,12 @@
 		"android-linux": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res"
 	},
 	"dependencies": {
+    "expo": "25.0.0",
 		"autosuggest": "0.0.2",
 		"create-react-class": "^15.6.2",
 		"firebase": "^4.6.2",
 		"react": "16.0.0",
-		"react-native": "0.50.4",
+		"react-native": "0.52.0",
 		"react-native-autocomplete-input": "^3.4.0",
 		"react-native-checkbox": "^2.0.0",
 		"react-native-elements": "^0.18.4",
