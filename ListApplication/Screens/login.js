@@ -7,6 +7,7 @@ import {
   View,
   TouchableOpacity,
   Button,
+  Platform,
   Navigator
 } from 'react-native';
 
@@ -27,6 +28,9 @@ export default class LoginPage extends Component {
     super(props);
     this.firebase = getFirebaseConnection();
     this.dbConnection = getDatabaseConnection(this.firebase);
+    this.state = {
+      googleUser: null
+    };
   }
 
   _handleLogin() {
@@ -46,6 +50,51 @@ export default class LoginPage extends Component {
 
     });
   }
+
+  componentDidMount() {
+    try{
+      console.log("failed");
+      if(Platform.OS === "ios") {
+        GoogleSignin.configure({
+          scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+          iosClientId: '44960303372-3tb8i44hssretfmle4ugtshqnc26kfl5.apps.googleusercontent.com',
+          offlineAccess: false,
+          forceConsentPrompt: true
+        });
+      }
+      else if(Platform.OS === "android") {
+        GoogleSignin.hasPlayServices({ autoResolve: true });
+        GoogleSignin.configure({
+          scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+          offlineAccess: false,
+          forceConsentPrompt: true,
+        });
+      }
+    }
+    catch(err) {
+      console.log("Google error: ", err.code, err.message);
+    }
+  }
+
+   _googleLogin(){
+    try{
+        GoogleSignin.signIn()
+        .then((user) => {
+          console.log(user['id']);
+          Actions.listSelector({userNum: user['id'], firebaseModule: this.firebase, dbConnection: this.dbConnection});
+
+        })
+        .catch((err) => {
+          console.log("WRONG SIGNIN", err);
+        })
+        .done();
+    }
+    catch(err) {
+      console.log("Play services error", err.code, err.message);
+    }
+
+  }
+
    render() {
       return (
          <View style={styles.container}>
@@ -58,6 +107,13 @@ export default class LoginPage extends Component {
                 style={styles.button}>
                   <Text style={styles.buttonTxt}>Login with Facebook</Text>
               </TouchableOpacity>
+
+              <GoogleSigninButton
+                style={{width:312, height: 48}}
+                size={GoogleSigninButton.Size.Wide}
+                color={GoogleSigninButton.Color.Dark}
+                onPress={this._googleLogin.bind(this)}
+              />
          </View>
       );
    }

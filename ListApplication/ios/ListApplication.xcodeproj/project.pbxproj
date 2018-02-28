@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -64,6 +65,7 @@
 		EB6561192034EE5700D0AC4B /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6561102034EE0D00D0AC4B /* GoogleSignIn.framework */; };
 		EB65611A2034EE5C00D0AC4B /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6561132034EE0E00D0AC4B /* GoogleSymbolUtilities.framework */; };
 		EB65611B2034EE6000D0AC4B /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB65610F2034EE0C00D0AC4B /* GoogleUtilities.framework */; };
+		EBB5D76620461CB500F1AE15 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB6561152034EE0F00D0AC4B /* GoogleSignIn.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1219,6 +1221,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBB5D76620461CB500F1AE15 /* GoogleSignIn.bundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				16144430659C448D8D69AB8F /* Entypo.ttf in Resources */,
