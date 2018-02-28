@@ -30,6 +30,7 @@ export default class ListSelector extends Component {
     this.firebase = this.props.firebaseModule;
     this.dbConnection = this.props.dbConnection;
     this.loginType = this.props.loginType;
+    console.log("HI" + this.loginType);
     this.itemsPathway = getListPath( this.dbConnection, this.saveUserID, this.loginType );
     getAllItems(this);
     this.pressed = false;
@@ -44,7 +45,9 @@ export default class ListSelector extends Component {
     counter: 0,
   }
 
-  //Right now this shows how data can be accessed when passed using the current framework.
+  /*
+   * View display to the user
+  */
   render() {
     return (
       <View
@@ -101,7 +104,7 @@ export default class ListSelector extends Component {
       this.setState({listText: ''});
 
       //Navigate to next page.
-      Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.state.listText, loginType: this.props.loginType});
+      Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.state.listText, loginType: this.loginType});
     }
 
   }
@@ -109,7 +112,7 @@ export default class ListSelector extends Component {
   _usePrevList( instance, listData ) {
     console.log(instance);
     //Just navigate to next page since we didn't create anything new.
-    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: instance, loginType: this.state.loginType});
+    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: instance, loginType: this.loginType});
   }
 
   _openModal(){

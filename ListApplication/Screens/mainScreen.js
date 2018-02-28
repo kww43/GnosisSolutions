@@ -46,6 +46,7 @@ export default class MainScreen extends Component{
     this.dbConnection = this.props.dbConnection;
     this.listName = this.props.listName;
     this.loginType = this.props.loginType;
+    console.log("MAIN" + this.loginType);
     this.itemsPathway = getCartPath(this.dbConnection, this.props.userNum, this.props.listName, this.props.loginType);
     getAllItems(this);
     this.nodes = [];
@@ -118,7 +119,10 @@ export default class MainScreen extends Component{
     );
  }
 
-  //component methods
+  /*
+   * Add a new item to the list and then in the logic statement commit to database
+   * This is called everytime a new node has been added e.g. list item.
+   */
   addNote() {
     if (this.state.noteText) {
       this.state.noteArray.unshift( {'note': this.state.noteText});
@@ -162,7 +166,10 @@ export default class MainScreen extends Component{
       }
     }
   }
-
+  /*
+   * Function will delete a note from the users current view array and then from the database.
+   * Then a refresh is called.
+  */
   deleteNote(arrKey, itemKey){
     this.setState({modalVisible: false});
     removeItem(this.itemsPathway, itemKey);
@@ -175,6 +182,7 @@ export default class MainScreen extends Component{
     if(!checkedState){
       this.openModal();
       var checkedItem = this.state.noteArray.splice(arrKey, 1)
+      console.log(checkedItem);
       this.state.noteArray.push(checkedItem[0])
       this.setState({noteArray:this.state.noteArray});
       this.setState({checkedNoteArray:this.state.checkedNoteArray});

@@ -36,7 +36,7 @@ export default class LoginPage extends Component {
   /*
    * Facebook login handler
   */
-  _handleLogin() {
+  _facebookLogin() {
     var userID = "00";
     LoginManager.logInWithReadPermissions(['public_profile']).then((result) =>{
       if(result.isCancelled){
@@ -94,7 +94,6 @@ export default class LoginPage extends Component {
         .then((user) => {
           console.log(user['id']);
           Actions.listSelector({userNum: user['id'], firebaseModule: this.firebase, dbConnection: this.dbConnection, loginType: "google"});
-
         })
         .catch((err) => {
           console.log("WRONG SIGNIN", err);
@@ -115,7 +114,7 @@ export default class LoginPage extends Component {
               >Welcome to GrocApp</Text>
               <TouchableOpacity
                elevation={5}
-                onPress={this._handleLogin.bind(this)}
+                onPress={this._facebookLogin.bind(this)}
                 style={styles.button}>
                   <Text style={styles.buttonTxt}>Login with Facebook</Text>
               </TouchableOpacity>
