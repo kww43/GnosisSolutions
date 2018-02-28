@@ -36,6 +36,16 @@ export function getCartPath( dbRef, userToken, listName, loginType ) {
   return dbRef.ref(path);
 }
 
+export function getStorePath( dbRef, storeToken ) {
+  //Placeholder for getting store path
+  var path = 'stores/' + storeToken + "/";
+  return dbRef.ref(path);
+}
+
+export function saveStoreData( storeRef, instanceData ) {
+  //Placeholder for save function until further details are revealed from development
+}
+
 //Function that will save any item entered in through app
 export function saveItem( itemsRef, name, price, quantity, locationString, uniqueID, instance, checked ) {
   if( checked == '' ) {
