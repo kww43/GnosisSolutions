@@ -45,7 +45,8 @@ export default class MainScreen extends Component{
     this.firebase = this.props.firebaseModule;
     this.dbConnection = this.props.dbConnection;
     this.listName = this.props.listName;
-    this.itemsPathway = getCartPath(this.dbConnection, this.props.userNum, this.props.listName);
+    this.loginType = this.props.loginType;
+    this.itemsPathway = getCartPath(this.dbConnection, this.props.userNum, this.props.listName, this.props.loginType);
     getAllItems(this);
     this.nodes = [];
   }
@@ -86,10 +87,10 @@ export default class MainScreen extends Component{
 
           <ScrollView style={styles.scrollContainer}>
             {this.state.noteArray.map((note, key) => {
-              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} checked={false} checkItem={() => this.checkItem(key, note['key']) } 
+              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} checked={false} checkItem={() => this.checkItem(key, note['key']) }
               deleteNote={() => this.deleteNote(key, note['key'])} /> )
             })}
-            
+
           </ScrollView>
 
            <Modal
@@ -113,7 +114,7 @@ export default class MainScreen extends Component{
               </View>
           </Modal>
         </View>
-       
+
     );
  }
 
@@ -176,7 +177,7 @@ export default class MainScreen extends Component{
     else{
       return false;
     }
-    
+
   }
 
   openModal(){
@@ -259,13 +260,13 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   floatingButton: {
-    width: 60,  
-    height: 60,   
-    borderRadius: 30,            
-    backgroundColor: '#ee6e73',                                    
-    position: 'absolute',                                          
-    bottom: 10,                                                    
-    right: 10, 
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#ee6e73',
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
   },
   checkedItem: {
     borderTopColor:"#006064",

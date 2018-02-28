@@ -33,6 +33,9 @@ export default class LoginPage extends Component {
     };
   }
 
+  /*
+   * Facebook login handler
+  */
   _handleLogin() {
     var userID = "00";
     LoginManager.logInWithReadPermissions(['public_profile']).then((result) =>{
@@ -44,17 +47,21 @@ export default class LoginPage extends Component {
         AccessToken.getCurrentAccessToken().then((data) => {
           userID = data.userID.toString();
           //Navigate to main screen with userID in params
-          Actions.listSelector({userNum: userID, firebaseModule: this.firebase, dbConnection: this.dbConnection});
+          Actions.listSelector({userNum: userID, firebaseModule: this.firebase, dbConnection: this.dbConnection, loginType: "facebook"});
         })
       }
 
     });
   }
 
+  /*
+   * Make sure we can setup Google sign in settings before
+   * click event so we could possibly warn user of malfunction.
+  */
   componentDidMount() {
     try{
-      console.log("failed");
       if(Platform.OS === "ios") {
+        //iOS version
         GoogleSignin.configure({
           scopes: ["https://www.googleapis.com/auth/drive.readonly"],
           iosClientId: '44960303372-3tb8i44hssretfmle4ugtshqnc26kfl5.apps.googleusercontent.com',
@@ -63,6 +70,7 @@ export default class LoginPage extends Component {
         });
       }
       else if(Platform.OS === "android") {
+        //Android version
         GoogleSignin.hasPlayServices({ autoResolve: true });
         GoogleSignin.configure({
           scopes: ["https://www.googleapis.com/auth/drive.readonly"],
@@ -76,12 +84,16 @@ export default class LoginPage extends Component {
     }
   }
 
+   /*
+    * Function that will handle the sign in for google user if chosen
+    * this function will direct user to listSelector screen with appropriate meta data passed
+   */
    _googleLogin(){
     try{
         GoogleSignin.signIn()
         .then((user) => {
           console.log(user['id']);
-          Actions.listSelector({userNum: user['id'], firebaseModule: this.firebase, dbConnection: this.dbConnection});
+          Actions.listSelector({userNum: user['id'], firebaseModule: this.firebase, dbConnection: this.dbConnection, loginType: "google"});
 
         })
         .catch((err) => {

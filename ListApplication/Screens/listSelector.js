@@ -29,7 +29,8 @@ export default class ListSelector extends Component {
     this.saveUserID = this.props.userNum;
     this.firebase = this.props.firebaseModule;
     this.dbConnection = this.props.dbConnection;
-    this.itemsPathway = getListPath( this.dbConnection, this.saveUserID );
+    this.loginType = this.props.loginType;
+    this.itemsPathway = getListPath( this.dbConnection, this.saveUserID, this.loginType );
     getAllItems(this);
     this.pressed = false;
   }
@@ -100,7 +101,7 @@ export default class ListSelector extends Component {
       this.setState({listText: ''});
 
       //Navigate to next page.
-      Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.state.listText});
+      Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.state.listText, loginType: this.props.loginType});
     }
 
   }
@@ -108,7 +109,7 @@ export default class ListSelector extends Component {
   _usePrevList( instance, listData ) {
     console.log(instance);
     //Just navigate to next page since we didn't create anything new.
-    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: instance});
+    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: instance, loginType: this.state.loginType});
   }
 
   _openModal(){
