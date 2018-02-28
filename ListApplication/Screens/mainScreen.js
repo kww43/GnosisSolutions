@@ -101,7 +101,7 @@ export default class MainScreen extends Component{
               <View
               style={styles.modal} >
               <View style={styles.modalInside}>
-                  <Text>What was the item's price?</Text>
+                  <Text>What was the items price?</Text>
                   <TextInput
                   keyboardType='numeric'
                   maxLength={6}>
@@ -128,6 +128,12 @@ export default class MainScreen extends Component{
     if( this.state.noteText ) {
       //Default data in last 3 elements are passed for testing purposes
       var saved = saveItem( this.itemsPathway, this.state.noteText, 0.0, 0, "0-0-0", 1101, this, '' );
+
+      //Save to general items as well
+      var generalItemsPath = getItemsPath( this.dbConnection );
+      var saveToGeneral = saveItem( generalItemsPath, this.state.noteText, 0.0, 0, "0-0-0", 1101, this, '' );
+
+      //If saving went well then we get the items from the database for an update
       if( saved == 1 ) { getAllItems(this); }
     }
 
