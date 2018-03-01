@@ -46,7 +46,6 @@ export default class MainScreen extends Component{
     this.dbConnection = this.props.dbConnection;
     this.listName = this.props.listName;
     this.loginType = this.props.loginType;
-    console.log("MAIN" + this.loginType);
     this.itemsPathway = getCartPath(this.dbConnection, this.props.userNum, this.props.listName, this.props.loginType);
     getAllItems(this);
     this.nodes = [];

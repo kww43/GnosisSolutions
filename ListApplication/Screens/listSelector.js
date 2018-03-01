@@ -91,22 +91,33 @@ export default class ListSelector extends Component {
     );
   }
 
+
+
   _createNewList(data, listNamed) {
+    console.log(this.state.listText);
     //Check to make sure user enters a name for a list instead of blank.
-    if ( !listNamed ) {
-      alert("Please fill out the list name.");
+    if ( this.state.listText == '' || !(/\S/.test(this.state.listText)) || !(this._proValidate(this.state.listText)) ) {
+      alert("Please fill out the list name with a valid name.");
     }
     else {
       //Update local data for list of lists
-      this.setState({ModalVisible: false});
+      this.setState({ModalVisible: false, listArray: this.state.listArray});
       this.state.listArray.push({'list': this.state.listText});
-      this.setState({listArray: this.state.listArray});
-      this.setState({listText: ''});
 
       //Navigate to next page.
       Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.state.listText, loginType: this.loginType});
     }
 
+  }
+
+  _proValidate( textToValidate ) {
+    var disallowedValues = ['/','\/',';', ',', '.', '$', '#', '^', '&', '*', '(', ')', '@', '[', ']', '{', '}'];
+    for( var i = 0; i<textToValidate.length; i++ ){
+      if( disallowedValues.indexOf(textToValidate[i]) > -1 ){
+        return false;
+      }
+    }
+    return true;
   }
 
   _usePrevList( instance, listData ) {
