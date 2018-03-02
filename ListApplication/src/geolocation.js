@@ -39,16 +39,20 @@ export function getLongitude(instance)
 // Get the distance between two points (in KM) using the Haversine formula
 export function getDistance(lat1, lon1, lat2, lon2)
 {
- var radius = 6371; //Radius of the earth in KM
- var degreeLat = degreeToradian(lat2-lat1);  // degreeToradian below
+  var radius = 6371; //Radius of the earth in KM
+
+  var degreeLat = degreeToradian(lat2-lat1);  // degreeToradian below
   var degreeLon = degreeToradian(lon2-lon1);
+
   var calc =
     Math.sin(degreeLat/2) * Math.sin(degreeLat/2) +
     Math.cos(degreeToradian(lat1)) * Math.cos(degreeToradian(lat2)) *
-    Math.sin(degreeLon/2) * Math.sin(degreeLon/2)
-    ;
+    Math.sin(degreeLon/2) * Math.sin(degreeLon/2);
+
   var circumfrence = 2 * Math.atan2(Math.sqrt(calc), Math.sqrt(1-calc));
+	
   var distance = radius * circumfrence; // Distance in km
+
   return distance;
 }
 

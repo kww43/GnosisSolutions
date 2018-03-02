@@ -16,13 +16,16 @@ export function findTwoStores(itemName)
 //Finds a store nearby the user (within 3 km)
 export function findStoreNearby(found = null)
 {
+  //get the user's current latitude and longitude
   var userLat = getLatitude();
   var userLong = getLongitude();
 
   //Grab list of stores from database
+  //TODO
 
+  //TODO: Set up iterator for loop
   var iterate = 0;
-  while(iterate < 10) //Iterate through list of stores
+  while(iterate < 10) //TODO: Iterate through list of stores
   {
     //Grab next store in list             id lat long
     var store = new Store("Name of store", 1, 1, 1);
@@ -42,6 +45,8 @@ export function findStoreNearby(found = null)
   return null;
 }
 
+/*comapres the prices of two different stores and returns the store1
+  with the lowest price */
 export function compareStores(item, store1, store2)
 {
   var fromStore1 = store1.getItemPrice(item);
@@ -94,12 +99,12 @@ class Store
     return this.id;
   }
 
-  //Accesses database of items
+  //TODO: Accesses database of items
   getItemPrice(itemName)
   {
-    //connect to firebase
+    //TODO: connect to firebase
 
-    //pull item price from database
+    //TODO:pull item price from database
     var price = 1.50;
 
     return price;
