@@ -15,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "44960303372-4aeuvdjeeh7dnbk7mbj34v5kvcjmr592.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.listapplication",
+            "certificate_hash": "1e9dc946d719ceeb63d201d927b76172cb887b81"
+          }
+        },
+        {
           "client_id": "44960303372-p360cqt9kgr5369ibpk5ooqfmjn5p7fu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.listapplication",
             "certificate_hash": "ea04c43aec913fd8099084a389b1472c2b24ab6f"
+          }
+        },
+        {
+          "client_id": "44960303372-4javvr3ljj10f0jpfqo3a6letv060m49.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.listapplication",
+            "certificate_hash": "7645bd40b5e6ed43ef301a6fe334ab43bb6176f0"
           }
         },
         {
@@ -48,7 +64,7 @@
               "client_type": 3
             },
             {
-              "client_id": "44960303372-6012se7ncjhmfovl46kb8qktktch89fo.apps.googleusercontent.com",
+              "client_id": "44960303372-3tb8i44hssretfmle4ugtshqnc26kfl5.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "org.reactjs.native.example.ListApplication"
