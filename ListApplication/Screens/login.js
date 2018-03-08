@@ -111,7 +111,7 @@ export default class LoginPage extends Component {
          <View style={styles.container}>
               <Text
               style={styles.WelcomeText}
-              >Welcome to GrocApp</Text>
+              >Welcome to Smart Shopping</Text>
               <TouchableOpacity
                elevation={5}
                 onPress={this._facebookLogin.bind(this)}
@@ -132,7 +132,7 @@ export default class LoginPage extends Component {
 
 const styles = StyleSheet.create({
   container: {
-   backgroundColor: '#1de9b6',
+   backgroundColor: '#023f0d',
    flex: 2,
    alignItems: 'center'
  },

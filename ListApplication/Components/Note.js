@@ -29,7 +29,7 @@ export default class Note extends Component {
 
     //will need to set the buttons to show when swiping left or right
     leftContent = <Text style={styles.checkMark}>checkmark</Text>;
-    
+
     rightButtons = [
         <TouchableOpacity onPress={this.openModal.bind(this)}><Text>Quantity</Text></TouchableOpacity>,
         <TouchableOpacity><Text>Price</Text></TouchableOpacity>
@@ -53,7 +53,7 @@ export default class Note extends Component {
                 uncheckedIcon = 'square-o'
                 onPress = {this.checkState.bind(this)}
                 onIconPress = {this.checkState.bind(this)} />
-            
+
             <LongPressModal key={this.props.keyval} deleteNote={this.props.deleteNote} closeModal={() => this.closeModal()} keyval = {this.props.keyval} val={this.props.val.note} modalVisible={this.state.modalVisible}  />
         </TouchableOpacity>
         </Swipeable>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
 
     },
     checkMark :{
-        backgroundColor: "#1de9b6",
+        backgroundColor: "#023f0d",
         flex:1
     }
 

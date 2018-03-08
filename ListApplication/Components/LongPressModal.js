@@ -49,7 +49,7 @@ export default class MainScreen extends Component {
 const styles = StyleSheet.create({
     header : {
         fontSize: 24,
-        backgroundColor: '#1de9b6',
+        backgroundColor: '#023f0d',
         borderRadius: 5,
     },
     modal :{
