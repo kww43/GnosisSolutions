@@ -107,7 +107,8 @@ export default class MainScreen extends Component{
                   maxLength={6}>
                   </TextInput>
 
-                  <TouchableHighlight style={styles.Pricebutton} >
+                  <TouchableHighlight style={styles.Pricebutton}
+                  onPress={this.submitPrice.bind(this)} >
                   <Text style={styles.Pricetext}>Submit Price</Text>
                   </TouchableHighlight>
                 </View>

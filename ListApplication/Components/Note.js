@@ -8,6 +8,8 @@ import {
   View,
   TouchableOpacity,
   TouchableHighlight,
+  Button,
+  TextInput,
 } from 'react-native';
 
 import LongPressModal from './LongPressModal'
@@ -31,8 +33,11 @@ export default class Note extends Component {
     leftContent = <Text style={styles.checkMark}>checkmark</Text>;
 
     rightButtons = [
-        <TouchableOpacity onPress={this.openModal.bind(this)}><Text>Quantity</Text></TouchableOpacity>,
-        <TouchableOpacity><Text>Price</Text></TouchableOpacity>
+        <View style={styles.rightIcons} ><TouchableOpacity  onPress={this.openModal.bind(this)}><Text>Quantity</Text></TouchableOpacity></View>,
+        <View style={styles.rightIcons} ><TouchableOpacity><Text>Price</Text><Text>{this.props.price}</Text></TouchableOpacity></View>,
+        <View style={styles.rightIcons} ><Text>Aisle<Text>1 {this.props.aisle} </Text></Text></View>,
+        <View  ><TouchableHighlight onPress={this.props.deleteNote}><Text style={styles.rightIconsDelete}>Delete</Text></TouchableHighlight></View>
+
     ];
 
 
@@ -129,6 +134,16 @@ const styles = StyleSheet.create({
     },
     noteDeleteText : {
 
+    },
+    rightIcons:{
+        position: 'relative',
+        padding: 0,
+        flex:2,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+    },
+    rightIconsDelete:{
+        color: "#d32f2f"
     },
     checkMark :{
         backgroundColor: "#023f0d",
