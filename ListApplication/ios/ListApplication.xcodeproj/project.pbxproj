@@ -65,6 +65,7 @@
 		EB6561192034EE5700D0AC4B /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6561102034EE0D00D0AC4B /* GoogleSignIn.framework */; };
 		EB65611A2034EE5C00D0AC4B /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6561132034EE0E00D0AC4B /* GoogleSymbolUtilities.framework */; };
 		EB65611B2034EE6000D0AC4B /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB65610F2034EE0C00D0AC4B /* GoogleUtilities.framework */; };
+		EBA8F3332053E2C7000347C3 /* libRNNotifications.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBA8F3312053E2A2000347C3 /* libRNNotifications.a */; };
 		EBB5D76620461CB500F1AE15 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EB6561152034EE0F00D0AC4B /* GoogleSignIn.bundle */; };
 /* End PBXBuildFile section */
 
@@ -349,6 +350,13 @@
 			remoteGlobalIDString = 9FD355121D3E4A2900D06170;
 			remoteInfo = RNGoogleSignin;
 		};
+		EBA8F3302053E2A2000347C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBA8F3072053E2A2000347C3 /* RNNotifications.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNNotifications;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -405,6 +413,7 @@
 		EB6561132034EE0E00D0AC4B /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
 		EB6561142034EE0E00D0AC4B /* GoogleAuthUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleAuthUtilities.framework; sourceTree = "<group>"; };
 		EB6561152034EE0F00D0AC4B /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleSignIn.bundle; sourceTree = "<group>"; };
+		EBA8F3072053E2A2000347C3 /* RNNotifications.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNNotifications.xcodeproj; path = "../node_modules/react-native-notifications/RNNotifications/RNNotifications.xcodeproj"; sourceTree = "<group>"; };
 		EF513D8469524A80AC84E0DC /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		FA2673D3A15446368479189F /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		FC3BD25D970C4B3AB807F24E /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
@@ -424,6 +433,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBA8F3332053E2C7000347C3 /* libRNNotifications.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				EB3248D32010F5C50018E329 /* FBSDKCoreKit.framework in Frameworks */,
@@ -635,6 +645,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				EBA8F3072053E2A2000347C3 /* RNNotifications.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -751,6 +762,14 @@
 			isa = PBXGroup;
 			children = (
 				EB65610320327EEC00D0AC4B /* libRNGoogleSignin.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EBA8F3082053E2A2000347C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EBA8F3312053E2A2000347C3 /* libRNNotifications.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -924,6 +943,10 @@
 				{
 					ProductGroup = EB6560FF20327EEC00D0AC4B /* Products */;
 					ProjectRef = BAAC116AE72F4B4CB2FDAA58 /* RNGoogleSignin.xcodeproj */;
+				},
+				{
+					ProductGroup = EBA8F3082053E2A2000347C3 /* Products */;
+					ProjectRef = EBA8F3072053E2A2000347C3 /* RNNotifications.xcodeproj */;
 				},
 				{
 					ProductGroup = EB3248872010F50B0018E329 /* Products */;
@@ -1207,6 +1230,13 @@
 			remoteRef = EB65610220327EEC00D0AC4B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		EBA8F3312053E2A2000347C3 /* libRNNotifications.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNNotifications.a;
+			remoteRef = EBA8F3302053E2A2000347C3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1434,6 +1464,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-notifications/RNNotifications/**",
 				);
 				INFOPLIST_FILE = ListApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1463,6 +1494,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-notifications/RNNotifications",
 				);
 				INFOPLIST_FILE = ListApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
