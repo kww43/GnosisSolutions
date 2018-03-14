@@ -12,6 +12,7 @@ import {
   TouchableHighlight,
   Modal,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 
 import {
@@ -23,6 +24,12 @@ import {
 } from '../src/databaseController';
 
 import {CheckBox} from 'react-native-elements';
+
+import TimerMixin from 'react-timer-mixin';
+
+import AutoSuggest from 'react-native-autosuggest';
+
+import ModalDropdown from 'react-native-modal-dropdown';
 
 import Note from '../Components/Note';
 
@@ -66,6 +73,9 @@ export default class MainScreen extends Component{
     noteText: '',
     modalVisible: false,
     PriceModalVisible: false,
+    priceCompareModalVisible: false,
+    shoppingMode: false,
+    serviceText: "",
   }
 
   render(){
@@ -81,7 +91,13 @@ export default class MainScreen extends Component{
             <TextInput style={styles.textInput} placeholder="Enter Item"
                 onChangeText={(noteText) => this.setState({noteText})} value={this.state.noteText}
                placeholderTextColor="grey" underlineColorAndroid="transparent">
+              
             </TextInput>
+            <ModalDropdown 
+            defaultValue="Services"
+            onSelect={(index,value) => this._handleDropdown(index,value)}
+            animated={true}
+            options ={['Price Comparisons', 'Shopping Mode']}/>
 
           </View>
 
@@ -90,7 +106,6 @@ export default class MainScreen extends Component{
               return ( <Note key={note['key']} keyval={note['key']} val={note['note']} checked={false} checkItem={() => this.checkItem(key, note['key']) }
               deleteNote={() => this.deleteNote(key, note['key'])} /> )
             })}
-
           </ScrollView>
 
            <Modal
@@ -113,6 +128,24 @@ export default class MainScreen extends Component{
                   </TouchableHighlight>
                 </View>
               </View>
+          </Modal>
+
+          <Modal
+           visible={this.state.priceCompareModalVisible}
+           onRequestClose={this.closePriceModal.bind(this)}
+           animationType="slide"
+           transparent={true}>
+            <View
+            style={styles.modal}>
+              <View
+              style={styles.modalInside}>
+                <Text>{this.state.serviceText}</Text>
+                <ActivityIndicator size="small" color="#00ff00" />
+
+
+              </View>
+            </View>
+
           </Modal>
         </View>
 
@@ -204,6 +237,23 @@ export default class MainScreen extends Component{
 
   submitPrice(){
     this.setState({PriceModalVisible:false})
+  }
+
+  _handleDropdown(index,value){
+    if(value == "Price Comparisons"){
+      this.setState({serviceText: "Finding stores near you..."});
+      this.setState({priceCompareModalVisible:true});
+    }
+    if(value == "Shopping Mode"){
+      this.setState({serviceText: "Turning Shopping Mode on and detecting current store."});
+      this.setState({priceCompareModalVisible:true});
+      this.setState({shoppingMode: true});
+      setTimeout(this.closePriceModal, 5000);
+    }
+  }
+
+  closePriceModal(){
+    this.setState({priceCompareModalVisible: false});
   }
 
 }
