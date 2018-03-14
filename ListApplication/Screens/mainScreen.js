@@ -213,7 +213,9 @@ export default class MainScreen extends Component{
     //method to move checked list into another scrollview, showing completion
     //may need to set some sort of"checked" value for rendering from db
     if(!checkedState){
-      this.openModal();
+      if(this.state.shoppingMode){
+        this.openModal();
+      }
       var checkedItem = this.state.noteArray.splice(arrKey, 1)
       console.log(checkedItem);
       this.state.noteArray.push(checkedItem[0])
@@ -248,7 +250,7 @@ export default class MainScreen extends Component{
       this.setState({serviceText: "Turning Shopping Mode on and detecting current store."});
       this.setState({priceCompareModalVisible:true});
       this.setState({shoppingMode: true});
-      setTimeout(this.closePriceModal, 5000);
+      //setTimeout(this.closePriceModal, 5000);
     }
   }
 
