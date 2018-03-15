@@ -79,6 +79,19 @@ export function saveItem( itemsRef, name, price, quantity, locationString, uniqu
   return 1;
 }
 
+export function updateItem( itemsRef, name, price, quantity, locationString, uniqueID, instance, checked, existingKey ) {
+  var newItem = itemsRef.child(existingKey).setValue({
+    id: uniqueID,
+    name: name,
+    price: price,
+    quantity: quantity,
+    shelf_location: locationString,
+    checked: checked,
+  });
+
+  return 1;
+}
+
 //Removes any item from the firebase database given the correct path
 export function removeItem( itemsRef, keyToRemove ) {
   itemsRef.child(keyToRemove).remove();
@@ -107,6 +120,8 @@ export function getAllItems( instance ) {
         var tempNode = new Node( key, snap[key].name );
         tempNode.setPrice( snap[key].price );
         tempNode.setQuantity( snap[key].quantity );
+        tempNode.setLocation( snap[key].shelf_location );
+        tempNode.setCheckStatus( snap[key].checked );
         //alert("Data Proof: " + snap[key].name);
         nodes.push(tempNode);
       }
@@ -116,7 +131,7 @@ export function getAllItems( instance ) {
       instance.state.noteArray = [];
       if( nodes.length > 0 && getKeys.length > 0 ) {
         for( i = 0; i < nodes.length; i++ ) {
-          instance.state.noteArray.push({'note': nodes[i].getName(), 'key': getKeys[i]});
+          instance.state.noteArray.push({'note': nodes[i].getName(), 'key': getKeys[i], 'loc': nodes[i].getLocation(), 'price': nodes[i].getPrice()});
         }
         instance.setState({noteArray: instance.state.noteArray});
       }

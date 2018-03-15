@@ -4,10 +4,20 @@ class Node {
     this.nodeName = nodeName;
     this.price = 0.00;
     this.quantity = 0;
+    this.location = "0";
+    this.checked = "null";
   }
 
   getUniqueID( ) {
     return this.uniqueID;
+  }
+
+  getCheckedStatus( ) {
+    return this.checked;
+  }
+
+  getLocation( ) {
+    return this.location;
   }
 
   getName( ) {
@@ -24,6 +34,14 @@ class Node {
 
   setPrice( price ) {
     this.price = price;
+  }
+
+  setCheckStatus( status ) {
+    this.checked = status;
+  }
+
+  setLocation( locationString ) {
+    this.location = locationString;
   }
 
   setName( name ) {
