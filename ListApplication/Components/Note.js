@@ -27,6 +27,9 @@ export default class Note extends Component {
   state = {
       checked: this.props.checked,
       modalVisible: false,
+      price: this.props.price,
+      inputprice: this.props.submittedPrice,
+
   }
 
     //will need to set the buttons to show when swiping left or right
@@ -34,8 +37,8 @@ export default class Note extends Component {
 
     rightButtons = [
         <View style={styles.rightIcons} ><TouchableOpacity  onPress={this.openModal.bind(this)}><Text>Quantity</Text></TouchableOpacity></View>,
-        <View style={styles.rightIcons} ><TouchableOpacity><Text>Price</Text><Text>{this.props.price}</Text></TouchableOpacity></View>,
-        <View style={styles.rightIcons} ><Text>Aisle<Text>1 {this.props.aisle} </Text></Text></View>,
+        <View style={styles.rightIcons} ><TouchableOpacity><Text>Price</Text><Text>${this.state.price}}</Text></TouchableOpacity></View>,
+        <View style={styles.rightIcons} ><Text>Aisle<Text>{this.props.location}</Text></Text></View>,
         <View  ><TouchableHighlight onPress={this.props.deleteNote}><Text style={styles.rightIconsDelete}>Delete</Text></TouchableHighlight></View>
 
     ];

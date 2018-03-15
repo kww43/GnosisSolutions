@@ -76,6 +76,7 @@ export default class MainScreen extends Component{
     priceCompareModalVisible: false,
     shoppingMode: false,
     serviceText: "",
+    priceText: "0",
   }
 
   render(){
@@ -103,7 +104,9 @@ export default class MainScreen extends Component{
 
           <ScrollView style={styles.scrollContainer}>
             {this.state.noteArray.map((note, key) => {
-              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} checked={false} checkItem={() => this.checkItem(key, note['key']) }
+              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} location={note['loc']} price={note['price']} checked={false} 
+               submittedPrice={() => this.submitPrice()}
+               checkItem={() => this.checkItem(key, note['key']) }
               deleteNote={() => this.deleteNote(key, note['key'])} /> )
             })}
           </ScrollView>
@@ -118,6 +121,7 @@ export default class MainScreen extends Component{
               <View style={styles.modalInside}>
                   <Text>What was the items price?</Text>
                   <TextInput
+                  onChangeText={(priceText) => this.setState({priceText})} value={this.state.priceText}
                   keyboardType='numeric'
                   maxLength={6}>
                   </TextInput>
@@ -239,6 +243,7 @@ export default class MainScreen extends Component{
 
   submitPrice(){
     this.setState({PriceModalVisible:false})
+    return this.state.priceText;
   }
 
   _handleDropdown(index,value){
