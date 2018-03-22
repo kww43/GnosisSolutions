@@ -68,9 +68,11 @@ export default class ListSelector extends Component {
 
         <Modal
           visible={this.state.ModalVisible}
-          onRequestClose={this._closeModal.bind(this)}>
-          <View style={styles.modalContainer}>
-            <View style={styles.innerContainer}>
+          onRequestClose={this._closeModal.bind(this)}
+          transparent={true}>
+          <View 
+          style={styles.modal}>
+            <View style={styles.modalInside}>
 
               <TextInput
                 placeholder="Enter List Title"
@@ -221,6 +223,23 @@ modalContainer: {
   listText: {
     fontSize: 24,
     backgroundColor:'#e0f2f1'
+  },
+  modal :{
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 2,
+    padding: 10
+  },
+  modalInside: {
+    borderRadius: 5,
+    width: 150,
+    height: 150,
+    backgroundColor: 'white',
+    shadowOpacity: 1.0,
+    shadowRadius: 2,
+    borderWidth: 1,
+    borderColor: '#ddd'
   }
-
 });

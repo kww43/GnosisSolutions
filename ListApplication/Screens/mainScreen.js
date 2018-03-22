@@ -145,11 +145,8 @@ export default class MainScreen extends Component{
               style={styles.modalInside}>
                 <Text>{this.state.serviceText}</Text>
                 <ActivityIndicator size="small" color="#00ff00" />
-
-
               </View>
             </View>
-
           </Modal>
         </View>
 
