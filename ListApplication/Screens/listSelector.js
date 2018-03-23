@@ -214,7 +214,7 @@ modalContainer: {
   },
   listItem: {
     position: 'relative',
-    backgroundColor: "#a7ffeb",
+    backgroundColor: "#ffffff",
     padding: 20,
     paddingRight: 0,
     borderBottomWidth: 2,

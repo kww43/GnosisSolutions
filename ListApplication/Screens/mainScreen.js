@@ -77,6 +77,7 @@ export default class MainScreen extends Component{
     shoppingMode: false,
     serviceText: "",
     priceText: "0",
+    totalPrice: 0,
   }
 
   render(){
@@ -110,6 +111,10 @@ export default class MainScreen extends Component{
               deleteNote={() => this.deleteNote(key, note['key'])} /> )
             })}
           </ScrollView>
+          <View
+          style={styles.totalPriceView}>
+            <Text>Total Price for your list is: ${this.state.totalPrice}</Text>
+          </View>
 
            <Modal
             visible={this.state.PriceModalVisible}
@@ -159,7 +164,7 @@ export default class MainScreen extends Component{
    */
   addNote() {
     if (this.state.noteText) {
-      this.state.noteArray.unshift( {'note': this.state.noteText});
+      this.state.noteArray.unshift( {'note': this.state.noteText, 'price': 0});
       this.setState({noteArray: this.state.noteArray});
       this.setState({ noteText: ''});
     }
@@ -174,6 +179,7 @@ export default class MainScreen extends Component{
       //If saving went well then we get the items from the database for an update
       if( saved == 1 ) { getAllItems(this); }
     }
+    this.calcTotalPrice();
 
   }
 
@@ -260,6 +266,14 @@ export default class MainScreen extends Component{
     this.setState({priceCompareModalVisible: false});
   }
 
+  calcTotalPrice(){
+    var total = 0;
+    for (i = 0; i < this.state.noteArray.length; i++){
+      total += this.state.noteArray[i].price;
+    }
+    this.setState({totalPrice: total});
+  }
+
 }
 /*
  * This function will be a callback from the async updater that will
@@ -270,6 +284,8 @@ export default class MainScreen extends Component{
 export function updateUI( nodes ) {
 
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -374,6 +390,9 @@ Pricebutton :{
 Pricetext: {
   fontSize: 20,
   justifyContent: 'center',
+},
+totalPriceView: {
+
 }
 
 
