@@ -21,6 +21,8 @@ import {
 
 import { Actions } from 'react-native-router-flux';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 export default class ListSelector extends Component {
 
@@ -56,8 +58,8 @@ export default class ListSelector extends Component {
         <ScrollView
         style={styles.scrollContainer}>
           {this.state.noteArray.map((list, key) => {
-            return (<TouchableOpacity key={list['key']}  onPress={this._usePrevList.bind(this, list['key'])}>
-            <Text style={styles.listText}>{list['key']}</Text></TouchableOpacity>);
+            return (<TouchableOpacity  key={list['key']}  onPress={this._usePrevList.bind(this, list['key'])}><View style={styles.listItem}>
+            <Icon name="edit" size={20} color="black"/><Text style={styles.listText} style={styles.listText}>{list['key']}</Text></View></TouchableOpacity>);
           })}
         </ScrollView>
 
@@ -212,17 +214,16 @@ modalContainer: {
   },
   listItem: {
     position: 'relative',
+    backgroundColor: "#a7ffeb",
     padding: 20,
     paddingRight: 0,
     borderBottomWidth: 2,
     borderBottomColor: '#ededed',
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   listText: {
     fontSize: 24,
-    backgroundColor:'#e0f2f1'
   },
   modal :{
     flex: 1,
