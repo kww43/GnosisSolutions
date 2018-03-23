@@ -113,7 +113,8 @@ export default class MainScreen extends Component{
           </ScrollView>
           <View
           style={styles.totalPriceView}>
-            <Text>Total Price for your list is: ${this.state.totalPrice}</Text>
+            <Text
+            style={styles.fontTotalPrice}>Total Price: ${this.state.totalPrice}</Text>
           </View>
 
            <Modal
@@ -214,6 +215,7 @@ export default class MainScreen extends Component{
     this.setState({modalVisible: false});
     removeItem(this.itemsPathway, itemKey);
     getAllItems(this);
+    this.calcTotalPrice();
   }
 
   checkItem(arrKey, itemKey, checkedState){
@@ -392,7 +394,12 @@ Pricetext: {
   justifyContent: 'center',
 },
 totalPriceView: {
-
+  height: 40,
+  borderColor: '#ddd',
+  borderTopWidth:2,
+},
+fontTotalPrice: {
+  fontSize: 20,
 }
 
 

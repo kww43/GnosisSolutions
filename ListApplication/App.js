@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 import RouteManager from './RouteManager';
+import SplashScreen from 'react-native-splash-screen';
 
 export default class ListApplication extends Component {
   render(){
