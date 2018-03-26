@@ -109,7 +109,7 @@ export default class ListSelector extends Component {
       this.state.listArray.push({'list': this.state.listText});
 
       //Navigate to next page.
-      Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.state.listText, loginType: this.loginType});
+      Actions.main({title: this.state.listText, userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.state.listText, loginType: this.loginType});
     }
 
   }
@@ -127,7 +127,7 @@ export default class ListSelector extends Component {
   _usePrevList( instance, listData ) {
     console.log(instance);
     //Just navigate to next page since we didn't create anything new.
-    Actions.main({userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: instance, loginType: this.loginType});
+    Actions.main({title: instance, userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: instance, loginType: this.loginType});
   }
 
   _openModal(){
