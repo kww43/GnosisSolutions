@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   View,
+  Image,
   TouchableOpacity,
   Button,
   Platform,
@@ -111,12 +112,14 @@ export default class LoginPage extends Component {
          <View style={styles.container}>
               <Text
               style={styles.WelcomeText}
-              >Welcome to Smart Shopping</Text>
+              >(Logo Placeholder)</Text>
               <TouchableOpacity
                elevation={5}
                 onPress={this._facebookLogin.bind(this)}
                 style={styles.button}>
-                  <Text style={styles.buttonTxt}>Login with Facebook</Text>
+                  <Image style={styles.fbIcon} source={require('../Images/if_square-facebook_317727.png')} />
+                  <Text style={styles.spacer}> </Text>
+                  <Text style={styles.buttonTxt}>Sign in with Facebook</Text>
               </TouchableOpacity>
 
               <GoogleSigninButton
@@ -132,16 +135,25 @@ export default class LoginPage extends Component {
 
 const styles = StyleSheet.create({
   container: {
-   backgroundColor: '#023f0d',
+   backgroundColor: '#ffffff',
    flex: 2,
    alignItems: 'center'
  },
+ fbIcon: {
+   width: 24,
+   height: 24
+ },
+ spacer: {
+   width: 60
+ },
  button: {
-   width: 300,
-   backgroundColor: '#00e5ff',
-   borderRadius: 25,
+   width: 304,
+   height: 40,
+   backgroundColor: '#3b5998',
+   borderRadius: 2,
    marginVertical: 10,
-   paddingVertical: 16,
+   paddingVertical: 8,
+   paddingHorizontal: 4,
    alignItems: 'center',
    shadowColor: '#000000',
    shadowOffset: {
@@ -149,18 +161,24 @@ const styles = StyleSheet.create({
      height: 3
    },
    shadowRadius: 5,
-   shadowOpacity: 1.0
+   shadowOpacity: 1.0,
+   flexDirection: 'row'
  },
  WelcomeText: {
+  height: 80,
   alignItems: 'center',
-  marginTop: 0,
-  color: '#ffffff',
-  fontSize: 40,
+  marginTop: 160,
+  marginBottom: 100,
+  color: '#000000',
+  fontSize: 20,
   fontFamily: 'FontAwesome',
 
  },
  buttonTxt: {
-   fontSize: 20,
+   fontSize: 14,
    color: "#ffffff",
+   paddingHorizontal: 16,
+   fontWeight: 'bold',
+   alignItems: 'center'
  },
 });
