@@ -72,7 +72,7 @@ export default class ListSelector extends Component {
           visible={this.state.ModalVisible}
           onRequestClose={this._closeModal.bind(this)}
           transparent={true}>
-          <View 
+          <View
           style={styles.modal}>
             <View style={styles.modalInside}>
 
@@ -162,9 +162,6 @@ const styles = StyleSheet.create({
  buttonTxt: {
    fontSize: 20,
    color: "#ffffff",
- },
- scrollContainer: {
-  flex: 2,
  },
  addListButton: {
   width: 60,

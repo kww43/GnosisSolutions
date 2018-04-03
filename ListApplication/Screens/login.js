@@ -23,6 +23,8 @@ import {
   getDatabaseConnection
 } from '../src/databaseController';
 
+// import external stylesheet
+import styles from './screenStyles';
 
 export default class LoginPage extends Component {
   constructor(props) {
@@ -132,53 +134,3 @@ export default class LoginPage extends Component {
       );
    }
 }
-
-const styles = StyleSheet.create({
-  container: {
-   backgroundColor: '#ffffff',
-   flex: 2,
-   alignItems: 'center'
- },
- fbIcon: {
-   width: 24,
-   height: 24
- },
- spacer: {
-   width: 60
- },
- button: {
-   width: 304,
-   height: 40,
-   backgroundColor: '#3b5998',
-   borderRadius: 2,
-   marginVertical: 10,
-   paddingVertical: 8,
-   paddingHorizontal: 4,
-   alignItems: 'center',
-   shadowColor: '#000000',
-   shadowOffset: {
-     width: 0,
-     height: 3
-   },
-   shadowRadius: 5,
-   shadowOpacity: 1.0,
-   flexDirection: 'row'
- },
- WelcomeText: {
-  height: 80,
-  alignItems: 'center',
-  marginTop: 160,
-  marginBottom: 100,
-  color: '#000000',
-  fontSize: 20,
-  fontFamily: 'FontAwesome',
-
- },
- buttonTxt: {
-   fontSize: 14,
-   color: "#ffffff",
-   paddingHorizontal: 16,
-   fontWeight: 'bold',
-   alignItems: 'center'
- },
-});
