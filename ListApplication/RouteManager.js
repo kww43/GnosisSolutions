@@ -11,7 +11,7 @@ export default class RouteManager extends Component{
       <Router>
         <Stack key="root">
           <Scene key="login" component={Login} title="Login" hideNavBar={true}/>
-          <Scene key="listSelector" component={ListSelector} title="List Selector" />
+          <Scene key="listSelector" component={ListSelector} title="Lists" />
           <Scene key="main" component={MainScreen} title="Shopping Cart"/>
         </Stack>
       </Router>
