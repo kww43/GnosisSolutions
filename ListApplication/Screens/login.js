@@ -111,17 +111,17 @@ export default class LoginPage extends Component {
 
    render() {
       return (
-         <View style={styles.container}>
+         <View style={styles.loginContainer}>
               <Text
               style={styles.WelcomeText}
               >(Logo Placeholder)</Text>
               <TouchableOpacity
                elevation={5}
                 onPress={this._facebookLogin.bind(this)}
-                style={styles.button}>
+                style={styles.fbButton}>
                   <Image style={styles.fbIcon} source={require('../Images/if_square-facebook_317727.png')} />
                   <Text style={styles.spacer}> </Text>
-                  <Text style={styles.buttonTxt}>Sign in with Facebook</Text>
+                  <Text style={styles.fbButtonText}>Sign in with Facebook</Text>
               </TouchableOpacity>
 
               <GoogleSigninButton
