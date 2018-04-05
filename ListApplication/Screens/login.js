@@ -112,9 +112,7 @@ export default class LoginPage extends Component {
    render() {
       return (
          <View style={styles.loginContainer}>
-              <Text
-              style={styles.WelcomeText}
-              >(Logo Placeholder)</Text>
+              <Image style={styles.loginLogo} source={require('../Images/logo.png')} />
               <TouchableOpacity
                elevation={5}
                 onPress={this._facebookLogin.bind(this)}

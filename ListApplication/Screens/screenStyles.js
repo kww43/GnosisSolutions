@@ -7,6 +7,11 @@ export default StyleSheet.create({
      flex: 2,
      alignItems: 'center'
    },
+   loginLogo: {
+     marginVertical: 100,
+     width: 200,
+     height: 200
+   },
    fbButton: {
      width: 304,
      height: 40,
@@ -36,21 +41,11 @@ export default StyleSheet.create({
    spacer: {
      width: 60
    },
-   // TODO: remove this style when logo is in
-   WelcomeText: {
-    height: 80,
-    alignItems: 'center',
-    marginTop: 160,
-    marginBottom: 100,
-    color: '#000000',
-    fontSize: 20,
-    fontFamily: 'FontAwesome'
-   },
    // listSelector styles
    // TODO: eliminate name conflicts and add more descriptive names
    listSelectorContainer: {
 
-   }
+   },
    scrollContainer: {
      flex: 2,
    },
