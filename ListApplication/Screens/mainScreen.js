@@ -43,6 +43,8 @@ import Node from '../src/Node.js';
 
 import { Actions } from 'react-native-router-flux';
 
+import {getLatitude, GetLongitude} from '../src/geolocation';
+
 
 export default class MainScreen extends Component{
 
@@ -75,6 +77,8 @@ export default class MainScreen extends Component{
     PriceModalVisible: false,
     priceCompareModalVisible: false,
     shoppingMode: false,
+    locationModalVisible: false,
+    location: "",
     serviceText: "",
     priceText: "0",
     totalPrice: 0,
@@ -151,6 +155,25 @@ export default class MainScreen extends Component{
               style={styles.modalInside}>
                 <Text>{this.state.serviceText}</Text>
                 <ActivityIndicator size="small" color="#00ff00" />
+              </View>
+            </View>
+          </Modal>
+
+          <Modal
+          visible={this.state.locationModalVisible}
+          onRequestClose={this.closeLocationModal.bind(this)}
+          animationType="slide"
+          transparent={true}>
+            <View
+            style={styles.modal}>
+              <View
+              style={styles.modalInside}>
+                  <Text>Please input the name of the store</Text>
+                  <TextInput
+                  onChangeText={(location) => this.setState({location})}
+                  value={this.state.location}></TextInput>
+                  <TouchableOpacity
+                  onPress={this.submitLocation.bind(this)}><Text>Submit</Text></TouchableOpacity>
               </View>
             </View>
           </Modal>
@@ -257,10 +280,15 @@ export default class MainScreen extends Component{
       this.setState({priceCompareModalVisible:true});
     }
     if(value == "Shopping Mode"){
-      this.setState({serviceText: "Turning Shopping Mode on and detecting current store."});
-      this.setState({priceCompareModalVisible:true});
-      this.setState({shoppingMode: true});
-      //setTimeout(this.closePriceModal, 5000);
+      if(this.state.location == ""){
+          this.setState({locationModalVisible: true});
+      }
+      else{
+        this.setState({serviceText: "Turning Shopping Mode on and detecting current store."});
+        this.setState({priceCompareModalVisible:true});
+        this.setState({shoppingMode: true});
+        //setTimeout(this.closePriceModal, 5000);
+      }
     }
   }
 
@@ -274,6 +302,18 @@ export default class MainScreen extends Component{
       total += this.state.noteArray[i].price;
     }
     this.setState({totalPrice: total});
+  }
+
+  submitLocation(){
+    var lat = getLatitude(this);
+    var long  = getLongitude(this);
+    //some other stuff
+    this.closeLocationModal();
+    
+  }
+
+  closeLocationModal(){
+    this.setState({locationModalVisible: false});
   }
 
 }

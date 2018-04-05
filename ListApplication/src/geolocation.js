@@ -3,7 +3,7 @@ import Node from './Node';
 
 
 // Grab the current latitude from the user's phone
-export getLatitude(instance)
+export function getLatitude(instance)
 {
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
@@ -20,7 +20,7 @@ export getLatitude(instance)
 }
 
 // Grab the current longitude from the user's phone
-export getLongitude(instance)
+export function getLongitude(instance)
 {
 	navigator.geolocation.getCurrentPosition(
 		(position) => {
