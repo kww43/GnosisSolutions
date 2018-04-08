@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   AppRegistry,
   StyleSheet,
   Text,
@@ -61,7 +62,7 @@ export default class ListSelector extends Component {
         <View style={styles.listNavBarContainer}>
           <TouchableOpacity
            style={styles.listNavBarLogoutOpacity}
-           onPress={() => Actions.pop()}
+           onPress={() => this._confirmLogout()}
           >
             <Icon name="chevron-left" size={48} color="white" />
           </TouchableOpacity>
@@ -164,5 +165,15 @@ export default class ListSelector extends Component {
 
   _closeModal(){
     this.setState({ModalVisible: false});
+  }
+  _confirmLogout(){
+    Alert.alert(
+      'Log Out?',
+      'Are you sure you want to log out?',
+      [
+        {text: 'Yes', onPress: () => Actions.pop()},
+        {text: 'No'},
+      ]
+    )
   }
 }
