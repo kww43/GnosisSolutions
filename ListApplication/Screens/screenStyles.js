@@ -41,6 +41,19 @@ export default StyleSheet.create({
    spacer: {
      width: 60,
    },
+   // listNavBar styles
+   listNavBarContainer: {
+
+   }
+   listNavBarLogout: {
+
+   }
+   listNavBarNewListButton: {
+
+   }
+   listNavBarLogo: {
+     
+   }
    // listSelector styles
    listSelectorContainer: {
      flex: 1,
