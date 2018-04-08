@@ -12,6 +12,8 @@ import {
   TextInput,
 } from 'react-native';
 
+import {CheckBox} from 'react-native-elements';
+
 import LongPressModal from './LongPressModal'
 
 //use swipeview to try swiping to open details
@@ -19,7 +21,7 @@ import SwipeView from 'react-native-swipeview';
 
 import Swipeable from 'react-native-swipeable';
 
-import {CheckBox} from 'react-native-elements';
+
 
 
 export default class Note extends Component {
