@@ -5,12 +5,12 @@ export default StyleSheet.create({
    loginContainer: {
      backgroundColor: '#ffffff',
      flex: 2,
-     alignItems: 'center'
+     alignItems: 'center',
    },
    loginLogo: {
      marginVertical: 100,
      width: 200,
-     height: 200
+     height: 200,
    },
    fbButton: {
      width: 304,
@@ -25,7 +25,7 @@ export default StyleSheet.create({
      // NOTE: RN shadow props not supported on Android,
      //       elevation is as close as it gets
      elevation: 3,
-     flexDirection: 'row'
+     flexDirection: 'row',
    },
    fbButtonText: {
      fontSize: 14,
@@ -39,31 +39,18 @@ export default StyleSheet.create({
      height: 24
    },
    spacer: {
-     width: 60
+     width: 60,
    },
    // listSelector styles
-   // TODO: eliminate name conflicts and add more descriptive names
    listSelectorContainer: {
-
+     flex: 1,
    },
    scrollContainer: {
      flex: 2,
-   },
-
-   buttonTxt: {
-     fontSize: 20,
-     color: "#ffffff",
+     backgroundColor: "#ffffff",
    },
    addButtonText: {
      fontSize: 24,
-   },
-   modalContainer: {
-     flex: 1,
-     justifyContent: 'center',
-     backgroundColor:'rgba(255,255,255,0.5)',
-   },
-   innerContainer: {
-     alignItems: 'center',
    },
    floatingButton : {
      width: 60,
@@ -88,15 +75,15 @@ export default StyleSheet.create({
    listText: {
      fontSize: 24,
    },
-   modal :{
+   listModal :{
      flex: 1,
      flexDirection: 'row',
      justifyContent: 'center',
      alignItems: 'center',
      borderRadius: 2,
-     padding: 10
+     padding: 10,
    },
-   modalInside: {
+   listModalInside: {
      borderRadius: 5,
      width: 150,
      height: 150,
@@ -104,6 +91,78 @@ export default StyleSheet.create({
      shadowOpacity: 1.0,
      shadowRadius: 2,
      borderWidth: 1,
-     borderColor: '#ddd'
+     borderColor: '#ddd',
+   },
+   // mainScreen styles
+   mainContainer: {
+     backgroundColor: "#ffffff",
+     flex: 1,
+   },
+   header: {
+     backgroundColor: '#023f0d',
+     height: 60,
+     alignItems: 'center',
+     justifyContent: 'center',
+     borderBottomWidth: 10,
+     borderBottomColor: '#ddd',
+   },
+   enter: {
+     borderWidth: 5,
+     borderColor: '#ddd',
+     flexDirection: 'row',
+   },
+   addButtons: {
+     backgroundColor: '#00b8d4',
+     width: 30,
+     height: 30,
+     alignItems: 'center',
+     justifyContent: 'center',
+     elevation: 0,
+     borderRadius: 2,
+   },
+   addButtonText: {
+     fontSize: 24,
+   },
+   textInput: {
+     alignSelf: 'stretch',
+     fontSize: 24,
+     flex: 5,
+   },
+   itemModal :{
+     flex: 1,
+     flexDirection: 'row',
+     justifyContent: 'center',
+     alignItems: 'center',
+     borderRadius: 2,
+     padding: 10,
+   },
+   itemModalInside: {
+     borderRadius: 5,
+     width: 150,
+     height: 150,
+     backgroundColor: 'white',
+     shadowOpacity: 1.0,
+     shadowRadius: 2,
+     borderWidth: 1,
+     borderColor: '#ddd',
+   },
+   Pricebutton :{
+     flex: 1,
+     flexDirection: 'row',
+     borderRadius: 4,
+     borderColor: '#ddd',
+     borderWidth: 2,
+   },
+   Pricetext: {
+     fontSize: 20,
+     justifyContent: 'center',
+   },
+   totalPriceView: {
+     height: 40,
+     borderColor: '#ddd',
+     borderTopWidth:2,
+   },
+   totalPriceFont: {
+     fontSize: 20,
    }
 });

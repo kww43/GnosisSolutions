@@ -23,6 +23,8 @@ import { Actions } from 'react-native-router-flux';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+// import external stylesheet
+import styles from './screenStyles';
 
 export default class ListSelector extends Component {
 
@@ -53,13 +55,14 @@ export default class ListSelector extends Component {
   render() {
     return (
       <View
-      style={styles.container}>
+      style={styles.listSelectorContainer}>
 
         <ScrollView
         style={styles.scrollContainer}>
           {this.state.noteArray.map((list, key) => {
             return (<TouchableOpacity  key={list['key']}  onPress={this._usePrevList.bind(this, list['key'])}><View style={styles.listItem}>
-            <Icon name="edit" size={20} color="black"/><Text style={styles.listText} style={styles.listText}>{list['key']}</Text></View></TouchableOpacity>);
+            <Icon name="edit" size={20} color="black"/>
+            <Text style={styles.listText} style={styles.listText}>{list['key']}</Text></View></TouchableOpacity>);
           })}
         </ScrollView>
 
@@ -73,8 +76,8 @@ export default class ListSelector extends Component {
           onRequestClose={this._closeModal.bind(this)}
           transparent={true}>
           <View
-          style={styles.modal}>
-            <View style={styles.modalInside}>
+          style={styles.listModal}>
+            <View style={styles.listModalInside}>
 
               <TextInput
                 placeholder="Enter List Title"
@@ -109,7 +112,12 @@ export default class ListSelector extends Component {
       this.state.listArray.push({'list': this.state.listText});
 
       //Navigate to next page.
-      Actions.main({title: this.state.listText, userNum: this.saveUserID, firebaseModule: this.firebase, dbConnection: this.dbConnection, listName: this.state.listText, loginType: this.loginType});
+      Actions.main({title: this.state.listText,
+                    userNum: this.saveUserID,
+                    firebaseModule: this.firebase,
+                    dbConnection: this.dbConnection,
+                    listName: this.state.listText,
+                    loginType: this.loginType});
     }
 
   }
@@ -137,107 +145,4 @@ export default class ListSelector extends Component {
   _closeModal(){
     this.setState({ModalVisible: false});
   }
-
-
-
 }
-const styles = StyleSheet.create({
-  container: {
-   backgroundColor: '#1de9b6',
-   flex: 1,
-
- },
- button: {
-   width: 300,
-   backgroundColor: '#3B5998',
-   borderRadius: 25,
-   marginVertical: 10,
-   paddingVertical: 16,
-   alignItems: 'center'
- },
- scrollContainer: {
-  flex: 2,
-},
-
- buttonTxt: {
-   fontSize: 20,
-   color: "#ffffff",
- },
- addListButton: {
-  width: 60,
-  height: 60,
-  borderRadius: 30,
-  backgroundColor: '#00b8d4',
-  position: 'absolute',
-  bottom: 10,
-  right: 10,
- },
- addButtons: {
-  backgroundColor: '#00b8d4',
-  width: 30,
-  height: 30,
-  alignItems: 'center',
-  justifyContent: 'center',
-  elevation: 0,
-  borderRadius: 2,
-  shadowColor: '#000000',
-  shadowOffset: {
-    width: 0,
-    height: 3
-  },
-  shadowRadius: 5,
-  shadowOpacity: 1.0
-},
-addButtonText: {
-  fontSize: 24,
-},
-modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor:'rgba(255,255,255,0.5)',
-  },
-  innerContainer: {
-    alignItems: 'center',
-  },
-  floatingButton : {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#00b8d4',
-    position: 'absolute',
-    alignItems: 'center',
-    bottom: 10,
-    right: 10,
-  },
-  listItem: {
-    position: 'relative',
-    backgroundColor: "#ffffff",
-    padding: 20,
-    paddingRight: 0,
-    borderBottomWidth: 2,
-    borderBottomColor: '#ededed',
-    flex: 1,
-    flexDirection: 'row',
-  },
-  listText: {
-    fontSize: 24,
-  },
-  modal :{
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 2,
-    padding: 10
-  },
-  modalInside: {
-    borderRadius: 5,
-    width: 150,
-    height: 150,
-    backgroundColor: 'white',
-    shadowOpacity: 1.0,
-    shadowRadius: 2,
-    borderWidth: 1,
-    borderColor: '#ddd'
-  }
-});

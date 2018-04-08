@@ -43,6 +43,8 @@ import Node from '../src/Node.js';
 
 import { Actions } from 'react-native-router-flux';
 
+// import external stylesheet
+import styles from './screenStyles';
 
 export default class MainScreen extends Component{
 
@@ -53,7 +55,10 @@ export default class MainScreen extends Component{
     this.dbConnection = this.props.dbConnection;
     this.listName = this.props.listName;
     this.loginType = this.props.loginType;
-    this.itemsPathway = getCartPath(this.dbConnection, this.props.userNum, this.props.listName, this.props.loginType);
+    this.itemsPathway = getCartPath(this.dbConnection,
+                                    this.props.userNum,
+                                    this.props.listName,
+                                    this.props.loginType);
     getAllItems(this);
     this.nodes = [];
   }
@@ -83,7 +88,7 @@ export default class MainScreen extends Component{
   render(){
     return (
       //creating container and header
-        <View style={styles.container}>
+        <View style={styles.mainContainer}>
           <View style={styles.enter}>
 
             <TouchableOpacity onPress={this.addNote.bind(this)} style={styles.addButtons}>
@@ -93,9 +98,9 @@ export default class MainScreen extends Component{
             <TextInput style={styles.textInput} placeholder="Enter Item"
                 onChangeText={(noteText) => this.setState({noteText})} value={this.state.noteText}
                placeholderTextColor="grey" underlineColorAndroid="transparent">
-              
+
             </TextInput>
-            <ModalDropdown 
+            <ModalDropdown
             defaultValue="Services"
             onSelect={(index,value) => this._handleDropdown(index,value)}
             animated={true}
@@ -105,7 +110,7 @@ export default class MainScreen extends Component{
 
           <ScrollView style={styles.scrollContainer}>
             {this.state.noteArray.map((note, key) => {
-              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} location={note['loc']} price={note['price']} checked={false} 
+              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} location={note['loc']} price={note['price']} checked={false}
                submittedPrice={() => this.submitPrice()}
                checkItem={() => this.checkItem(key, note['key']) }
               deleteNote={() => this.deleteNote(key, note['key'])} /> )
@@ -114,7 +119,7 @@ export default class MainScreen extends Component{
           <View
           style={styles.totalPriceView}>
             <Text
-            style={styles.fontTotalPrice}>Total Price: ${this.state.totalPrice}</Text>
+            style={styles.totalPriceFont}>Total Price: ${this.state.totalPrice}</Text>
           </View>
 
            <Modal
@@ -123,8 +128,8 @@ export default class MainScreen extends Component{
             animationType="slide"
             transparent={true}>
               <View
-              style={styles.modal} >
-              <View style={styles.modalInside}>
+              style={styles.itemModal} >
+              <View style={styles.itemModalInside}>
                   <Text>What was the items price?</Text>
                   <TextInput
                   onChangeText={(priceText) => this.setState({priceText})} value={this.state.priceText}
@@ -146,9 +151,9 @@ export default class MainScreen extends Component{
            animationType="slide"
            transparent={true}>
             <View
-            style={styles.modal}>
+            style={styles.itemModal}>
               <View
-              style={styles.modalInside}>
+              style={styles.itemModalInside}>
                 <Text>{this.state.serviceText}</Text>
                 <ActivityIndicator size="small" color="#00ff00" />
               </View>
@@ -286,121 +291,3 @@ export default class MainScreen extends Component{
 export function updateUI( nodes ) {
 
 }
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#ffffff",
-    flex: 1,
-  },
-  header: {
-    backgroundColor: '#023f0d',
-    height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderBottomWidth: 10,
-    borderBottomColor: '#ddd',
-  },
-  enter: {
-    borderWidth: 5,
-    borderColor: '#ddd',
-    flexDirection: 'row',
-  },
-  headerText: {
-    color: 'white',
-    fontSize: 18,
-    padding: 26,
-  },
-  scrollContainer: {
-    backgroundColor: "#ffffff",
-    flex: 1,
-  },
-  footer: {
-    position: 'absolute',
-    alignItems: 'center',
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-  addButtons: {
-    backgroundColor: '#00b8d4',
-    width: 30,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 0,
-    borderRadius: 2,
-  },
-  addButtonText: {
-    fontSize: 24
-  },
-  textInput: {
-    alignSelf: 'stretch',
-    fontSize: 24,
-    flex: 5,
-
-  },
-  CheckedList : {
-    flex:1,
-    marginBottom: 100,
-  },
-  floatingButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#ee6e73',
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
-  },
-  checkedItem: {
-    borderTopColor:"#006064",
-    height: 200,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    flex: 1,
-    marginBottom: 50,
-    color: '#a9a9a9',
-  },
-  modal :{
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 2,
-    padding: 10
-  },
-  modalInside: {
-    borderRadius: 5,
-    width: 150,
-    height: 150,
-    backgroundColor: 'white',
-    shadowOpacity: 1.0,
-    shadowRadius: 2,
-    borderWidth: 1,
-    borderColor: '#ddd'
-
-},
-Pricebutton :{
-  flex: 1,
-  flexDirection: 'row',
-  borderRadius: 4,
-  borderColor: '#ddd',
-  borderWidth: 2,
-
-},
-Pricetext: {
-  fontSize: 20,
-  justifyContent: 'center',
-},
-totalPriceView: {
-  height: 40,
-  borderColor: '#ddd',
-  borderTopWidth:2,
-},
-fontTotalPrice: {
-  fontSize: 20,
-}
-
-
-});
