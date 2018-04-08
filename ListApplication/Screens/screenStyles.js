@@ -43,17 +43,33 @@ export default StyleSheet.create({
    },
    // listNavBar styles
    listNavBarContainer: {
-
-   }
-   listNavBarLogout: {
-
-   }
-   listNavBarNewListButton: {
-
-   }
+     height: 60,
+     backgroundColor: '#424242',
+   },
+   listNavBarLogoutOpacity: {
+     position: 'absolute',
+     top: 8,
+     left: 10,
+   },
+   listNavBarOptionsOpacity: {
+     position: 'absolute',
+     top: 6,
+     right: 80,
+   },
+   listNavBarNewListButtonOpacity: {
+     width: 48,
+     height: 48,
+     position: 'absolute',
+     top: 8,
+     right: 0,
+   },
    listNavBarLogo: {
-     
-   }
+     width: 36,
+     height: 36,
+     position: 'absolute',
+     left: 200,
+     top: 10,
+   },
    // listSelector styles
    listSelectorContainer: {
      flex: 1,
@@ -64,6 +80,7 @@ export default StyleSheet.create({
    },
    addButtonText: {
      fontSize: 24,
+     color: "#ffffff",
    },
    floatingButton : {
      width: 60,

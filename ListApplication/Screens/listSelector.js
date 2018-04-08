@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   View,
+  Image,
   TouchableOpacity,
   Button,
   Navigator,
@@ -57,6 +58,30 @@ export default class ListSelector extends Component {
       <View
       style={styles.listSelectorContainer}>
 
+        <View style={styles.listNavBarContainer}>
+          <TouchableOpacity
+           style={styles.listNavBarLogoutOpacity}
+           onPress={() => Actions.pop()}
+          >
+            <Icon name="chevron-left" size={48} color="white" />
+          </TouchableOpacity>
+
+          <Image style={styles.listNavBarLogo} source={require('../Images/logo.png')} />
+
+          <TouchableOpacity
+           style={styles.listNavBarOptionsOpacity}
+           >
+            <Icon style={styles.listNavBarOptions} name="cog" size={48} color="white" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+           style={styles.listNavBarNewListButtonOpacity}
+           onPress={() => this.setState({ModalVisible:true})}
+           >
+            <Icon name="plus" size={48} color="white" />
+          </TouchableOpacity>
+        </View>
+
         <ScrollView
         style={styles.scrollContainer}>
           {this.state.noteArray.map((list, key) => {
@@ -65,11 +90,6 @@ export default class ListSelector extends Component {
             <Text style={styles.listText} style={styles.listText}>{list['key']}</Text></View></TouchableOpacity>);
           })}
         </ScrollView>
-
-        <TouchableOpacity style={styles.floatingButton}
-        onPress={() => this.setState({ModalVisible:true})} >
-          <Text style={styles.addButtonText}>+</Text>
-        </TouchableOpacity>
 
         <Modal
           visible={this.state.ModalVisible}
