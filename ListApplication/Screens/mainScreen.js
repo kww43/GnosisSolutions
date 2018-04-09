@@ -20,7 +20,8 @@ import {
   saveItem,
   getAllItems,
   getCartPath,
-  removeItem
+  removeItem,
+  submitNewStore
 } from '../src/databaseController';
 
 import {CheckBox} from 'react-native-elements';
@@ -87,6 +88,9 @@ export default class MainScreen extends Component{
     serviceText: "",
     priceText: "0",
     totalPrice: 0,
+    error: {},
+    latitude: {},
+    longitude: {},
   }
 
   render(){
@@ -285,13 +289,13 @@ export default class MainScreen extends Component{
       this.setState({priceCompareModalVisible:true});
     }
     if(value == "Shopping Mode"){
+      this.setState({shoppingMode: true});
       if(this.state.location == ""){
           this.setState({locationModalVisible: true});
       }
       else{
         this.setState({serviceText: "Turning Shopping Mode on and detecting current store."});
         this.setState({priceCompareModalVisible:true});
-        this.setState({shoppingMode: true});
         //setTimeout(this.closePriceModal, 5000);
       }
     }
@@ -310,10 +314,14 @@ export default class MainScreen extends Component{
   }
 
   submitLocation(){
+    this.closeLocationModal();
     var lat = getLatitude(this);
     var long  = getLongitude(this);
-    //some other stuff
-    this.closeLocationModal();
+    alert(this.state.error.message);
+  
+    var storeKey = submitNewStore(this.dbConnection, this.state.location);
+    alert(storeKey);
+    
 
   }
 

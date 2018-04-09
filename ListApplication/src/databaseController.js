@@ -46,10 +46,20 @@ export function saveStoreData( storeRef, instanceData ) {
   //Placeholder for save function until further details are revealed from development
 }
 
-export function submitPricetoDB( storePath, priceData){
-  //placeholder for the function to submit the price to the store
-}
+export function submitNewStore(dbRef, storeName){
+  //get db reference to the stores/ to enter under
+  alert("InSubmit new store");
 
+  storeRef = dbRef.ref('stores');
+
+  
+  var thisStoreKey = storeRef.push({
+    Name: storeName,
+  });
+
+  
+  return thisStoreKey;
+}
 //Function that will save any item entered in through app
 export function saveItem( itemsRef, name, price, quantity, locationString, uniqueID, instance, checked ) {
   if( checked == '' ) {
