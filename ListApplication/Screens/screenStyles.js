@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
    // login screen styles
@@ -41,6 +41,39 @@ export default StyleSheet.create({
    spacer: {
      width: 60,
    },
+   // listNavBar styles
+   listNavBarContainer: {
+     height: 60,
+     backgroundColor: '#424242',
+   },
+   listNavBarLogoutOpacity: {
+     position: 'absolute',
+     top: 8,
+     left: 10,
+   },
+   listNavBarOptionsOpacity: {
+     position: 'absolute',
+     top: 6,
+     right: 80,
+   },
+   listNavBarNewListButtonOpacity: {
+     width: 48,
+     height: 48,
+     position: 'absolute',
+     top: 8,
+     right: 0,
+   },
+   listNavBarNewListButton: {
+     fontSize: 48,
+     color: "#ffffff",
+   },
+   listNavBarLogo: {
+     width: 36,
+     height: 36,
+     position: 'absolute',
+     left: 200,
+     top: 10,
+   },
    // listSelector styles
    listSelectorContainer: {
      flex: 1,
@@ -51,6 +84,7 @@ export default StyleSheet.create({
    },
    addButtonText: {
      fontSize: 24,
+     color: "#ffffff",
    },
    floatingButton : {
      width: 60,
@@ -92,6 +126,45 @@ export default StyleSheet.create({
      shadowRadius: 2,
      borderWidth: 1,
      borderColor: '#ddd',
+   },
+   optionsModal: {
+     flex: 1,
+     flexDirection: 'row',
+     justifyContent: 'center',
+     alignItems: 'center',
+     padding: 10,
+   },
+   optionsModalContents: {
+     width: 300,
+     height: 500,
+     backgroundColor: '#ffffff',
+     borderWidth: 1,
+     borderColor: '#ddd',
+     alignItems: 'center',
+   },
+   notificationsBox: {
+     width: 10,
+     height: 10,
+   },
+   notifications: {
+
+   },
+   optionsSaveOpacity: {
+     height: 48,
+     width: 100,
+   },
+   optionsSaveButton: {
+
+   },
+   optionsSaveButtonText: {
+     fontFamily: Platform.OS === 'Android' ? 'Roboto' : 'Arial',
+     color: 'white',
+     textAlign: 'center',
+     fontWeight: 'bold',
+     fontSize: 14,
+     height: 36,
+     paddingHorizontal: 16,
+     backgroundColor: '#3b5998',
    },
    // mainScreen styles
    mainContainer: {
