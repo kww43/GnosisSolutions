@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
    // login screen styles
@@ -63,6 +63,10 @@ export default StyleSheet.create({
      top: 8,
      right: 0,
    },
+   listNavBarNewListButton: {
+     fontSize: 48,
+     color: "#ffffff",
+   },
    listNavBarLogo: {
      width: 36,
      height: 36,
@@ -122,6 +126,45 @@ export default StyleSheet.create({
      shadowRadius: 2,
      borderWidth: 1,
      borderColor: '#ddd',
+   },
+   optionsModal: {
+     flex: 1,
+     flexDirection: 'row',
+     justifyContent: 'center',
+     alignItems: 'center',
+     padding: 10,
+   },
+   optionsModalContents: {
+     width: 300,
+     height: 500,
+     backgroundColor: '#ffffff',
+     borderWidth: 1,
+     borderColor: '#ddd',
+     alignItems: 'center',
+   },
+   notificationsBox: {
+     width: 10,
+     height: 10,
+   },
+   notifications: {
+
+   },
+   optionsSaveOpacity: {
+     height: 48,
+     width: 100,
+   },
+   optionsSaveButton: {
+
+   },
+   optionsSaveButtonText: {
+     fontFamily: Platform.OS === 'Android' ? 'Roboto' : 'Arial',
+     color: 'white',
+     textAlign: 'center',
+     fontWeight: 'bold',
+     fontSize: 14,
+     height: 36,
+     paddingHorizontal: 16,
+     backgroundColor: '#3b5998',
    },
    // mainScreen styles
    mainContainer: {

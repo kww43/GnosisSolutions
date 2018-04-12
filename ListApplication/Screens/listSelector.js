@@ -25,6 +25,8 @@ import { Actions } from 'react-native-router-flux';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import {CheckBox} from 'react-native-elements';
+
 // import external stylesheet
 import styles from './screenStyles';
 
@@ -42,7 +44,9 @@ export default class ListSelector extends Component {
     this.pressed = false;
   }
   state = {
+    notifications: false,
     ModalVisible: false,
+    OptionsModal: false,
     listArray: [{'list' : 'test'}, {'list':'help'}],
     listText: '',
     noteArray: [],
@@ -67,17 +71,18 @@ export default class ListSelector extends Component {
             <Icon name="chevron-left" size={48} color="white" />
           </TouchableOpacity>
 
-          <Image style={styles.listNavBarLogo} source={require('../Images/logo.png')} />
+          <Image style={styles.listNavBarLogo} source={require('../Images/tiny-logo.png')} />
 
           <TouchableOpacity
            style={styles.listNavBarOptionsOpacity}
+           onPress={() => this._openOptions()}
            >
             <Icon style={styles.listNavBarOptions} name="cog" size={48} color="white" />
           </TouchableOpacity>
 
           <TouchableOpacity
            style={styles.listNavBarNewListButtonOpacity}
-           onPress={() => this.setState({ModalVisible:true})}
+           onPress={() => this._openModal()}
            >
             <Icon name="plus" size={48} color="white" />
           </TouchableOpacity>
@@ -88,7 +93,7 @@ export default class ListSelector extends Component {
           {this.state.noteArray.map((list, key) => {
             return (<TouchableOpacity  key={list['key']}  onPress={this._usePrevList.bind(this, list['key'])}><View style={styles.listItem}>
             <Icon name="edit" size={20} color="black"/>
-            <Text style={styles.listText} style={styles.listText}>{list['key']}</Text></View></TouchableOpacity>);
+            <Text style={styles.listText} >{list['key']}</Text></View></TouchableOpacity>);
           })}
         </ScrollView>
 
@@ -115,6 +120,34 @@ export default class ListSelector extends Component {
          </View>
         </Modal>
 
+        <Modal
+          visible={this.state.OptionsModal}
+          onRequestClose={this._closeOptions.bind(this)}
+          transparent={true}
+          >
+          <View style={styles.optionsModal} >
+            <View style={styles.optionsModalContents}>
+              <CheckBox
+                  style={styles.notificationsBox}
+                  title='Notifications'
+                  checked={this.notifications}
+                  checkedIcon = 'check-square-o'
+                  uncheckedIcon = 'square-o'
+                  onPress = {this.checkNotifications.bind(this)}
+                  onIconPress = {this.checkNotifications.bind(this)} />
+              <TouchableOpacity
+               style={styles.optionsSaveOpacity}
+               onPress={() => this._closeOptions()}
+               >
+               <Button
+                 onPress={this._closeOptions.bind(this)}
+                 title="Save"
+                 placeholderTextColor="grey" >
+               </Button>
+               </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -162,9 +195,14 @@ export default class ListSelector extends Component {
   _openModal(){
     this.setState({ModalVisible: true});
   }
-
   _closeModal(){
     this.setState({ModalVisible: false});
+  }
+  _openOptions(){
+    this.setState({OptionsModal: true});
+  }
+  _closeOptions(){
+    this.setState({OptionsModal: false});
   }
   _confirmLogout(){
     Alert.alert(
@@ -175,5 +213,18 @@ export default class ListSelector extends Component {
         {text: 'No'},
       ]
     )
+  }
+
+  checkNotifications(){
+      if(!this.notifications){
+
+          this.notifications = true;
+      }
+      else{
+          this.notifications = false;
+      }
+      this.setState({notifications: true});
+      //TODO setting preferences in db
+      console.log('checked function triggered');
   }
 }
