@@ -52,12 +52,12 @@ export function submitNewStore(dbRef, storeName){
 
   storeRef = dbRef.ref('stores');
 
-  
+
   var thisStoreKey = storeRef.push({
     Name: storeName,
   });
 
-  
+
   return thisStoreKey;
 }
 //Function that will save any item entered in through app
