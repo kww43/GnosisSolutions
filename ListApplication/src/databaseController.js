@@ -48,8 +48,6 @@ export function saveStoreData( storeRef, instanceData ) {
 
 export function submitNewStore(dbRef, storeName){
   //get db reference to the stores/ to enter under
-  alert("InSubmit new store");
-
   storeRef = dbRef.ref('stores');
 
   
