@@ -88,7 +88,7 @@ export default class MainScreen extends Component{
     location: "",
     serviceText: "",
     priceText: "0",
-    totalPrice: 20.42,
+    totalPrice: 0,
     priceKeyToSubmit: "",
   }
 
@@ -117,7 +117,7 @@ export default class MainScreen extends Component{
 
           <ScrollView style={styles.scrollContainer}>
             {this.state.noteArray.map((note, key) => {
-              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} location={" 2"} price={2.55} checked={false}
+              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} location={note["loc"]} price={note["price"]} checked={false}
                submittedPrice={() => this.submitPrice(key, note['key'])}
                checkItem={() => this.checkItem(key, note['key']) }
               deleteNote={() => this.deleteNote(key, note['key'])} /> )
@@ -126,7 +126,7 @@ export default class MainScreen extends Component{
           <View
           style={styles.totalPriceView}>
             <Text
-            style={styles.totalPriceFont}>Total Price: ${this.state.totalPrice} At Safeway</Text>
+            style={styles.totalPriceFont}>Total Price: ${this.state.totalPrice} At {this.state.location}</Text>
           </View>
 
            <Modal
@@ -333,6 +333,7 @@ export default class MainScreen extends Component{
     this.closeLocationModal();
     var lat = getLatitude(this);
     var long  = getLongitude(this);
+    alert(this.state.latitude.position.coords.latitude);
     
     //add this only, have it do those inside the submitlocation
     var storeKey = submitNewStore(this.dbConnection, this.state.location, lat, long);
