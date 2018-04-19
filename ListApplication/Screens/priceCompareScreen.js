@@ -45,12 +45,12 @@ import Node from '../src/Node.js';
 
 import { Actions } from 'react-native-router-flux';
 
-import {getLatitude, getLongitude} from '../src/geolocation';
+import {getLatitude, getLongitude, getDistance} from '../src/geolocation';
 
 // import external stylesheet
 import styles from './screenStyles';
 
-export default class priceComparisonScreen extends Component{
+export default class priceCompareScreen extends Component{
 
     constructor(props){
         super(props);
@@ -74,7 +74,7 @@ export default class priceComparisonScreen extends Component{
       componentWillMount() {
         this._mounted = false;
       }
-    }
+
 
     render() {
         return(

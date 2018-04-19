@@ -88,7 +88,7 @@ export default class MainScreen extends Component{
     location: "",
     serviceText: "",
     priceText: "0",
-    totalPrice: 0,
+    totalPrice: 20.42,
     priceKeyToSubmit: "",
   }
 
@@ -117,7 +117,7 @@ export default class MainScreen extends Component{
 
           <ScrollView style={styles.scrollContainer}>
             {this.state.noteArray.map((note, key) => {
-              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} location={note['loc']} price={note['price']} checked={false}
+              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} location={" 2"} price={2.55} checked={false}
                submittedPrice={() => this.submitPrice(key, note['key'])}
                checkItem={() => this.checkItem(key, note['key']) }
               deleteNote={() => this.deleteNote(key, note['key'])} /> )
@@ -126,7 +126,7 @@ export default class MainScreen extends Component{
           <View
           style={styles.totalPriceView}>
             <Text
-            style={styles.totalPriceFont}>Total Price: ${this.state.totalPrice}</Text>
+            style={styles.totalPriceFont}>Total Price: ${this.state.totalPrice} At Safeway</Text>
           </View>
 
            <Modal
@@ -173,9 +173,9 @@ export default class MainScreen extends Component{
           animationType="slide"
           transparent={true}>
             <View
-            style={styles.modal}>
+            style={styles.itemModal}>
               <View
-              style={styles.modalInside}>
+              style={styles.itemModalInside}>
                   <Text>Please input the name of the store</Text>
                   <TextInput
                   onChangeText={(location) => this.setState({location})}
