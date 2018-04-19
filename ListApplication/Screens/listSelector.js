@@ -60,9 +60,12 @@ export default class ListSelector extends Component {
         <ScrollView
         style={styles.scrollContainer}>
           {this.state.noteArray.map((list, key) => {
-            return (<TouchableOpacity  key={list['key']}  onPress={this._usePrevList.bind(this, list['key'])}><View style={styles.listItem}>
-            <Icon name="edit" size={20} color="black"/>
-            <Text style={styles.listText} style={styles.listText}>{list['key']}</Text></View></TouchableOpacity>);
+            if(list['key'] != undefined || list['key'] != null){
+              return (<TouchableOpacity  key={list['key']}  onPress={this._usePrevList.bind(this, list['key'])}><View style={styles.listItem}>
+              <Icon name="edit" size={20} color="black"/>
+              <Text style={styles.listText} style={styles.listText}>{list['key']}</Text></View></TouchableOpacity>);
+            }
+
           })}
         </ScrollView>
 

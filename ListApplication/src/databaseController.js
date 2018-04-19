@@ -49,13 +49,14 @@ export function saveStoreData( storeRef, instanceData ) {
 export function submitNewStore(dbRef, storeName){
   //get db reference to the stores/ to enter under
   storeRef = dbRef.ref('stores');
-  
+
+
   var thisStoreKey = storeRef.push({
     Name: storeName,
     key: thisStoreKey,
   });
 
-  
+
   return thisStoreKey;
 }
 //Function that will save any item entered in through app
