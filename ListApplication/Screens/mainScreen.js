@@ -21,7 +21,8 @@ import {
   getAllItems,
   getCartPath,
   removeItem,
-  submitNewStore
+  submitNewStore,
+  updateItem
 } from '../src/databaseController';
 
 import {CheckBox} from 'react-native-elements';
@@ -44,7 +45,7 @@ import Node from '../src/Node.js';
 
 import { Actions } from 'react-native-router-flux';
 
-import {getLatitude, GetLongitude} from '../src/geolocation';
+import {getLatitude, getLongitude} from '../src/geolocation';
 
 // import external stylesheet
 import styles from './screenStyles';
@@ -88,9 +89,7 @@ export default class MainScreen extends Component{
     serviceText: "",
     priceText: "0",
     totalPrice: 0,
-    error: {},
-    latitude: {},
-    longitude: {},
+    priceKeyToSubmit: "",
   }
 
   render(){
@@ -119,7 +118,7 @@ export default class MainScreen extends Component{
           <ScrollView style={styles.scrollContainer}>
             {this.state.noteArray.map((note, key) => {
               return ( <Note key={note['key']} keyval={note['key']} val={note['note']} location={note['loc']} price={note['price']} checked={false}
-               submittedPrice={() => this.submitPrice()}
+               submittedPrice={() => this.submitPrice(key, note['key'])}
                checkItem={() => this.checkItem(key, note['key']) }
               deleteNote={() => this.deleteNote(key, note['key'])} /> )
             })}
@@ -255,7 +254,7 @@ export default class MainScreen extends Component{
     //may need to set some sort of"checked" value for rendering from db
     if(!checkedState){
       if(this.state.shoppingMode){
-        this.openModal();
+        this.openModal(itemKey);
       }
       var checkedItem = this.state.noteArray.splice(arrKey, 1)
       console.log(checkedItem);
@@ -270,15 +269,30 @@ export default class MainScreen extends Component{
 
   }
 
-  openModal(){
+  openModal(itemKey){
     this.setState({PriceModalVisible: true});
+
+    //really bad way of doing this, but setting a temporary state for the itemkey referece to update price for
+    //since I cannot figure out a better way to pass that key in 
+    this.setState({priceKeyToSubmit: itemKey});
   }
 
   closeModal(){
     this.setState({PriceModalVisible: false})
   }
 
-  submitPrice(){
+  submitPrice(nodes){
+    itemKey = this.state.priceKeyToSubmit;
+    //access the nodes and add the price into it
+
+    for(i = 0; i < this.nodes.length; i++){
+      //load into correct key placement and then run get all items
+      if(this.keys[i] == itemKey){
+        node[i].price == parseInt(this.state.priceText);
+      }
+      this.setState({priceKeyToSubmit: ""});
+      getAllItems(this);
+    }
     this.setState({PriceModalVisible:false})
     return this.state.priceText;
   }
@@ -287,6 +301,8 @@ export default class MainScreen extends Component{
     if(value == "Price Comparisons"){
       this.setState({serviceText: "Finding stores near you..."});
       this.setState({priceCompareModalVisible:true});
+      //Actions.priceComparisonScreen({});
+
     }
     if(value == "Shopping Mode"){
       this.setState({shoppingMode: true});
@@ -317,12 +333,9 @@ export default class MainScreen extends Component{
     this.closeLocationModal();
     var lat = getLatitude(this);
     var long  = getLongitude(this);
-    alert(this.state.error.message);
-  
-    var storeKey = submitNewStore(this.dbConnection, this.state.location);
-    alert(storeKey);
     
-
+    //add this only, have it do those inside the submitlocation
+    var storeKey = submitNewStore(this.dbConnection, this.state.location, lat, long);
   }
 
   closeLocationModal(){
