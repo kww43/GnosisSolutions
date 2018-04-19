@@ -92,7 +92,6 @@ export default class ListSelector extends Component {
         style={styles.scrollContainer}>
           {this.state.noteArray.map((list, key) => {
             return (<TouchableOpacity  key={list['key']}  onPress={this._usePrevList.bind(this, list['key'])}><View style={styles.listItem}>
-            <Icon name="edit" size={20} color="black"/>
             <Text style={styles.listText} >{list['key']}</Text></View></TouchableOpacity>);
           })}
         </ScrollView>
@@ -162,8 +161,8 @@ export default class ListSelector extends Component {
     }
     else {
       //Update local data for list of lists
-      this.setState({ModalVisible: false, listArray: this.state.listArray});
-      this.state.listArray.push({'list': this.state.listText});
+      this.setState({ModalVisible: false});
+      this.state.listArray.push({'list': this.state.listText, listArray: this.state.listArray});
 
       //Navigate to next page.
       Actions.main({title: this.state.listText,

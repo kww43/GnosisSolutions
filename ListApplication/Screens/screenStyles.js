@@ -108,6 +108,7 @@ export default StyleSheet.create({
    },
    listText: {
      fontSize: 24,
+     color: 'black',
    },
    listModal :{
      flex: 1,
