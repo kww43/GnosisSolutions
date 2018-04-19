@@ -46,7 +46,7 @@ export function saveStoreData( storeRef, instanceData ) {
   //Placeholder for save function until further details are revealed from development
 }
 
-export function submitNewStore(dbRef, storeName){
+export function submitNewStore(dbRef, storeName, lat, long){
   //get db reference to the stores/ to enter under
   storeRef = dbRef.ref('stores');
 
@@ -54,6 +54,8 @@ export function submitNewStore(dbRef, storeName){
   var thisStoreKey = storeRef.push({
     Name: storeName,
     key: thisStoreKey,
+    lattitude:lat,
+    longitude: long
   });
 
 

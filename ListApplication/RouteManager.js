@@ -4,6 +4,7 @@ import { Router, Stack, Scene } from 'react-native-router-flux';
 import Login from './Screens/login';
 import MainScreen from './Screens/mainScreen';
 import ListSelector from './Screens/listSelector';
+import priceComparisonScreen from './Screens/priceCompareScreen';
 
 export default class RouteManager extends Component{
   render() {
@@ -13,6 +14,7 @@ export default class RouteManager extends Component{
           <Scene key="login" component={Login} title="Login" hideNavBar={true}/>
           <Scene key="listSelector" component={ListSelector} title="Lists" />
           <Scene key="main" component={MainScreen} title="Shopping Cart"/>
+          <Scene key="priceCompare" component={priceComparisonScreen} title="Price Comparisons"/>
         </Stack>
       </Router>
     );

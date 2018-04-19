@@ -301,6 +301,8 @@ export default class MainScreen extends Component{
     if(value == "Price Comparisons"){
       this.setState({serviceText: "Finding stores near you..."});
       this.setState({priceCompareModalVisible:true});
+      //Actions.priceComparisonScreen({});
+
     }
     if(value == "Shopping Mode"){
       this.setState({shoppingMode: true});
@@ -333,7 +335,7 @@ export default class MainScreen extends Component{
     var long  = getLongitude(this);
     
     //add this only, have it do those inside the submitlocation
-    var storeKey = submitNewStore(this.dbConnection, this.state.location);
+    var storeKey = submitNewStore(this.dbConnection, this.state.location, lat, long);
   }
 
   closeLocationModal(){
