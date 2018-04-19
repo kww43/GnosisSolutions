@@ -63,25 +63,25 @@ export default class ListSelector extends Component {
       <View
       style={styles.listSelectorContainer}>
 
-        <View style={styles.listNavBarContainer}>
+        <View style={styles.navBarContainer}>
           <TouchableOpacity
-           style={styles.listNavBarLogoutOpacity}
+           style={styles.navBarLogoutOpacity}
            onPress={() => this._confirmLogout()}
           >
             <Icon name="chevron-left" size={48} color="white" />
           </TouchableOpacity>
 
-          <Image style={styles.listNavBarLogo} source={require('../Images/tiny-logo.png')} />
+          <Image style={styles.navBarLogo} source={require('../Images/tiny-logo.png')} />
 
           <TouchableOpacity
            style={styles.listNavBarOptionsOpacity}
            onPress={() => this._openOptions()}
            >
-            <Icon style={styles.listNavBarOptions} name="cog" size={48} color="white" />
+            <Icon name="cog" size={48} color="white" />
           </TouchableOpacity>
 
           <TouchableOpacity
-           style={styles.listNavBarNewListButtonOpacity}
+           style={styles.navBarNewListButtonOpacity}
            onPress={() => this._openModal()}
            >
             <Icon name="plus" size={48} color="white" />

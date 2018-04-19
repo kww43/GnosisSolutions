@@ -41,33 +41,44 @@ export default StyleSheet.create({
    spacer: {
      width: 60,
    },
-   // listNavBar styles
-   listNavBarContainer: {
+   // custom NavBar styles
+   navBarContainer: {
       height: 60,
       backgroundColor: '#424242',
    },
-   listNavBarLogoutOpacity: {
+   navBarLogoutOpacity: {
       position: 'absolute',
       top: 8,
       left: 10,
+   },
+   navBarBackOpacity: {
+     position: 'absolute',
+     top: 8,
+     left: 10,
    },
    listNavBarOptionsOpacity: {
       position: 'absolute',
       top: 6,
       right: 80,
    },
-   listNavBarNewListButtonOpacity: {
+   mainNavBarOptionsOpacity: {
+     position: 'absolute',
+     top: 6,
+     right: 80,
+   },
+   mainNavBarServicesOpacity: {
+     position: 'absolute',
+     top: 6,
+     right: 6,
+   },
+   navBarNewListButtonOpacity: {
       width: 48,
       height: 48,
       position: 'absolute',
       top: 8,
       right: 0,
    },
-   listNavBarNewListButton: {
-      fontSize: 48,
-      color: "#ffffff",
-   },
-   listNavBarLogo: {
+   navBarLogo: {
       width: 36,
       height: 36,
       position: 'absolute',

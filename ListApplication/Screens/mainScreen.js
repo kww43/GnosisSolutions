@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
   Button,
   TextInput,
   ScrollView,
@@ -44,6 +45,8 @@ import LongPressModal from '../Components/LongPressModal';
 import Node from '../src/Node.js';
 
 import { Actions } from 'react-native-router-flux';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {getLatitude, getLongitude} from '../src/geolocation';
 
@@ -94,10 +97,36 @@ export default class MainScreen extends Component{
 
   render(){
     return (
-      //creating container and header
+      // main container
         <View style={styles.mainContainer}>
-          <View style={styles.enter}>
 
+          <View style={styles.navBarContainer}>
+            <TouchableOpacity
+             style={styles.navBarBackOpacity}
+             onPress={() => Actions.pop()}
+            >
+              <Icon name="chevron-left" size={48} color="white" />
+            </TouchableOpacity>
+
+            <Image style={styles.navBarLogo} source={require('../Images/tiny-logo.png')} />
+
+            <TouchableOpacity
+             style={styles.mainNavBarOptionsOpacity}
+             onPress={() => this._openOptions()}
+             >
+              <Icon name="cog" size={48} color="white" />
+            </TouchableOpacity>
+            <ModalDropdown
+             style={styles.mainNavBarServicesOpacity}
+             onSelect={(index,value) => this._handleDropdown(index,value)}
+             animated={true}
+             options ={['Price Comparisons', 'Shopping Mode']}
+             >
+              <Icon name="bars" size={48} color='white' />
+             </ModalDropdown>
+          </View>
+
+          <View style={styles.enter}>
             <TouchableOpacity onPress={this.addNote.bind(this)} style={styles.addButtons}>
               <Text style={styles.addButtonText}>+</Text>
             </TouchableOpacity>
@@ -105,14 +134,7 @@ export default class MainScreen extends Component{
             <TextInput style={styles.textInput} placeholder="Enter Item"
                 onChangeText={(noteText) => this.setState({noteText})} value={this.state.noteText}
                placeholderTextColor="grey" underlineColorAndroid="transparent">
-
             </TextInput>
-            <ModalDropdown
-            defaultValue="Services"
-            onSelect={(index,value) => this._handleDropdown(index,value)}
-            animated={true}
-            options ={['Price Comparisons', 'Shopping Mode']}/>
-
           </View>
 
           <ScrollView style={styles.scrollContainer}>
@@ -273,7 +295,7 @@ export default class MainScreen extends Component{
     this.setState({PriceModalVisible: true});
 
     //really bad way of doing this, but setting a temporary state for the itemkey referece to update price for
-    //since I cannot figure out a better way to pass that key in 
+    //since I cannot figure out a better way to pass that key in
     this.setState({priceKeyToSubmit: itemKey});
   }
 
@@ -334,7 +356,7 @@ export default class MainScreen extends Component{
     var lat = getLatitude(this);
     var long  = getLongitude(this);
     alert(this.state.latitude.position.coords.latitude);
-    
+
     //add this only, have it do those inside the submitlocation
     var storeKey = submitNewStore(this.dbConnection, this.state.location, lat, long);
   }
