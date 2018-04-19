@@ -331,12 +331,9 @@ export default class MainScreen extends Component{
     this.closeLocationModal();
     var lat = getLatitude(this);
     var long  = getLongitude(this);
-    alert(long);
-  
-    var storeKey = submitNewStore(this.dbConnection, this.state.location);
-    alert(storeKey);
     
-
+    //add this only, have it do those inside the submitlocation
+    var storeKey = submitNewStore(this.dbConnection, this.state.location);
   }
 
   closeLocationModal(){
