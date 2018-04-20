@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
   Button,
   TextInput,
   ScrollView,
@@ -21,7 +22,8 @@ import {
   getAllItems,
   getCartPath,
   removeItem,
-  submitNewStore
+  submitNewStore,
+  updateItem
 } from '../src/databaseController';
 
 import {CheckBox} from 'react-native-elements';
@@ -44,7 +46,9 @@ import Node from '../src/Node.js';
 
 import { Actions } from 'react-native-router-flux';
 
-import {getLatitude, GetLongitude} from '../src/geolocation';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import {getLatitude, getLongitude} from '../src/geolocation';
 
 // import external stylesheet
 import styles from './screenStyles';
@@ -88,17 +92,41 @@ export default class MainScreen extends Component{
     serviceText: "",
     priceText: "0",
     totalPrice: 0,
-    error: {},
-    latitude: {},
-    longitude: {},
+    priceKeyToSubmit: "",
   }
 
   render(){
     return (
-      //creating container and header
+      // main container
         <View style={styles.mainContainer}>
-          <View style={styles.enter}>
 
+          <View style={styles.navBarContainer}>
+            <TouchableOpacity
+             style={styles.navBarBackOpacity}
+             onPress={() => Actions.pop()}
+            >
+              <Icon name="chevron-left" size={48} color="white" />
+            </TouchableOpacity>
+
+            <Image style={styles.navBarLogo} source={require('../Images/tiny-logo.png')} />
+
+            <TouchableOpacity
+             style={styles.mainNavBarOptionsOpacity}
+             onPress={() => this._openOptions()}
+             >
+              <Icon name="cog" size={48} color="white" />
+            </TouchableOpacity>
+            <ModalDropdown
+             style={styles.mainNavBarServicesOpacity}
+             onSelect={(index,value) => this._handleDropdown(index,value)}
+             animated={true}
+             options ={['Price Comparisons', 'Shopping Mode']}
+             >
+              <Icon name="bars" size={48} color='white' />
+             </ModalDropdown>
+          </View>
+
+          <View style={styles.enter}>
             <TouchableOpacity onPress={this.addNote.bind(this)} style={styles.addButtons}>
               <Text style={styles.addButtonText}>+</Text>
             </TouchableOpacity>
@@ -106,20 +134,13 @@ export default class MainScreen extends Component{
             <TextInput style={styles.textInput} placeholder="Enter Item"
                 onChangeText={(noteText) => this.setState({noteText})} value={this.state.noteText}
                placeholderTextColor="grey" underlineColorAndroid="transparent">
-
             </TextInput>
-            <ModalDropdown
-            defaultValue="Services"
-            onSelect={(index,value) => this._handleDropdown(index,value)}
-            animated={true}
-            options ={['Price Comparisons', 'Shopping Mode']}/>
-
           </View>
 
           <ScrollView style={styles.scrollContainer}>
             {this.state.noteArray.map((note, key) => {
-              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} location={note['loc']} price={note['price']} checked={false}
-               submittedPrice={() => this.submitPrice()}
+              return ( <Note key={note['key']} keyval={note['key']} val={note['note']} location={note["loc"]} price={note["price"]} checked={false}
+               submittedPrice={() => this.submitPrice(key, note['key'])}
                checkItem={() => this.checkItem(key, note['key']) }
               deleteNote={() => this.deleteNote(key, note['key'])} /> )
             })}
@@ -127,7 +148,7 @@ export default class MainScreen extends Component{
           <View
           style={styles.totalPriceView}>
             <Text
-            style={styles.totalPriceFont}>Total Price: ${this.state.totalPrice}</Text>
+            style={styles.totalPriceFont}>Total Price: ${this.state.totalPrice} At {this.state.location}</Text>
           </View>
 
            <Modal
@@ -174,9 +195,9 @@ export default class MainScreen extends Component{
           animationType="slide"
           transparent={true}>
             <View
-            style={styles.modal}>
+            style={styles.itemModal}>
               <View
-              style={styles.modalInside}>
+              style={styles.itemModalInside}>
                   <Text>Please input the name of the store</Text>
                   <TextInput
                   onChangeText={(location) => this.setState({location})}
@@ -255,7 +276,7 @@ export default class MainScreen extends Component{
     //may need to set some sort of"checked" value for rendering from db
     if(!checkedState){
       if(this.state.shoppingMode){
-        this.openModal();
+        this.openModal(itemKey);
       }
       var checkedItem = this.state.noteArray.splice(arrKey, 1)
       console.log(checkedItem);
@@ -270,15 +291,30 @@ export default class MainScreen extends Component{
 
   }
 
-  openModal(){
+  openModal(itemKey){
     this.setState({PriceModalVisible: true});
+
+    //really bad way of doing this, but setting a temporary state for the itemkey referece to update price for
+    //since I cannot figure out a better way to pass that key in
+    this.setState({priceKeyToSubmit: itemKey});
   }
 
   closeModal(){
     this.setState({PriceModalVisible: false})
   }
 
-  submitPrice(){
+  submitPrice(nodes){
+    itemKey = this.state.priceKeyToSubmit;
+    //access the nodes and add the price into it
+
+    for(i = 0; i < this.nodes.length; i++){
+      //load into correct key placement and then run get all items
+      if(this.keys[i] == itemKey){
+        node[i].price == parseInt(this.state.priceText);
+      }
+      this.setState({priceKeyToSubmit: ""});
+      getAllItems(this);
+    }
     this.setState({PriceModalVisible:false})
     return this.state.priceText;
   }
@@ -287,6 +323,8 @@ export default class MainScreen extends Component{
     if(value == "Price Comparisons"){
       this.setState({serviceText: "Finding stores near you..."});
       this.setState({priceCompareModalVisible:true});
+      //Actions.priceComparisonScreen({});
+
     }
     if(value == "Shopping Mode"){
       this.setState({shoppingMode: true});
@@ -317,12 +355,10 @@ export default class MainScreen extends Component{
     this.closeLocationModal();
     var lat = getLatitude(this);
     var long  = getLongitude(this);
-    alert(this.state.error.message);
-  
-    var storeKey = submitNewStore(this.dbConnection, this.state.location);
-    alert(storeKey);
-    
+    alert(this.state.latitude.position.coords.latitude);
 
+    //add this only, have it do those inside the submitlocation
+    var storeKey = submitNewStore(this.dbConnection, this.state.location, lat, long);
   }
 
   closeLocationModal(){

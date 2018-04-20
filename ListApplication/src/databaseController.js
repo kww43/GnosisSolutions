@@ -46,15 +46,15 @@ export function saveStoreData( storeRef, instanceData ) {
   //Placeholder for save function until further details are revealed from development
 }
 
-export function submitNewStore(dbRef, storeName){
+export function submitNewStore(dbRef, storeName, lat, long){
   //get db reference to the stores/ to enter under
-  alert("InSubmit new store");
-
   storeRef = dbRef.ref('stores');
 
 
   var thisStoreKey = storeRef.push({
     Name: storeName,
+    // lattitude: lat,
+    // longitude: long
   });
 
 

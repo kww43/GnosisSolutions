@@ -41,6 +41,50 @@ export default StyleSheet.create({
    spacer: {
      width: 60,
    },
+   // custom NavBar styles
+   navBarContainer: {
+      height: 60,
+      backgroundColor: '#424242',
+   },
+   navBarLogoutOpacity: {
+      position: 'absolute',
+      top: 8,
+      left: 10,
+   },
+   navBarBackOpacity: {
+     position: 'absolute',
+     top: 8,
+     left: 10,
+   },
+   listNavBarOptionsOpacity: {
+      position: 'absolute',
+      top: 6,
+      right: 80,
+   },
+   mainNavBarOptionsOpacity: {
+     position: 'absolute',
+     top: 6,
+     right: 80,
+   },
+   mainNavBarServicesOpacity: {
+     position: 'absolute',
+     top: 6,
+     right: 6,
+   },
+   navBarNewListButtonOpacity: {
+      width: 48,
+      height: 48,
+      position: 'absolute',
+      top: 8,
+      right: 0,
+   },
+   navBarLogo: {
+      width: 36,
+      height: 36,
+      position: 'absolute',
+      left: 200,
+      top: 10,
+   },
    // listSelector styles
    listSelectorContainer: {
      flex: 1,
@@ -164,5 +208,9 @@ export default StyleSheet.create({
    },
    totalPriceFont: {
      fontSize: 20,
+   },
+   priceDivider: {
+     flex: 1,
+     justifyContent: 'center',
    }
 });
