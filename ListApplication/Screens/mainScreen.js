@@ -340,7 +340,6 @@ export default class MainScreen extends Component{
       var lat = 0;
       var long  = 0;
       //beginning to call the current position, and test that against firebase values
-
       this.setState({shoppingMode: true});
 
       console.log('Getting Users position')
@@ -368,25 +367,27 @@ export default class MainScreen extends Component{
 
                 //alert(snap[key].lattitude);
                 distance = getDistance(lat, long, snap[key].lattitude, snap[key].longitude);
-                //alert(distance);
+                //alert("distance" + distance);
 
                 //if distance is less than 2 miles to a registered store
-                if(distance <= 1.6){
+                if(distance <= 0.804672){
 
                   alert(" are you At " + snap[key].Name);
                   //store is found and that is the store we are at
-                  //this.setState({location: snap[key].Name});
+                  this.setState({location: snap[key].Name});
 
                   //save storeRef as path
-                  //this.setState({storePath: snap[key]});
+                  this.setState({storePath: snap[key]});
+                  //return;
 
                 }
                 //else we are at a new store
                 else{
-                  //this.setState({locationModalVisible: true});
+                  this.setState({locationModalVisible: true});
+                  //return
                 }
               }              
-            })
+            }.bind(this));
 
 
           },
