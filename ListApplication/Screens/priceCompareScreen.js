@@ -55,14 +55,11 @@ export default class priceCompareScreen extends Component{
     constructor(props){
         super(props);
         this.keys = [];
-        this.firebase = this.props.firebaseModule;
+        this.firebase = this.props.firebase;
         this.dbConnection = this.props.dbConnection;
         this.listName = this.props.listName;
         this.loginType = this.props.loginType;
-        this.itemsPathway = getCartPath(this.dbConnection,
-                                        this.props.userNum,
-                                        this.props.listName,
-                                        this.props.loginType);
+        this.itemsPathway = this.props.itemsPathway
         getAllItems(this);
         this.nodes = [];
       }
@@ -75,19 +72,32 @@ export default class priceCompareScreen extends Component{
         this._mounted = false;
       }
 
+      state = {
+        noteArray: [],
+        checkedNoteArray: [],
+        priceText: "0",
+        totalPrice: 0,
+        priceKeyToSubmit: "",
+      }
+
 
     render() {
         return(
-            <View>
+            <View style={styles.itemModal2}>
+              <Text>Here are the prices for your list </Text>
                 
                 <View
-                style={styles.priceDivider}>
+                >
+                  <Text style={styles.listText}>At Safeway</Text>
+                  <Text style={styles.listText}>$27.39</Text>
+                  <View>
+
+                  </View>
+                  <View >
+                      <Text style={styles.listText}>At Bashas</Text>
+                      <Text style={styles.listText}>$30.67</Text>
+                  </View>
                 </View>
-
-                <View>
-                </View>
-
-
             </View>
 
         );

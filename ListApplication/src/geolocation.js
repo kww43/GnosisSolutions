@@ -1,39 +1,33 @@
 import AppConfig from './AppConfig'
 import Node from './Node';
 
-
-// Grab the current latitude from the user's phone
-export function getLatitude(instance)
+// Gets the latitude and longitude
+export function getLocation()
 {
-		navigator.geolocation.getCurrentPosition(
-			(position) => {
-				instance.setState({
-					latitude: position.coords.latitude,
-					error: null,
-				});
-		  },
-		  (error) => instance.setState({ error: error.message }),
-		  { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-		);
+	var lat = 0;
+	var long = 0;
 
-    return instance.state.latitude;
-}
-
-// Grab the current longitude from the user's phone
-export function getLongitude(instance)
-{
+	console.log('Getting Users position')
 	navigator.geolocation.getCurrentPosition(
-		(position) => {
-			instance.setState({
-				latitude: position.coords.longitude,
-				error: null,
-			});
-		},
-		(error) => instance.setState({ error: error.message }),
-		{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-	);
+			position => {
+				console.log('POSITION NETWORK OKAY', position) //success getting position
+				lat = position.coords.latitude;
+				long = position.coords.longitude;
 
-	return instance.state.longitude;
+				console.log(lat, long);
+				alert(lat);
+				alert(long);
+			},
+			error => {
+				console.log('ERROR') //Error getting position
+				console.log(error)
+			},
+			{
+				enableHighAccuracy: false,
+				timeout: 10000,
+				maxAge: 0
+			}
+	)
 }
 
 // Get the distance between two points (in KM) using the Haversine formula

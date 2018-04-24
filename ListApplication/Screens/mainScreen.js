@@ -26,6 +26,7 @@ import {
   updateItem
 } from '../src/databaseController';
 
+
 import {CheckBox} from 'react-native-elements';
 
 import TimerMixin from 'react-timer-mixin';
@@ -48,7 +49,7 @@ import { Actions } from 'react-native-router-flux';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {getLatitude, getLongitude} from '../src/geolocation';
+import {getLocation} from '../src/geolocation';
 
 // import external stylesheet
 import styles from './screenStyles';
@@ -57,6 +58,7 @@ export default class MainScreen extends Component{
 
   constructor(props) {
     super(props)
+    this.title = this.props.title;
     this.keys = [];
     this.firebase = this.props.firebaseModule;
     this.dbConnection = this.props.dbConnection;
@@ -72,6 +74,7 @@ export default class MainScreen extends Component{
 
   componentDidMount() {
     this._mounted = true;
+
   }
 
   componentWillMount() {
@@ -93,6 +96,9 @@ export default class MainScreen extends Component{
     priceText: "0",
     totalPrice: 0,
     priceKeyToSubmit: "",
+    latitude: null,
+    error: null,
+    longitude: null,
   }
 
   render(){
@@ -323,8 +329,12 @@ export default class MainScreen extends Component{
     if(value == "Price Comparisons"){
       this.setState({serviceText: "Finding stores near you..."});
       this.setState({priceCompareModalVisible:true});
-      //Actions.priceComparisonScreen({});
-
+      Actions.priceCompare({
+        title: this.title, itemspath: this.itemsPathway, 
+        userNum: this.userNum, firebase: this.firebase, 
+        listName: this.listName,
+        dbConnection: this.dbConnection});
+      
     }
     if(value == "Shopping Mode"){
       this.setState({shoppingMode: true});
@@ -353,9 +363,35 @@ export default class MainScreen extends Component{
 
   submitLocation(){
     this.closeLocationModal();
-    var lat = getLatitude(this);
-    var long  = getLongitude(this);
-    alert(this.state.latitude.position.coords.latitude);
+    
+    getLocation();
+    var lat = 0;
+    var long = 0;
+  
+    console.log('Getting Users position')
+    navigator.geolocation.getCurrentPosition(
+        position => {
+          console.log('POSITION NETWORK OKAY', position) //success getting position
+          lat = position.coords.latitude;
+          long = position.coords.longitude;
+  
+          console.log(lat, long);
+          alert(lat);
+          alert(long);
+        },
+        error => {
+          console.log('ERROR') //Error getting position
+          console.log(error)
+        },
+        {
+          enableHighAccuracy: false,
+          timeout: 10000,
+          maxAge: 0
+        }
+    )
+    
+    alert(lat);
+    alert(long);
 
     //add this only, have it do those inside the submitlocation
     var storeKey = submitNewStore(this.dbConnection, this.state.location, lat, long);

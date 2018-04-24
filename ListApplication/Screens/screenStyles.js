@@ -180,6 +180,14 @@ export default StyleSheet.create({
      borderRadius: 2,
      padding: 10,
    },
+   itemModal2 :{
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 2,
+    padding: 10,
+  },
    itemModalInside: {
      borderRadius: 5,
      width: 150,
