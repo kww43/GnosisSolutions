@@ -49,7 +49,7 @@ import { Actions } from 'react-native-router-flux';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {getLocation} from '../src/geolocation';
+import {getLocation, getDistance} from '../src/geolocation';
 
 // import external stylesheet
 import styles from './screenStyles';
@@ -337,15 +337,82 @@ export default class MainScreen extends Component{
       
     }
     if(value == "Shopping Mode"){
+      var lat = 0;
+      var long  = 0;
+      //beginning to call the current position, and test that against firebase values
+
       this.setState({shoppingMode: true});
-      if(this.state.location == ""){
-          this.setState({locationModalVisible: true});
-      }
-      else{
-        this.setState({serviceText: "Turning Shopping Mode on and detecting current store."});
-        this.setState({priceCompareModalVisible:true});
-        //setTimeout(this.closePriceModal, 5000);
-      }
+
+      console.log('Getting Users position')
+      navigator.geolocation.getCurrentPosition(
+          position => {
+            console.log('POSITION NETWORK OKAY', position) //success getting position
+            lat = position.coords.latitude;
+            long = position.coords.longitude;
+    
+            console.log(lat, long);
+            //alert(lat);
+            //alert(long);
+            this.setState({latitude: lat, longitude: long});
+            var storeRef = this.dbConnection.ref('stores/');
+            
+
+            //access stores
+            storeRef.on('value',function(snapshot) {
+              var distance = 0;
+              var snap = snapshot.val();
+              var jsonElements = JSON.parse( JSON.stringify(snap));
+
+              //loop through stores and find one within distance
+              for(var key in jsonElements){
+
+                //alert(snap[key].lattitude);
+                distance = getDistance(lat, long, snap[key].lattitude, snap[key].longitude);
+                //alert(distance);
+
+                //if distance is less than 2 miles to a registered store
+                if(distance <= 1.6){
+
+                  alert(" are you At " + snap[key].Name);
+                  //store is found and that is the store we are at
+                  //this.setState({location: snap[key].Name});
+
+                  //save storeRef as path
+                  //this.setState({storePath: snap[key]});
+
+                }
+                //else we are at a new store
+                else{
+                  //this.setState({locationModalVisible: true});
+                }
+              }              
+            })
+
+
+          },
+
+          error => {
+            console.log('ERROR') //Error getting position
+            console.log(error)
+          },
+          {
+            enableHighAccuracy: false,
+            timeout: 10000,
+            maxAge: 0
+          }
+      )
+
+      //return the stores saved and detect if it is within
+
+      // if(this.state.location == ""){
+      //     this.setState({locationModalVisible: true});
+      // }
+
+      // else{
+      //   this.setState({serviceText: "Turning Shopping Mode on and detecting current store."});
+      //   this.setState({priceCompareModalVisible:true});
+      //   //setTimeout(this.closePriceModal, 5000);
+      
     }
   }
 
@@ -376,8 +443,8 @@ export default class MainScreen extends Component{
           long = position.coords.longitude;
   
           console.log(lat, long);
-          alert(lat);
-          alert(long);
+          var storeKey1 = submitNewStore(this.dbConnection, this.state.location, lat, long);
+
         },
         error => {
           console.log('ERROR') //Error getting position
@@ -390,11 +457,6 @@ export default class MainScreen extends Component{
         }
     )
     
-    alert(lat);
-    alert(long);
-
-    //add this only, have it do those inside the submitlocation
-    var storeKey = submitNewStore(this.dbConnection, this.state.location, lat, long);
   }
 
   closeLocationModal(){

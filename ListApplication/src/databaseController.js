@@ -53,7 +53,7 @@ export function submitNewStore(dbRef, storeName, lat, long){
 
   var thisStoreKey = storeRef.push({
     Name: storeName,
-    lattitude: lat,
+    latitude: lat,
     longitude: long
   });
 
