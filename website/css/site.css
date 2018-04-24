@@ -41,6 +41,11 @@
     background-size: cover;
 }
 
+#brand_img{
+    width: 30px; 
+    height: auto;
+}
+
 .jumbotron{
     background-color: #9BC2CF
 }
@@ -53,11 +58,12 @@ body {
 @media only screen and (max-width: 600px){
     #section1{height: 1000px; width: 100%;}
     #jumboC{padding-top: 15%;}
+
 }
 
 @media only screen and (max-width: 768px){
     #section1{height: 1000px; width:100%;}
-    padding-top: 15%;
+    padding-top: 20%;
 }
 
 .cover-container {
@@ -72,7 +78,7 @@ body {
   
   .cover {
     padding: 0 20px;
-    margin-top: 20%;
+    margin-top: 5%;
   }
   .cover .btn-lg {
     padding: 10px 20px;
@@ -98,7 +104,9 @@ body {
 
 
 
-
+footer{
+    color: white;
+}
 
 
   #footer-sub{
@@ -111,7 +119,7 @@ body {
 }
 
 #footer-sub h5{
-    color:#565656;
+    color:#fff;
     margin-top: 25px;
 }
 
@@ -131,13 +139,13 @@ body {
 
 #footer-sub a:link {
     text-decoration: none;
-    color:#565656;
+    color:#fff;
     font-size: 12px;
 }
 
 #footer-sub a:visited {
     text-decoration: none;
-    color:#565656;
+    color:#fff;
 }
 
 
@@ -149,7 +157,7 @@ body {
 
 #footer-sub a:active {
     text-decoration: none;
-    color:#565656;
+    color:#fff;
 }
 
 .vertical-line{
