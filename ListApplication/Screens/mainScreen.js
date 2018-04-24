@@ -21,12 +21,15 @@ import {
   getItemsPath,
   saveItem,
   getAllItems,
+  getAllStores,
+  getStoresPath,
   getCartPath,
   removeItem,
   submitNewStore,
   updateItem
 } from '../src/databaseController';
 
+import Store from '../src/Store';
 
 import {CheckBox} from 'react-native-elements';
 
@@ -65,17 +68,20 @@ export default class MainScreen extends Component{
     this.dbConnection = this.props.dbConnection;
     this.listName = this.props.listName;
     this.loginType = this.props.loginType;
+    this.storePathway = getStoresPath(this.dbConnection);
     this.itemsPathway = getCartPath(this.dbConnection,
                                     this.props.userNum,
                                     this.props.listName,
                                     this.props.loginType);
+    getAllStores(this);
+
     getAllItems(this);
     this.nodes = [];
   }
 
+
   componentDidMount() {
     this._mounted = true;
-
   }
 
   componentWillMount() {
@@ -86,6 +92,7 @@ export default class MainScreen extends Component{
   state = {
     noteArray: [],
     checkedNoteArray: [],
+    storesArray: [],
     noteText: '',
     modalVisible: false,
     PriceModalVisible: false,
@@ -103,6 +110,7 @@ export default class MainScreen extends Component{
   }
 
   render(){
+
     return (
       // main container
         <View style={styles.mainContainer}>
@@ -331,11 +339,11 @@ export default class MainScreen extends Component{
       this.setState({serviceText: "Finding stores near you..."});
       this.setState({priceCompareModalVisible:true});
       Actions.priceCompare({
-        title: this.title, itemspath: this.itemsPathway, 
-        userNum: this.userNum, firebase: this.firebase, 
+        title: this.title, itemspath: this.itemsPathway,
+        userNum: this.userNum, firebase: this.firebase,
         listName: this.listName,
         dbConnection: this.dbConnection});
-      
+
     }
     if(value == "Shopping Mode"){
       var lat = 0;
@@ -351,7 +359,7 @@ export default class MainScreen extends Component{
             console.log('POSITION NETWORK OKAY', position) //success getting position
             lat = position.coords.latitude;
             long = position.coords.longitude;
-    
+
             console.log(lat, long);
             //alert(lat);
             //alert(long);
@@ -368,7 +376,7 @@ export default class MainScreen extends Component{
 
               //loop through stores and find one within distance
 
-              
+
               for(var key in jsonElements){
 
                 distance = getDistance(lat, long, snap[key].lattitude, snap[key].longitude);
@@ -398,7 +406,7 @@ export default class MainScreen extends Component{
                   //salert("storevl" + storeVal);
                 }
                 snaplength += 1;
-              }              
+              }
             }.bind(this));
 
 
@@ -419,14 +427,14 @@ export default class MainScreen extends Component{
       //return the stores saved and detect if it is within
 
       // if(this.state.location == ""){
-      //    
+      //
       // }
 
       // else{
       //   this.setState({serviceText: "Turning Shopping Mode on and detecting current store."});
       //   this.setState({priceCompareModalVisible:true});
       //   //setTimeout(this.closePriceModal, 5000);
-      
+
     }
   }
 
@@ -444,18 +452,18 @@ export default class MainScreen extends Component{
 
   submitLocation(){
     this.closeLocationModal();
-    
+
     getLocation();
     var lat = 0;
     var long = 0;
-  
+
     console.log('Getting Users position')
     navigator.geolocation.getCurrentPosition(
         position => {
           console.log('POSITION NETWORK OKAY', position) //success getting position
           lat = position.coords.latitude;
           long = position.coords.longitude;
-  
+
           console.log(lat, long);
           var storeKey1 = submitNewStore(this.dbConnection, this.state.location, lat, long);
 
@@ -470,7 +478,7 @@ export default class MainScreen extends Component{
           maxAge: 0
         }
     )
-    
+
   }
 
   closeLocationModal(){

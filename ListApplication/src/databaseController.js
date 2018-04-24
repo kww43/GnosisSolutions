@@ -8,6 +8,7 @@ import Fire, { app, database } from 'firebase';
 
 import AppConfig from './AppConfig'
 import Node from './Node';
+import Store from './Store';
 
 //This will initialize the firebase connection with the APPConfig defined in './AppConfig.js' file.
 export function getFirebaseConnection( ) {
@@ -39,6 +40,11 @@ export function getCartPath( dbRef, userToken, listName, loginType ) {
 export function getStorePath( dbRef, storeToken ) {
   //Placeholder for getting store path
   var path = 'stores/' + storeToken + "/";
+  return dbRef.ref(path);
+}
+
+export function getStoresPath( dbRef ) {
+  var path = 'stores/';
   return dbRef.ref(path);
 }
 
@@ -107,9 +113,39 @@ export function updateItem( itemsRef, name, price, quantity, locationString, uni
 }
 
 //Removes any item from the firebase database given the correct path
-export function removeItem( itemsRef, keyToRemove ) {
-  itemsRef.child(keyToRemove).remove();
+export function removeItem( path, keyToRemove ) {
+  path.child(keyToRemove).remove();
   return 1;
+}
+
+/*
+ * Input: Instance variable to help facilitate the passing of data to caller
+ * Ouput: Array of store item objects
+ * For: Getting the array of relevant store objects
+*/
+
+export function getAllStores( instance ) {
+  var stores = [];
+  var counter = 0;
+
+  var getStoreData = new Promise( function( resolve, reject ){
+    instance.storePathway.on('value', function( snapshot ) {
+      var snap = snapshot.val( );
+      var jsonElements = JSON.parse( JSON.stringify( snap ) );
+      //Now we have data we can alter
+      for( var key in jsonElements ) {
+        //Create new Store object
+        var currentStore = new Store( key, snap[key].Name, snap[key].latitude, snap[key].longitude );
+        //Add this to the callers array that NEEDS TO BE DEFINED AS storesArray in the state variable of the caller.
+        stores.push( currentStore );
+        instance.state.storesArray.push(currentStore);
+      }
+      //At this point we now have an array of all stores in the variable stores defined above. Now we pass back to caller
+      instance.setState({storesArray: instance.state.storesArray});
+      console.log(instance.state.storesArray.length);
+      
+    });
+  });
 }
 
 /*
