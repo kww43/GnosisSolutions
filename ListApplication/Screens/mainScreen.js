@@ -341,6 +341,8 @@ export default class MainScreen extends Component{
       var long  = 0;
       //beginning to call the current position, and test that against firebase values
       this.setState({shoppingMode: true});
+      this.setState({serviceText: "Turning Shopping Mode on and detecting current store."});
+      this.setState({priceCompareModalVisible:true});
 
       console.log('Getting Users position')
       navigator.geolocation.getCurrentPosition(
@@ -369,7 +371,7 @@ export default class MainScreen extends Component{
 
                 //if distance is less than 2 miles to a registered store
                 if(distance <= 0.804672){
-
+                  this.setState({priceCompareModalVisible:false});
                   alert(" are you At " + snap[key].Name);
                   //store is found and that is the store we are at
                   this.setState({location: snap[key].Name});
@@ -381,7 +383,7 @@ export default class MainScreen extends Component{
                 }
                 //else we are at a new store
                 else{
-                  this.setState({locationModalVisible: true});
+                  //this.setState({locationModalVisible: true});
                 }
               }              
             }.bind(this));
