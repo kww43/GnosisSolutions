@@ -31,6 +31,7 @@ export default class Note extends Component {
       modalVisible: false,
       price: this.props.price,
       inputprice: this.props.submittedPrice,
+      keyval : this.props.keyval
 
   }
 

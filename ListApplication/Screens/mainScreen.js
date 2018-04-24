@@ -299,6 +299,7 @@ export default class MainScreen extends Component{
   }
 
   openModal(itemKey){
+    //alert(itemKey);
     this.setState({PriceModalVisible: true});
 
     //really bad way of doing this, but setting a temporary state for the itemkey referece to update price for
@@ -313,17 +314,22 @@ export default class MainScreen extends Component{
   submitPrice(nodes){
     itemKey = this.state.priceKeyToSubmit;
     //access the nodes and add the price into it
+    for(i = 0; i < this.state.noteArray.length; i++){
+      if(this.state.noteArray[i].key == itemKey){
+        //set this items price
+        updateItem(this.itemsPathway, 
+                   this.state.noteArray[i].name,
+                   this.state.priceText,
+                   0,
+                   0,
+                   0,
+                   this,
+                   true,
+                   itemKey);
 
-    for(i = 0; i < this.nodes.length; i++){
-      //load into correct key placement and then run get all items
-      if(this.keys[i] == itemKey){
-        node[i].price == parseInt(this.state.priceText);
+        this.updateNotes()
       }
-      this.setState({priceKeyToSubmit: ""});
-      getAllItems(this);
     }
-    this.setState({PriceModalVisible:false})
-    return this.state.priceText;
   }
 
   _handleDropdown(index,value){
@@ -371,8 +377,8 @@ export default class MainScreen extends Component{
               
               for(var key in jsonElements){
 
-                distance = getDistance(lat, long, snap[key].lattitude, snap[key].longitude);
-
+                distance = getDistance(lat, long, snap[key].latitude, snap[key].longitude);
+                
                 //if distance is less than 2 miles to a registered store
                 if(distance <= 0.804672){
                   this.setState({priceCompareModalVisible:false});
@@ -386,18 +392,15 @@ export default class MainScreen extends Component{
                   this.setState({location: snap[key].Name});
 
                   //save storeRef as path
-                  this.setState({storePath: snap[key]});
+                  this.setState({storePath: this.dbConnection.ref('stores/' + snap[key].Name + '/') });
                   break;
 
                 }
-                else if(storeVal == snap.length){
+                else {
+                  this.setState({priceCompareModalVisible:false});
                   this.setState({locationModalVisible: true});
                 }
-                else{
-                  storeVal += 1;
-                  //salert("storevl" + storeVal);
-                }
-                snaplength += 1;
+                
               }              
             }.bind(this));
 

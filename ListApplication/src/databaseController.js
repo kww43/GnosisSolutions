@@ -94,7 +94,7 @@ export function saveItem( itemsRef, name, price, quantity, locationString, uniqu
 }
 
 export function updateItem( itemsRef, name, price, quantity, locationString, uniqueID, instance, checked, existingKey ) {
-  var newItem = itemsRef.child(existingKey).setValue({
+  var newItem = itemsRef.child(existingKey).update({
     id: uniqueID,
     name: name,
     price: price,
