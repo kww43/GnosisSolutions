@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   AppRegistry,
   StyleSheet,
   Text,
@@ -204,7 +205,7 @@ export default class MainScreen extends Component{
             style={styles.itemModal}>
               <View
               style={styles.itemModalInside}>
-                  <Text>Please input the name of the store</Text>
+                  <Text>Store Not Detected: Please input the name of the store</Text>
                   <TextInput
                   onChangeText={(location) => this.setState({location})}
                   value={this.state.location}></TextInput>
@@ -360,19 +361,27 @@ export default class MainScreen extends Component{
             //access stores
             storeRef.on('value',function(snapshot) {
               var distance = 0;
+              var storeVal = 0;
+              var snaplength = 0;
               var snap = snapshot.val();
               var jsonElements = JSON.parse( JSON.stringify(snap));
 
               //loop through stores and find one within distance
+
+              
               for(var key in jsonElements){
 
                 distance = getDistance(lat, long, snap[key].lattitude, snap[key].longitude);
-                
 
                 //if distance is less than 2 miles to a registered store
                 if(distance <= 0.804672){
                   this.setState({priceCompareModalVisible:false});
-                  alert(" are you At " + snap[key].Name);
+                  Alert.alert(
+                    "Are you at ", snap[key].Name,
+                [
+                  {text: 'No'},
+                  {text: 'Yes'},
+                ]);
                   //store is found and that is the store we are at
                   this.setState({location: snap[key].Name});
 
@@ -381,10 +390,14 @@ export default class MainScreen extends Component{
                   break;
 
                 }
-                //else we are at a new store
-                else{
-                  //this.setState({locationModalVisible: true});
+                else if(storeVal == snap.length){
+                  this.setState({locationModalVisible: true});
                 }
+                else{
+                  storeVal += 1;
+                  //salert("storevl" + storeVal);
+                }
+                snaplength += 1;
               }              
             }.bind(this));
 
