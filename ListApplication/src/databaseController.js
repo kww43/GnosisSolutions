@@ -134,6 +134,7 @@ export function getAllStores( instance ) {
       var jsonElements = JSON.parse( JSON.stringify( snap ) );
       //Now we have data we can alter
       for( var key in jsonElements ) {
+
         //Create new Store object
         var currentStore = new Store( key, snap[key].Name, snap[key].latitude, snap[key].longitude );
         //Add this to the callers array that NEEDS TO BE DEFINED AS storesArray in the state variable of the caller.
