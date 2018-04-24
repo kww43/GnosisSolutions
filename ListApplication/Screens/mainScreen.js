@@ -354,7 +354,6 @@ export default class MainScreen extends Component{
             //alert(long);
             this.setState({latitude: lat, longitude: long});
             var storeRef = this.dbConnection.ref('stores/');
-            
 
             //access stores
             storeRef.on('value',function(snapshot) {
@@ -365,9 +364,8 @@ export default class MainScreen extends Component{
               //loop through stores and find one within distance
               for(var key in jsonElements){
 
-                //alert(snap[key].lattitude);
                 distance = getDistance(lat, long, snap[key].lattitude, snap[key].longitude);
-                //alert("distance" + distance);
+                
 
                 //if distance is less than 2 miles to a registered store
                 if(distance <= 0.804672){
@@ -378,13 +376,12 @@ export default class MainScreen extends Component{
 
                   //save storeRef as path
                   this.setState({storePath: snap[key]});
-                  //return;
+                  break;
 
                 }
                 //else we are at a new store
                 else{
                   this.setState({locationModalVisible: true});
-                  //return
                 }
               }              
             }.bind(this));
@@ -403,10 +400,11 @@ export default class MainScreen extends Component{
           }
       )
 
+
       //return the stores saved and detect if it is within
 
       // if(this.state.location == ""){
-      //     this.setState({locationModalVisible: true});
+      //    
       // }
 
       // else{
