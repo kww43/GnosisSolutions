@@ -108,6 +108,8 @@ export function updateItem( itemsRef, name, price, quantity, locationString, uni
     shelf_location: locationString,
     checked: checked,
   });
+  //Update UI after this update item
+  getAllItems(instance);
 
   return 1;
 }
@@ -143,8 +145,7 @@ export function getAllStores( instance ) {
       }
       //At this point we now have an array of all stores in the variable stores defined above. Now we pass back to caller
       instance.setState({storesArray: instance.state.storesArray});
-      console.log(instance.state.storesArray.length);
-      
+
     });
   });
 }
