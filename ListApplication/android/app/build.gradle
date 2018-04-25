@@ -96,13 +96,13 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.2"
 
     defaultConfig {
         applicationId "com.listapplication"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         ndk {
@@ -147,7 +147,7 @@ dependencies {
     compile project(':react-native-fbsdk')
     compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:25.0.3"
+    compile "com.android.support:appcompat-v7:27.0.2"
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile 'com.google.android.gms:play-services-auth:10.0.1'
 

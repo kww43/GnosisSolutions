@@ -101,7 +101,7 @@ export default class MainScreen extends Component{
     locationModalVisible: false,
     location: "",
     serviceText: "",
-    priceText: 0,
+    priceText: "0",
     totalPrice: 0,
     priceKeyToSubmit: "",
     latitude: null,
@@ -142,7 +142,7 @@ export default class MainScreen extends Component{
           </View>
 
           <View style={styles.enter}>
-            <TouchableOpacity onPress={this.addNote.bind(this)} style={styles.addButtons}>
+            <TouchableOpacity onPress={this.addItem.bind(this)} style={styles.addButtons}>
               <Text style={styles.addButtonText}>+</Text>
             </TouchableOpacity>
 
@@ -231,7 +231,7 @@ export default class MainScreen extends Component{
    * Add a new item to the list and then in the logic statement commit to database
    * This is called everytime a new node has been added e.g. list item.
    */
-  addNote() {
+  addItem() {
     if (this.state.noteText) {
       this.state.noteArray.unshift( {'note': this.state.noteText, 'price': 0});
       this.setState({noteArray: this.state.noteArray});
@@ -327,7 +327,7 @@ export default class MainScreen extends Component{
     for(i = 0; i < this.state.noteArray.length; i++){
       if(this.state.noteArray[i].key == itemKey){
         //set this items price
-        updateItem(this.itemsPathway, 
+        updateItem(this.itemsPathway,
                    this.state.noteArray[i].note,
                    parseInt(this.state.priceText),
                    0,
@@ -389,7 +389,7 @@ export default class MainScreen extends Component{
               for(var key in jsonElements){
 
                 distance = getDistance(lat, long, snap[key].latitude, snap[key].longitude);
-                
+
                 //if distance is less than 2 miles to a registered store
                 if(distance <= 0.4023){
                   this.setState({priceCompareModalVisible:false});
@@ -412,8 +412,8 @@ export default class MainScreen extends Component{
                   this.setState({priceCompareModalVisible:false});
                   this.setState({locationModalVisible: true});
                 }
-                
-              }              
+
+              }
             }.bind(this));
 
 
