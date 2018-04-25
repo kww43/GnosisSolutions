@@ -391,7 +391,7 @@ export default class MainScreen extends Component{
                 distance = getDistance(lat, long, snap[key].latitude, snap[key].longitude);
                 
                 //if distance is less than 2 miles to a registered store
-                if(distance <= 0.804672){
+                if(distance <= 0.4023){
                   this.setState({priceCompareModalVisible:false});
                   this.setState({locationModalVisible: false});
                   Alert.alert(
