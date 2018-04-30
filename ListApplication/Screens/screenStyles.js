@@ -36,7 +36,7 @@ export default StyleSheet.create({
    },
    fbIcon: {
      width: 24,
-     height: 24
+     height: 24,
    },
    spacer: {
      width: 60,
@@ -45,6 +45,8 @@ export default StyleSheet.create({
    navBarContainer: {
       height: 60,
       backgroundColor: '#424242',
+      justifyContent: 'center',
+      alignItems: 'center',
    },
    navBarLogoutOpacity: {
       position: 'absolute',
@@ -92,9 +94,6 @@ export default StyleSheet.create({
    scrollContainer: {
      flex: 2,
      backgroundColor: "#ffffff",
-   },
-   addButtonText: {
-     fontSize: 24,
    },
    floatingButton : {
      width: 60,
@@ -150,27 +149,15 @@ export default StyleSheet.create({
      borderBottomWidth: 10,
      borderBottomColor: '#ddd',
    },
-   enter: {
-     borderWidth: 5,
-     borderColor: '#ddd',
+   newItemInputContainer: {
+     borderWidth: 20,
+     borderColor: '#ffffff',
      flexDirection: 'row',
    },
-   addButtons: {
-     backgroundColor: '#00b8d4',
-     width: 30,
-     height: 30,
-     alignItems: 'center',
-     justifyContent: 'center',
-     elevation: 0,
-     borderRadius: 2,
-   },
-   addButtonText: {
-     fontSize: 24,
-   },
-   textInput: {
+   newItemInput: {
      alignSelf: 'stretch',
      fontSize: 24,
-     flex: 5,
+     flex: 4,
    },
    itemModal :{
      flex: 1,
