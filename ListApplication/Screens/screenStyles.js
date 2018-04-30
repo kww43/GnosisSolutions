@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 export default StyleSheet.create({
    // login screen styles
@@ -72,6 +72,17 @@ export default StyleSheet.create({
      position: 'absolute',
      top: 6,
      right: 6,
+   },
+   mainNavBarServicesDropdown: {
+     width: Dimensions.get('window').width,
+     left: 0,
+     height: 140,
+   },
+   mainNavBarServicesText: {
+     color: '#424242',
+     fontWeight: 'bold',
+     fontSize: 16,
+     textAlign: 'center',
    },
    navBarNewListButtonOpacity: {
       width: 48,

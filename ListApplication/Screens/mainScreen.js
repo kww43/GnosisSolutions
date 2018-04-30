@@ -127,6 +127,8 @@ export default class MainScreen extends Component{
 
             <ModalDropdown
              style={styles.mainNavBarServicesOpacity}
+             dropdownStyle={styles.mainNavBarServicesDropdown}
+             dropdownTextStyle={styles.mainNavBarServicesText}
              onSelect={(index,value) => this._handleDropdown(index,value)}
              animated={true}
              options ={['Price Comparisons', 'Shopping Mode', 'Delete List']}
@@ -283,14 +285,7 @@ export default class MainScreen extends Component{
    * user back to the previous screen, which deletes the list.
   */
   deleteList() {
-    // delete each item
-    this.setState({modalVisible: false});
-    let i = 0;
     this.state.noteArray.map((note, key) => {this.deleteNote(key,note['key'])});
-    /*
-    for (; i < this.state.noteArray.length; i++) {
-      removeItem(this.itemsPathway, this.state.noteArray[i][key]);
-    }*/
     Actions.pop();
   }
 
