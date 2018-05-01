@@ -93,7 +93,7 @@ export default class ListSelector extends Component {
           {this.state.noteArray.map((list, key) => {
             if(list['key'] != undefined || list['key'] != null){
               return (<TouchableOpacity  key={list['key']}  onPress={this._usePrevList.bind(this, list['key'])}><View style={styles.listItem}>
-              <Text style={styles.listText} style={styles.listText}>{list['key']}</Text></View></TouchableOpacity>);
+              <Text style={styles.listText}>{list['key']}</Text></View></TouchableOpacity>);
             }
 
           })}
@@ -108,10 +108,12 @@ export default class ListSelector extends Component {
             <View style={styles.listModalInside}>
 
               <TextInput
+                style={styles.listModalText}
                 placeholder="Enter List Title"
                 onChangeText={(listText) => this.setState({listText}) }>
               </TextInput>
               <Button
+                style={styles.listModalButton}
                 onPress={this._createNewList.bind(this, this.state.listText)}
                 title="Start Adding Items!"
                 value={this.state.listText}

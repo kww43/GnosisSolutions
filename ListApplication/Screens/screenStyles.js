@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 export default StyleSheet.create({
    // login screen styles
@@ -43,6 +43,7 @@ export default StyleSheet.create({
    },
    // custom NavBar styles
    navBarContainer: {
+      top: Platform.OS === 'ios' ? 10 : 0,
       height: 60,
       backgroundColor: '#424242',
       justifyContent: 'center',
@@ -74,9 +75,9 @@ export default StyleSheet.create({
      right: 6,
    },
    mainNavBarServicesDropdown: {
-     width: Dimensions.get('window').width,
      left: 0,
-     height: 140,
+     width: Dimensions.get('window').width,
+     height: 130,
    },
    mainNavBarServicesText: {
      color: '#424242',
@@ -130,22 +131,40 @@ export default StyleSheet.create({
      fontSize: 24,
    },
    listModal :{
-     flex: 1,
-     flexDirection: 'row',
-     justifyContent: 'center',
-     alignItems: 'center',
-     borderRadius: 2,
-     padding: 10,
+     position: 'absolute',
+     top: 60,
    },
    listModalInside: {
-     borderRadius: 5,
-     width: 150,
+     width: Dimensions.get('window').width,
      height: 150,
      backgroundColor: 'white',
      shadowOpacity: 1.0,
      shadowRadius: 2,
      borderWidth: 1,
      borderColor: '#ddd',
+   },
+   listModalText: {
+     fontSize: 24,
+   },
+   listModalButton: {
+     width: 150,
+     bottom: 0,
+   },
+   optionsModal: {
+     position: 'absolute',
+     top: 60,
+   },
+   optionsModalContents: {
+     width: Dimensions.get('window').width,
+     height: 150,
+     backgroundColor: 'white',
+     shadowOpacity: 1.0,
+     shadowRadius: 2,
+     borderWidth: 1,
+     borderColor: '#ddd',
+   },
+   optionsModalLogoutButton: {
+
    },
    // mainScreen styles
    mainContainer: {
@@ -164,6 +183,10 @@ export default StyleSheet.create({
      borderWidth: 20,
      borderColor: '#ffffff',
      flexDirection: 'row',
+   },
+   newItemInputSpacer: {
+     height: 1,
+     backgroundColor: '#ededed',
    },
    newItemInput: {
      alignSelf: 'stretch',

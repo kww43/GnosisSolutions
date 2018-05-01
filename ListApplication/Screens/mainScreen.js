@@ -141,8 +141,12 @@ export default class MainScreen extends Component{
             <TextInput style={styles.newItemInput} placeholder="Enter Item"
              onChangeText={(noteText) => this.setState({noteText})} value={this.state.noteText}
              onSubmitEditing={this.addItem.bind(this)}
-             placeholderTextColor="grey">
+             placeholderTextColor="#424242">
             </TextInput>
+          </View>
+
+
+          <View style={styles.newItemInputSpacer}>
           </View>
 
           <ScrollView style={styles.scrollContainer}>
