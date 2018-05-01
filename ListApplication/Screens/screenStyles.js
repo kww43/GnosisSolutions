@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 export default StyleSheet.create({
    // login screen styles
@@ -36,15 +36,18 @@ export default StyleSheet.create({
    },
    fbIcon: {
      width: 24,
-     height: 24
+     height: 24,
    },
    spacer: {
      width: 60,
    },
    // custom NavBar styles
    navBarContainer: {
+      top: Platform.OS === 'ios' ? 10 : 0,
       height: 60,
       backgroundColor: '#424242',
+      justifyContent: 'center',
+      alignItems: 'center',
    },
    navBarLogoutOpacity: {
       position: 'absolute',
@@ -71,6 +74,17 @@ export default StyleSheet.create({
      top: 6,
      right: 6,
    },
+   mainNavBarServicesDropdown: {
+     left: 0,
+     width: Dimensions.get('window').width,
+     height: 130,
+   },
+   mainNavBarServicesText: {
+     color: '#424242',
+     fontWeight: 'bold',
+     fontSize: 16,
+     textAlign: 'center',
+   },
    navBarNewListButtonOpacity: {
       width: 48,
       height: 48,
@@ -92,9 +106,6 @@ export default StyleSheet.create({
    scrollContainer: {
      flex: 2,
      backgroundColor: "#ffffff",
-   },
-   addButtonText: {
-     fontSize: 24,
    },
    floatingButton : {
      width: 60,
@@ -120,22 +131,49 @@ export default StyleSheet.create({
      fontSize: 24,
    },
    listModal :{
-     flex: 1,
-     flexDirection: 'row',
-     justifyContent: 'center',
-     alignItems: 'center',
-     borderRadius: 2,
-     padding: 10,
+     position: 'absolute',
+     top: 60,
    },
    listModalInside: {
-     borderRadius: 5,
-     width: 150,
+     width: Dimensions.get('window').width,
      height: 150,
      backgroundColor: 'white',
      shadowOpacity: 1.0,
      shadowRadius: 2,
      borderWidth: 1,
      borderColor: '#ddd',
+   },
+   listModalText: {
+     fontSize: 24,
+   },
+   listModalButton: {
+     width: 150,
+     bottom: 0,
+   },
+   optionsModal: {
+     position: 'absolute',
+     top: 60,
+   },
+   optionsModalContents: {
+     width: Dimensions.get('window').width,
+     height: 170,
+     backgroundColor: 'white',
+     shadowOpacity: 1.0,
+     shadowRadius: 2,
+     borderWidth: 1,
+     borderColor: '#ddd',
+   },
+   notificationsBox: {
+
+   },
+   optionsModalLogoutButton: {
+     width: 150,
+   },
+   optionsModalSaveButton: {
+     width: 150,
+   },
+   optionsModalSpacer: {
+     height: 20,
    },
    // mainScreen styles
    mainContainer: {
@@ -150,27 +188,19 @@ export default StyleSheet.create({
      borderBottomWidth: 10,
      borderBottomColor: '#ddd',
    },
-   enter: {
-     borderWidth: 5,
-     borderColor: '#ddd',
+   newItemInputContainer: {
+     borderWidth: 20,
+     borderColor: '#ffffff',
      flexDirection: 'row',
    },
-   addButtons: {
-     backgroundColor: '#00b8d4',
-     width: 30,
-     height: 30,
-     alignItems: 'center',
-     justifyContent: 'center',
-     elevation: 0,
-     borderRadius: 2,
+   newItemInputSpacer: {
+     height: 1,
+     backgroundColor: '#ededed',
    },
-   addButtonText: {
-     fontSize: 24,
-   },
-   textInput: {
+   newItemInput: {
      alignSelf: 'stretch',
      fontSize: 24,
-     flex: 5,
+     flex: 4,
    },
    itemModal :{
      flex: 1,

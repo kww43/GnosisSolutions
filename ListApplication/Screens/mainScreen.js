@@ -126,31 +126,28 @@ export default class MainScreen extends Component{
 
             <Image style={styles.navBarLogo} source={require('../Images/tiny-logo.png')} />
 
-            <TouchableOpacity
-             style={styles.mainNavBarOptionsOpacity}
-             onPress={() => this._openOptions()}
-             >
-              <Icon name="cog" size={48} color="white" />
-            </TouchableOpacity>
             <ModalDropdown
              style={styles.mainNavBarServicesOpacity}
+             dropdownStyle={styles.mainNavBarServicesDropdown}
+             dropdownTextStyle={styles.mainNavBarServicesText}
              onSelect={(index,value) => this._handleDropdown(index,value)}
-             animated={true}
-             options ={['Price Comparisons', 'Shopping Mode']}
+             options={['Price Comparisons', 'Shopping Mode', 'Delete List']}
+             animated={false}
              >
               <Icon name="bars" size={48} color='white' />
              </ModalDropdown>
           </View>
 
-          <View style={styles.enter}>
-            <TouchableOpacity onPress={this.addItem.bind(this)} style={styles.addButtons}>
-              <Text style={styles.addButtonText}>+</Text>
-            </TouchableOpacity>
-
-            <TextInput style={styles.textInput} placeholder="Enter Item"
-                onChangeText={(noteText) => this.setState({noteText})} value={this.state.noteText}
-               placeholderTextColor="grey" underlineColorAndroid="transparent">
+          <View style={styles.newItemInputContainer}>
+            <TextInput style={styles.newItemInput} placeholder="Enter Item"
+             onChangeText={(noteText) => this.setState({noteText})} value={this.state.noteText}
+             onSubmitEditing={this.addItem.bind(this)}
+             placeholderTextColor="#424242">
             </TextInput>
+          </View>
+
+
+          <View style={styles.newItemInputSpacer}>
           </View>
 
           <ScrollView style={styles.scrollContainer}>
@@ -289,6 +286,15 @@ export default class MainScreen extends Component{
     this.calcTotalPrice();
   }
 
+  /*
+   * Function removes all items from the array, saves changes, then forces the
+   * user back to the previous screen, which deletes the list.
+  */
+  deleteList() {
+    this.state.noteArray.map((note, key) => {this.deleteNote(key,note['key'])});
+    Actions.pop();
+  }
+
   checkItem(arrKey, itemKey, checkedState){
     //method to move checked list into another scrollview, showing completion
     //may need to set some sort of"checked" value for rendering from db
@@ -356,6 +362,9 @@ export default class MainScreen extends Component{
   }
 
   _handleDropdown(index,value){
+    if(value == "Delete List"){
+      this.deleteList();
+    }
     if(value == "Price Comparisons"){
       this.setState({serviceText: "Finding stores near you..."});
       this.setState({priceCompareModalVisible:true});
