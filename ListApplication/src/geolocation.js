@@ -15,8 +15,7 @@ export function getLocation()
 				long = position.coords.longitude;
 
 				console.log(lat, long);
-				alert(lat);
-				alert(long);
+
 			},
 			error => {
 				console.log('ERROR') //Error getting position

@@ -60,7 +60,8 @@ export function submitNewStore(dbRef, storeName, lat, long){
   var thisStoreKey = storeRef.push({
     Name: storeName,
     latitude: lat,
-    longitude: long
+    longitude: long,
+    items: []
   });
 
 
@@ -87,6 +88,7 @@ export function saveItem( itemsRef, name, price, quantity, locationString, uniqu
       shelf_location: locationString,
       checked: checked,
     });
+    return thisKey;
   }
 
   //Make a new node to encapsulate the data
@@ -119,6 +121,8 @@ export function removeItem( path, keyToRemove ) {
   path.child(keyToRemove).remove();
   return 1;
 }
+
+
 
 /*
  * Input: Instance variable to help facilitate the passing of data to caller
