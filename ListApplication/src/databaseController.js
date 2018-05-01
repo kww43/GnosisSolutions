@@ -60,11 +60,26 @@ export function submitNewStore(dbRef, storeName, lat, long){
   var thisStoreKey = storeRef.push({
     Name: storeName,
     latitude: lat,
-    longitude: long
+    longitude: long,
+    items: []
   });
 
 
   return thisStoreKey;
+}
+
+export function saveItemToStore(dbRef, storePath, itemKey, location, name, price){
+  
+  storeRef = dbRef.ref(storePath + '/items');
+
+  var itemInput = storeRef.push({
+    itemKey : itemKey,
+    itemName: name,
+    itemPrice: price,
+    itemLocation: location
+  });
+  return itemInput;
+
 }
 //Function that will save any item entered in through app
 export function saveItem( itemsRef, name, price, quantity, locationString, uniqueID, instance, checked ) {
@@ -87,6 +102,7 @@ export function saveItem( itemsRef, name, price, quantity, locationString, uniqu
       shelf_location: locationString,
       checked: checked,
     });
+    return thisKey;
   }
 
   //Make a new node to encapsulate the data
@@ -119,6 +135,8 @@ export function removeItem( path, keyToRemove ) {
   path.child(keyToRemove).remove();
   return 1;
 }
+
+
 
 /*
  * Input: Instance variable to help facilitate the passing of data to caller

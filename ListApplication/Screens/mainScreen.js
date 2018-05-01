@@ -26,7 +26,8 @@ import {
   getCartPath,
   removeItem,
   submitNewStore,
-  updateItem
+  updateItem,
+  saveItemToStore,
 } from '../src/databaseController';
 
 import Store from '../src/Store';
@@ -76,6 +77,7 @@ export default class MainScreen extends Component{
     getAllStores(this);
 
     getAllItems(this);
+    this.calcTotalPrice();
     this.nodes = [];
   }
 
@@ -101,7 +103,7 @@ export default class MainScreen extends Component{
     locationModalVisible: false,
     location: "",
     serviceText: "",
-    priceText: "0",
+    priceText: 0,
     totalPrice: 0,
     priceKeyToSubmit: "",
     latitude: null,
@@ -255,8 +257,9 @@ export default class MainScreen extends Component{
 
   updateNotes() {
     this.state.noteArray = [];
-    //alert("ca;;ed");
+    this.calcTotalPrice();
     getAllItems(this);
+    forceUpdate();
   }
 
 
@@ -328,22 +331,30 @@ export default class MainScreen extends Component{
 
   submitPrice(nodes){
     itemKey = this.state.priceKeyToSubmit;
-    alert(this.state.priceText);
+    //alert(this.state.priceText);
     //access the nodes and add the price into it
     for(i = 0; i < this.state.noteArray.length; i++){
       if(this.state.noteArray[i].key == itemKey){
         //set this items price
+        //Save item to the store path
+        var thisKey = saveItemToStore(this.dbConnection,
+                        this.state.storePath, 
+                        itemKey, 
+                        0,
+                        this.state.noteArray[i].note,
+                        parseFloat(this.state.priceText));
+        alert(thisKey);
         updateItem(this.itemsPathway,
                    this.state.noteArray[i].note,
-                   parseInt(this.state.priceText),
+                   parseFloat(this.state.priceText),
                    0,
                    0,
                    0,
                    this,
                    true,
                    itemKey);
-        //alert("HELP");
-        this.updateNotes();
+        this.addItem();
+        this.closeModal();
 
       }
     }
@@ -398,9 +409,9 @@ export default class MainScreen extends Component{
               for(var key in jsonElements){
 
                 distance = getDistance(lat, long, snap[key].latitude, snap[key].longitude);
-
+                console.log("HHHH");
                 //if distance is less than 2 miles to a registered store
-                if(distance <= 0.804672){
+                if(distance <= 0.4023){
                   this.setState({priceCompareModalVisible:false});
                   this.setState({locationModalVisible: false});
                   Alert.alert(
@@ -413,13 +424,15 @@ export default class MainScreen extends Component{
                   this.setState({location: snap[key].Name});
 
                   //save storeRef as path for pushing items and their prices to
-                  this.setState({storePath: this.dbConnection.ref('stores/' + snap[key].Name + '/') });
+                  this.setState({storePath: 'stores/' + key +  '/' });
                   break;
 
                 }
                 else {
                   this.setState({priceCompareModalVisible:false});
                   this.setState({locationModalVisible: true});
+                  break;
+                  
                 }
 
               }
@@ -463,6 +476,7 @@ export default class MainScreen extends Component{
     for (i = 0; i < this.state.noteArray.length; i++){
       total += this.state.noteArray[i].price;
     }
+    total = total.toFixed(2);
     this.setState({totalPrice: total});
   }
 
@@ -499,6 +513,11 @@ export default class MainScreen extends Component{
 
   closeLocationModal(){
     this.setState({locationModalVisible: false});
+  }
+
+  saveItemtoStore(){
+    saveItem(this.state.storePath,
+             )
   }
 
 }
