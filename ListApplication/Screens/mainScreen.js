@@ -26,7 +26,8 @@ import {
   getCartPath,
   removeItem,
   submitNewStore,
-  updateItem
+  updateItem,
+  saveItemToStore,
 } from '../src/databaseController';
 
 import Store from '../src/Store';
@@ -336,15 +337,13 @@ export default class MainScreen extends Component{
       if(this.state.noteArray[i].key == itemKey){
         //set this items price
         //Save item to the store path
-        // var storeItemkey = saveItem(
-        //           this.dbConnection.ref(this.state.storePath),
-        //           this.state.noteArray[i].note,
-        //           parseFloat(this.state.priceText),
-        //           0,
-        //           0,
-        //           0,
-        //           this,
-        //           false);
+        var thisKey = saveItemToStore(this.dbConnection,
+                        this.state.storePath, 
+                        itemKey, 
+                        0,
+                        this.state.noteArray[i].note,
+                        parseFloat(this.state.priceText));
+        alert(thisKey);
         updateItem(this.itemsPathway,
                    this.state.noteArray[i].note,
                    parseFloat(this.state.priceText),
@@ -425,7 +424,7 @@ export default class MainScreen extends Component{
                   this.setState({location: snap[key].Name});
 
                   //save storeRef as path for pushing items and their prices to
-                  this.setState({storePath: 'stores/' + snap[key].Name + '/' });
+                  this.setState({storePath: 'stores/' + key +  '/' });
                   break;
 
                 }

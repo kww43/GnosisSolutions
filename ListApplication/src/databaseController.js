@@ -67,6 +67,20 @@ export function submitNewStore(dbRef, storeName, lat, long){
 
   return thisStoreKey;
 }
+
+export function saveItemToStore(dbRef, storePath, itemKey, location, name, price){
+  
+  storeRef = dbRef.ref(storePath + '/items');
+
+  var itemInput = storeRef.push({
+    itemKey : itemKey,
+    itemName: name,
+    itemPrice: price,
+    itemLocation: location
+  });
+  return itemInput;
+
+}
 //Function that will save any item entered in through app
 export function saveItem( itemsRef, name, price, quantity, locationString, uniqueID, instance, checked ) {
   if( checked == '' ) {
