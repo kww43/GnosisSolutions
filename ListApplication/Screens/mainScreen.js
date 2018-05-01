@@ -130,8 +130,8 @@ export default class MainScreen extends Component{
              dropdownStyle={styles.mainNavBarServicesDropdown}
              dropdownTextStyle={styles.mainNavBarServicesText}
              onSelect={(index,value) => this._handleDropdown(index,value)}
-             animated={true}
-             options ={['Price Comparisons', 'Shopping Mode', 'Delete List']}
+             options={['Price Comparisons', 'Shopping Mode', 'Delete List']}
+             animated={false}
              >
               <Icon name="bars" size={48} color='white' />
              </ModalDropdown>

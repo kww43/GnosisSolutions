@@ -156,15 +156,24 @@ export default StyleSheet.create({
    },
    optionsModalContents: {
      width: Dimensions.get('window').width,
-     height: 150,
+     height: 170,
      backgroundColor: 'white',
      shadowOpacity: 1.0,
      shadowRadius: 2,
      borderWidth: 1,
      borderColor: '#ddd',
    },
-   optionsModalLogoutButton: {
+   notificationsBox: {
 
+   },
+   optionsModalLogoutButton: {
+     width: 150,
+   },
+   optionsModalSaveButton: {
+     width: 150,
+   },
+   optionsModalSpacer: {
+     height: 20,
    },
    // mainScreen styles
    mainContainer: {

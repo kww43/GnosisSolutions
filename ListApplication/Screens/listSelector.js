@@ -117,9 +117,12 @@ export default class ListSelector extends Component {
                 onPress={this._createNewList.bind(this, this.state.listText)}
                 title="Start Adding Items!"
                 value={this.state.listText}
-                placeholderTextColor="grey" >
-              </Button>
-
+                placeholderTextColor="grey" />
+              <View style={styles.optionsModalSpacer} />
+              <Button
+                onPress={this._closeModal.bind(this)}
+                title="Cancel"
+                placeholderTextColor="grey" />
             </View>
          </View>
         </Modal>
@@ -131,24 +134,26 @@ export default class ListSelector extends Component {
           >
           <View style={styles.optionsModal} >
             <View style={styles.optionsModalContents}>
-              <CheckBox
-                  style={styles.notificationsBox}
-                  title='Notifications'
-                  checked={this.notifications}
-                  checkedIcon = 'check-square-o'
-                  uncheckedIcon = 'square-o'
-                  onPress = {this.checkNotifications.bind(this)}
-                  onIconPress = {this.checkNotifications.bind(this)} />
-              <TouchableOpacity
-               style={styles.optionsSaveOpacity}
-               onPress={() => this._closeOptions()}
-               >
+               <CheckBox
+                 style={styles.notificationsBox}
+                 title='Notifications'
+                 checked={this.notifications}
+                 checkedIcon = 'check-square-o'
+                 uncheckedIcon = 'square-o'
+                 onPress = {this.checkNotifications.bind(this)}
+                 onIconPress = {this.checkNotifications.bind(this)} />
+               <View style={styles.optionsModalSpacer} />
                <Button
+                 style={styles.optionsModalLogoutButton}
+                 onPress={this._hardLogout.bind(this)}
+                 title="Forget This User"
+                 placeholderTextColor="grey" />
+               <View style={styles.optionsModalSpacer} />
+               <Button
+                 style={styles.optionsModalSaveButton}
                  onPress={this._closeOptions.bind(this)}
                  title="Save"
-                 placeholderTextColor="grey" >
-               </Button>
-               </TouchableOpacity>
+                 placeholderTextColor="grey" />
             </View>
           </View>
         </Modal>
@@ -209,6 +214,18 @@ export default class ListSelector extends Component {
     this.setState({OptionsModal: false});
   }
   _confirmLogout(){
+    Alert.alert(
+      'Log Out?',
+      'Are you sure you want to log out?',
+      [
+        {text: 'Yes', onPress: () => Actions.pop()},
+        {text: 'No'},
+      ]
+    )
+  }
+  // TODO: method stub for forgetting a user
+  // feel free to replace the code inside
+  _hardLogout() {
     Alert.alert(
       'Log Out?',
       'Are you sure you want to log out?',
