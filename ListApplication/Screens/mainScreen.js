@@ -259,7 +259,6 @@ export default class MainScreen extends Component{
     this.state.noteArray = [];
     this.calcTotalPrice();
     getAllItems(this);
-    forceUpdate();
   }
 
 
@@ -326,7 +325,8 @@ export default class MainScreen extends Component{
   }
 
   closeModal(){
-    this.setState({PriceModalVisible: false})
+    this.setState({PriceModalVisible: false});
+    this.setState({})
   }
 
   submitPrice(nodes){
@@ -337,15 +337,15 @@ export default class MainScreen extends Component{
       if(this.state.noteArray[i].key == itemKey){
         //set this items price
         //Save item to the store path
+        var name = this.state.noteArray[i].note;
         var thisKey = saveItemToStore(this.dbConnection,
                         this.state.storePath, 
                         itemKey, 
                         0,
                         this.state.noteArray[i].note,
                         parseFloat(this.state.priceText));
-        alert(thisKey);
         updateItem(this.itemsPathway,
-                   this.state.noteArray[i].note,
+                   name,
                    parseFloat(this.state.priceText),
                    0,
                    0,
@@ -355,7 +355,7 @@ export default class MainScreen extends Component{
                    itemKey);
         this.addItem();
         this.closeModal();
-
+        return 1;
       }
     }
   }
@@ -425,7 +425,10 @@ export default class MainScreen extends Component{
 
                   //save storeRef as path for pushing items and their prices to
                   this.setState({storePath: 'stores/' + key +  '/' });
+                  this.loadItemPrices(key);
+
                   break;
+                  return ; 
 
                 }
                 else {
@@ -451,18 +454,6 @@ export default class MainScreen extends Component{
             maxAge: 0
           }
       )
-
-
-      //return the stores saved and detect if it is within
-
-      // if(this.state.location == ""){
-      //
-      // }
-
-      // else{
-      //   this.setState({serviceText: "Turning Shopping Mode on and detecting current store."});
-      //   this.setState({priceCompareModalVisible:true});
-      //   //setTimeout(this.closePriceModal, 5000);
 
     }
   }
@@ -518,6 +509,43 @@ export default class MainScreen extends Component{
   saveItemtoStore(){
     saveItem(this.state.storePath,
              )
+  }
+
+    
+  loadItemPrices(storeKey){
+    
+      var storeRef = this.dbConnection.ref('stores/' + storeKey + '/items/');
+
+      storeRef.on('value',function(snapshot) {
+        var distance = 0;
+        var storeVal = 0;
+        var snaplength = 0;
+        var snap = snapshot.val();
+        var jsonElements = JSON.parse( JSON.stringify(snap));
+        
+
+        for(var key in jsonElements){
+          for(i = 0 ; i < this.state.noteArray.length; i++){
+          var name = this.state.noteArray[i].note;
+          var helpkey = this.state.noteArray[i].key;
+          if(snap[key].itemName == name){
+            alert("price of " + snap[key].itemName + " is" + "$"+snap[key].itemPrice);
+            updateItem(this.itemsPathway,
+              name,
+              parseFloat(snap[key].itemPrice),
+              0,
+              0,
+              0,
+              this,
+              true,
+              helpkey);
+          }
+        }
+      }
+    }.bind(this)); 
+    this.addItem();
+    this.updateNotes();
+    
   }
 
 }
