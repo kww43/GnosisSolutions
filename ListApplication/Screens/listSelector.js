@@ -27,6 +27,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {CheckBox} from 'react-native-elements';
 
+import { LoginManager, AccessToken } from 'react-native-fbsdk';
+
+import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
+
 // import external stylesheet
 import styles from './screenStyles';
 
@@ -218,7 +222,7 @@ export default class ListSelector extends Component {
       'Log Out?',
       'Are you sure you want to log out?',
       [
-        {text: 'Yes', onPress: () => Actions.pop()},
+        {text: 'Yes', onPress: () => this._logUser.bind(this)},
         {text: 'No'},
       ]
     )
@@ -230,12 +234,31 @@ export default class ListSelector extends Component {
       'Log Out?',
       'Are you sure you want to log out?',
       [
-        {text: 'Yes', onPress: () => Actions.pop()},
+        {text: 'Yes', onPress: () => this._logUser()},
         {text: 'No'},
       ]
     )
   }
 
+  _logUser(){
+    Actions.pop();
+    console.log('hi' + this.loginType);
+    if(this.loginType == "facebook"){
+      //Facebook sign out
+      LoginManager.logOut();
+    }
+    else{
+      //Google sign out
+      GoogleSignin.signOut()
+      .then(() => {
+        console.log('logged out of google');
+      })
+      .catch((err) => {
+        console.log("Sign out error: " + err);
+      });
+    }
+
+  }
   checkNotifications(){
       if(!this.notifications){
 
