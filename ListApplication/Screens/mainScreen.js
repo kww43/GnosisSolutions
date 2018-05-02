@@ -249,6 +249,7 @@ export default class MainScreen extends Component{
       if( saved == 1 ) { getAllItems(this); }
     }
     this.calcTotalPrice();
+    this.forceUpdate();
 
   }
 
@@ -260,7 +261,7 @@ export default class MainScreen extends Component{
     this.state.noteArray = [];
     this.calcTotalPrice();
     getAllItems(this);
-    this.setState({noteArray: this.state.noteArray});
+    this.addItem();
   }
 
 
@@ -354,6 +355,7 @@ export default class MainScreen extends Component{
                    this,
                    true,
                    itemKey);
+        this.loadItemPrices();
         this.addItem();
         this.closeModal();
         return 1;
@@ -513,37 +515,41 @@ export default class MainScreen extends Component{
   loadItemPrices(storeKey){
     
       var storeRef = this.dbConnection.ref('stores/' + storeKey + '/items/');
-
-      storeRef.on('value',function(snapshot) {
-        var distance = 0;
-        var storeVal = 0;
-        var snaplength = 0;
-        var snap = snapshot.val();
-        var jsonElements = JSON.parse( JSON.stringify(snap));
-        
-
-        for(var key in jsonElements){
-          for(i = 0 ; i < this.state.noteArray.length; i++){
-          var name = this.state.noteArray[i].note;
-          var helpkey = this.state.noteArray[i].key;
-
-          if(snap[key].itemName == name){
-            updateItem(this.itemsPathway,
-              name,
-              parseFloat(snap[key].itemPrice),
-              0,
-              0,
-              0,
-              this,
-              true,
-              helpkey);
+      var prom = new Promise(function(resolve, reject) {
+        storeRef.on('value',function(snapshot) {
+          var distance = 0;
+          var storeVal = 0;
+          var snaplength = 0;
+          var snap = snapshot.val();
+          var jsonElements = JSON.parse( JSON.stringify(snap));
+          
+  
+          for(var key in jsonElements){
+            for(i = 0 ; i < this.state.noteArray.length; i++){
+            var name = this.state.noteArray[i].note;
+            var helpkey = this.state.noteArray[i].key;
+  
+            if(snap[key].itemName == name){
+              alert("in the load item prices after if");
+              updateItem(this.itemsPathway,
+                name,
+                parseFloat(snap[key].itemPrice),
+                0,
+                0,
+                0,
+                this,
+                true,
+                helpkey);
+            }
           }
         }
-      }
-    }.bind(this)); 
-    alert("Price loaded for " + this.state.location);
-    this.addItem();
-    this.updateNotes();
+      }.bind(this)); 
+      }.bind(this)).then((resolve) => {
+        this.updateNotes();
+      });
+ 
+    
+
     
   }
 

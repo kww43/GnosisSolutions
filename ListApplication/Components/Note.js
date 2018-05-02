@@ -39,7 +39,7 @@ export default class Note extends Component {
     leftContent = <Text style={styles.checkMark}>checkmark</Text>;
 
     rightButtons = [
-        <View style={styles.rightIcons} ><TouchableOpacity  onPress={this.openModal.bind(this)}><Text>Quantity</Text></TouchableOpacity></View>,
+        <View style={styles.rightIcons} ><TouchableOpacity  onPress={this.reRender.bind(this)}><Text>Quantity</Text></TouchableOpacity></View>,
         <View style={styles.rightIcons} ><TouchableOpacity><Text>Price</Text><Text>${this.state.price}</Text></TouchableOpacity></View>,
         <View style={styles.rightIcons} ><Text>Aisle<Text>{this.props.location}</Text></Text></View>,
         <View  ><TouchableHighlight onPress={this.props.deleteNote}><Text style={styles.rightIconsDelete}>Delete</Text></TouchableHighlight></View>
@@ -102,6 +102,9 @@ export default class Note extends Component {
 
     closeModal(){
         this.setState({modalVisible: false});
+    }
+    reRender(){
+        this.forceUpdate();
     }
 
 }
