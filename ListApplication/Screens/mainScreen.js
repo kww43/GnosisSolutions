@@ -128,6 +128,7 @@ export default class MainScreen extends Component{
             <Image style={styles.navBarLogo} source={require('../Images/tiny-logo.png')} />
 
             <ModalDropdown
+            ref="dropdown1"
              style={styles.mainNavBarServicesOpacity}
              dropdownStyle={styles.mainNavBarServicesDropdown}
              dropdownTextStyle={styles.mainNavBarServicesText}
@@ -259,6 +260,7 @@ export default class MainScreen extends Component{
     this.state.noteArray = [];
     this.calcTotalPrice();
     getAllItems(this);
+    this.setState({noteArray: this.state.noteArray});
   }
 
 
@@ -326,7 +328,6 @@ export default class MainScreen extends Component{
 
   closeModal(){
     this.setState({PriceModalVisible: false});
-    this.setState({})
   }
 
   submitPrice(nodes){
@@ -375,6 +376,7 @@ export default class MainScreen extends Component{
 
     }
     if(value == "Shopping Mode"){
+      this.refs.dropdown1.select(-1);
       var lat = 0;
       var long  = 0;
       //beginning to call the current position, and test that against firebase values
@@ -427,18 +429,14 @@ export default class MainScreen extends Component{
                   this.setState({storePath: 'stores/' + key +  '/' });
                   this.loadItemPrices(key);
 
-                  break;
+                  
                   return ; 
 
                 }
-                else {
-                  this.setState({priceCompareModalVisible:false});
-                  this.setState({locationModalVisible: true});
-                  break;
-                  
-                }
 
               }
+              this.setState({priceCompareModalVisible:false});
+              this.setState({locationModalVisible: true});
             }.bind(this));
 
 
@@ -528,8 +526,8 @@ export default class MainScreen extends Component{
           for(i = 0 ; i < this.state.noteArray.length; i++){
           var name = this.state.noteArray[i].note;
           var helpkey = this.state.noteArray[i].key;
+
           if(snap[key].itemName == name){
-            alert("price of " + snap[key].itemName + " is" + "$"+snap[key].itemPrice);
             updateItem(this.itemsPathway,
               name,
               parseFloat(snap[key].itemPrice),
@@ -543,6 +541,7 @@ export default class MainScreen extends Component{
         }
       }
     }.bind(this)); 
+    alert("Price loaded for " + this.state.location);
     this.addItem();
     this.updateNotes();
     

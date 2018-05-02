@@ -234,7 +234,7 @@ export default class ListSelector extends Component {
       'Log Out?',
       'Are you sure you want to log out?',
       [
-        {text: 'Yes', onPress: () => this._logUser()},
+        {text: 'Yes', onPress: () => this._logUser.bind(this)},
         {text: 'No'},
       ]
     )
