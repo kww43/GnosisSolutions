@@ -374,7 +374,8 @@ export default class MainScreen extends Component{
         title: this.title, itemspath: this.itemsPathway,
         userNum: this.userNum, firebase: this.firebase,
         listName: this.listName,
-        dbConnection: this.dbConnection});
+        dbConnection: this.dbConnection,
+        loginType: this.loginType});
 
     }
     if(value == "Shopping Mode"){

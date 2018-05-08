@@ -19,10 +19,13 @@ import {
   getItemsPath,
   saveItem,
   getAllItems,
+  getAllStores,
+  getStoresPath,
   getCartPath,
   removeItem,
   submitNewStore,
-  updateItem
+  updateItem,
+  saveItemToStore,
 } from '../src/databaseController';
 
 import {CheckBox} from 'react-native-elements';
@@ -59,7 +62,7 @@ export default class priceCompareScreen extends Component{
         this.dbConnection = this.props.dbConnection;
         this.listName = this.props.listName;
         this.loginType = this.props.loginType;
-        this.itemsPathway = this.props.itemsPathway;
+        this.itemsPathway = this.props.itemspath;
         getAllItems(this);
         this.nodes = [];
         this.loadInStores();
@@ -150,22 +153,23 @@ export default class priceCompareScreen extends Component{
               counter += 1;
 
 
-              var itemRef = this.dbConnection.ref('stores/' + key + '/items/');
-              itemRef.on('value', function(snapshot) {
+              var StoreitemRef = this.dbConnection.ref('stores/' + key + '/items/');
+              StoreitemRef.on('value', function(Itemsnapshot) {
                 totalPrice = 0;
                 var snaplength = 0;
-                var snap = snapshot.val();
-                var jsonElements = JSON.parse(JSON.stringify(snap));
+                var Itemsnap = Itemsnapshot.val();
+                var ItemjsonElements = JSON.parse(JSON.stringify(Itemsnap));
 
-                for(var itemKey in jsonElements){
+                for(var itemKey in ItemjsonElements){
                   for(i = 0; i < this.state.noteArray.length; i++){
                     var name = this.state.noteArray[i].note;
                     var helpKey = this.state.noteArray[i].key;
 
-                    if(snap[itemKey].itemName == name){
+                    if(Itemsnap[itemKey].itemName == name){
 
                       //add the items prices together
-                      totalPrice += parseFloat(snap[itemKey].itemPrice);
+                      totalPrice += parseFloat(Itemsnap[itemKey].itemPrice);
+                      //alert(totalPrice);
                     }
                   }
                 }
