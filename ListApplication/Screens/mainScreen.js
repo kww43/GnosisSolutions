@@ -368,8 +368,8 @@ export default class MainScreen extends Component{
       this.deleteList();
     }
     if(value == "Price Comparisons"){
-      this.setState({serviceText: "Finding stores near you..."});
-      this.setState({priceCompareModalVisible:true});
+      // this.setState({serviceText: "Finding stores near you..."});
+      // this.setState({priceCompareModalVisible:true});
       Actions.priceCompare({
         title: this.title, itemspath: this.itemsPathway,
         userNum: this.userNum, firebase: this.firebase,
