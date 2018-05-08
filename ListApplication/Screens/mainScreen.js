@@ -530,7 +530,7 @@ export default class MainScreen extends Component{
             var helpkey = this.state.noteArray[i].key;
   
             if(snap[key].itemName == name){
-              alert("in the load item prices after if");
+              //alert("in the load item prices after if");
               updateItem(this.itemsPathway,
                 name,
                 parseFloat(snap[key].itemPrice),
